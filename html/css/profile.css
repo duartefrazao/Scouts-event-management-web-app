@@ -1,0 +1,94 @@
+.profile-image{
+    margin-top: 2em;
+    width: 15%;
+}
+
+.profile-section-name{
+    margin-top:0;
+    text-align: center;
+}
+
+.profile-member-name{
+    margin-bottom: 0;
+}
+
+.profile-member-name{
+    text-align: center;
+}
+
+.profile-line-identified{
+    border-color: rgba(255, 0, 0, 0.657);
+    border-width: 0.2em;
+    width:6%;
+}
+
+.profile-top{
+    display: block;
+    position: relative;
+}
+
+.profile-top input{
+    display: none;
+}
+
+.profile-top label{
+    display: block;
+}
+
+/* 
+    TO-DO
+    button positioning is confusing, when image sizes are established and variables are created change the right property
+    calculation according to the following explanation to keep the icon in place
+        4px border
+        80px size of image/2
+        100%/2 half the screen size
+        (15% - 160px)/2 account for the growth of the image wich is 15% the screen size and 160px originally
+*/
+.profile-edit-image{
+    margin:0 auto;
+    opacity: 0.8;
+    cursor: pointer;
+    position: absolute;
+    bottom:2px;
+    right:calc(4px - 80px + 100%/2 - (15% - 160px)/2); 
+}
+
+.profile-edit-image:hover{
+    opacity:1;
+    transition: opacity 0.1s;
+    -webkit-transition: opacity 0.1s; 
+}
+
+@media(max-width:1340px){
+    .profile-edit-image{
+        right:calc(4px - 80px + 100%/2); 
+    }
+
+    .profile-image{
+        width: 10em;
+    }
+}
+
+
+.profile-form-btns{
+    float:right;
+    margin-right:1em;
+}
+
+.profile-form-btns button{
+    margin-right:1em;
+}
+
+
+
+/* Form */
+
+.profile-form-group{
+    margin:0 2em 1em 2em;
+}
+
+.profile-update-btn{
+    float:right;
+    margin:0 2em 2em 0;
+}
+

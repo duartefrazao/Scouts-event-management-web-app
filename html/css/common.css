@@ -1,0 +1,39 @@
+body {
+    --main-bg-color: rgba(168, 159, 159, 0.233);
+    --dark-bg-color: rgba(0, 7, 36, 0.801);
+    --dark-sec-bg-color: #232A07;
+    --dark-brown: #33281f;
+    --light-green: #525F22;
+    --light-green-two: #BACE68;
+    --light-green-three: rgb(172, 194, 84);
+    --lobitos: rgba(255, 255, 0, 0.753);
+    --exploradores: rgba(0, 128, 0, 0.753);
+    --pioneiros: blue;
+    --caminehiros: red;
+    background-color: rgba(218, 198, 183, 0.226);
+}
+
+#navbar * {
+    color: rgb(211, 193, 179);
+}
+
+#navbar {
+    background-color: var(--dark-bg-color);
+    border-bottom: solid var(--dark-bg-color) 3px;
+    margin-bottom: 1em;
+}
+
+#website-name{
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-left: 0.3em;
+}
+
+#website-name img{
+    margin-right: 0.3em;
+}
+
+.card{
+    background-color:white;
+}
+

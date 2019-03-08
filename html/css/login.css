@@ -1,0 +1,192 @@
+@font-face {
+    font-family: 'Aileron Light';
+    src: url('/fonts/aileron/Aileron-Light.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Bariol';
+    src: url('/fonts/Bariol_Regular.otf');
+}
+
+html,
+body {
+    min-height: 100%;
+    height: 100%;
+    min-width: 100%;
+    width: 100%;
+}
+
+.bg-log-in {
+    background:
+            linear-gradient(
+                rgba(0, 7, 36, 0.801),
+            rgba(0, 7, 36, 0.801)), 
+        url("../images/asia.jpg");
+    height: 100vh;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#footer {
+    bottom:0;
+    width:100%;
+    background:#6cf;
+ }
+
+.log-in {
+    position: relative;
+    padding: 1em;
+    margin-top: 15em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    color: white;
+}
+
+#contact-information{
+    margin: 0.5em;
+    font-size: 1.5em;
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    color: orange;
+    transition: all 0.5s ease-in-out;
+}
+#contact-information:hover{
+    cursor: pointer;
+    font-size: 1.8em;
+}
+
+
+.log-in input::-webkit-input-placeholder {
+    color: black;
+}
+
+.log-in * {
+    position: relative;
+    z-index: 2;
+}
+
+.log-in  input{
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: black !important;
+}
+
+#login-submit-button{
+     margin-top: 1em;
+     background: #1B98E0;
+     border: none;
+     border-radius: 0;
+     display: block;
+ }
+
+
+.site-name {
+    text-align: center;
+    /* color: rgba(255, 255, 255, 0.8); */
+    color: rgb(211, 193, 179);
+    position: absolute;
+    top: 6.5em;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.site-name h1 {
+    font-family: 'Bariol';
+    font-size: 13em;
+}
+
+a.forgot-pass{
+    font-size: 0.8em;
+    float: right;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.register-btn{
+    font-size: 0.8em;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.forgot-pass:hover, a.register-btn:hover{
+    color: #1B98E0;
+}
+
+#birth-date::-webkit-inner-spin-button{
+    display: none;
+}
+
+
+.user-type{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 2em 1em 2em;
+}
+
+.user-type .btn{
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.user-type .btn.active{
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/*         FOOOTER                */
+#footer-information{
+    background-color: rgba(0, 7, 36, 0.95);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-left{
+    flex-grow: 1;
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.footer-left div{
+    display: flex;
+    align-items:center;
+	vertical-align: middle;
+}
+
+#footer-information p{
+    padding: 0;
+    margin: 0;
+}
+
+
+
+#footer-information .footer-left i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-right{
+    flex-grow: 1;
+    width: 50%;
+    max-width: 50%;
+    text-align: center;
+    padding: 5em;
+}

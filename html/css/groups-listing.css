@@ -1,0 +1,52 @@
+.group-wrap{
+    width: 20em;
+    margin:1em;
+    border-radius: 1%;
+    background-color: white;
+}
+
+
+
+.group-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.group-image{
+    border-radius:10%;
+    width:4em;
+    margin-right:4em;
+    border-color: rgba(153, 149, 149, 0.164);
+    border-style: solid;
+}
+
+.group-info{
+    margin:1em 0 0 2em;
+}
+
+.group-container .card-body{
+    display: flex;
+}
+
+.group-container .card-body .rounded-circle{
+    width:2em;
+    margin:0.5em 1em;
+}
+
+.group-container .card-body label{
+    font-size: 70%;
+}
+
+.moderators-container .member-container,.members-container .member-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.member-container .member-wrap{
+    margin:0.5em;
+}
+
+
