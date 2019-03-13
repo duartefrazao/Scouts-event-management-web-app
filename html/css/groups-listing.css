@@ -1,52 +1,177 @@
-.group-wrap{
-    width: 20em;
-    margin:1em;
+html * {
+    font-family: 'Questrial', sans-serif;
+}
+
+.group-wrap {
+    width: 35em;
+    margin: 1em;
     border-radius: 1%;
     background-color: white;
 }
 
 
 
-.group-container{
+.group-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.group-image{
-    border-radius:10%;
-    width:4em;
-    margin-right:4em;
-    border-color: rgba(153, 149, 149, 0.164);
-    border-style: solid;
+.group-image {
+    border-radius: 100%;
+    width: 5em;
+    height: 5em;
+    margin-left: 1em;
+    margin-top: 0.6em;
 }
 
-.group-info{
-    margin:1em 0 0 2em;
+
+.group-top-side {
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+
 }
 
-.group-container .card-body{
+
+.group-container .card-body {
     display: flex;
 }
 
-.group-container .card-body .rounded-circle{
-    width:2em;
-    margin:0.5em 1em;
+.group-container .card-body .rounded-circle {
+    width: 2em;
+    margin: 0.5em 1em;
 }
 
-.group-container .card-body label{
+.group-container .card-body label {
     font-size: 70%;
 }
 
-.moderators-container .member-container,.members-container .member-container{
+.moderators-container .member-container,
+.members-container .member-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 }
 
-.member-container .member-wrap{
-    margin:0.5em;
+.member-container .member-wrap {
+    margin: 0.5em;
 }
 
+
+.group-wrap {
+    margin: 1em;
+}
+
+.group-card-wrap {
+    margin: 0;
+    padding: 1em;
+}
+
+
+.member-wrap {
+    margin: 0 0 !important;
+    display: inline-block;
+}
+
+
+.group-member-name {
+    font-size: medium;
+    ;
+    margin: 0;
+}
+
+.group-members div:not(:last-child):after {
+    content: ",";
+    margin-right: 0.4em;
+    font-size: medium;
+}
+
+.group-members {
+    padding: 0;
+    margin: 0.5em auto 0.5em 2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: baseline;
+    align-content: flex-start;
+}
+
+.group-title {
+    letter-spacing: 8px;
+    font-weight: bolder;
+    color: var(--dark-blue-opaque);
+    font-size: 180%;
+    width: inherit;
+    padding: 0.2em 1em;
+
+    font-family: 'Amatic SC', cursive;
+}
+
+.group-member-name {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+.group-member-name:hover {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.group-event {
+    margin: 0.2em 0.4em;
+    padding: 0.2em 0.4em;
+    font-size: 120%;
+    border-radius: 2%;
+    font-family: 'Indie Flower', cursive;
+    background-color: rgba(211, 203, 203, 0.411);
+}
+
+.group-next-events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: baseline;
+    margin: 0 1em 0 1em;
+}
+
+.group-header {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.group-line {
+    margin: 0.5em auto;
+    border-color: rgba(141, 138, 138, 0.308);
+    border-width: 0.08em;
+    width: 70%;
+}
+
+.group-events.event-wrap .event-description-card-text {
+    display: none;
+}
+
+.group-events.event-wrap .card-wrap {
+    border: solid 1px var(dark-bg-color);
+}
+
+.group-events.event-wrap .card-wrap .card {
+    width: auto;
+    margin-top: 1em;
+}
+
+.group-events.event-wrap .card-common-groups {
+    display: none;
+}
+
+.group-events.event-wrap hr {
+    display: none;
+}
+
+.group-events.event-wrap .card-number-participants {
+    display: none;
+}
 

@@ -1,136 +1,241 @@
-.events-flex .card .event-card-header time{
-  border-top-style:solid;
-  border-top-width: 0.3em;
-  border-top-color: black;
-  border-top-color: rgba(255, 0, 0, 0.698);
-  
+body {
+  --border-calendar: rgba(128, 128, 128, 0.767);
 }
 
-
-time.icon
-{
+time.icon {
   font-size: 1em;
   display: block;
   position: relative;
-  width: 6em;
-  height: 6em;
+  width: 8em;
+  height: 8em;
   overflow: hidden;
-  background: black;
-  border: 1px solid grey;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-}/* 
-
-time.icon *
-{
-  display: block;
-  width: 100%;
-  font-weight: bold;
-  font-style: normal;
-  text-align: center;
-} */
-
-
-time.icon .event-card-month
-{
-  font-size: x-large; 
-  font-weight: bolder;
-/*   width: 100%;
-  border-bottom: solid black 1px;   */
 }
 
-time.icon .event-card-day
-{
-  font-size: x-large;
+time.icon .event-card-month {
+  font-size: 150%;
+  font-weight: bolder;
+  color: white;
+  background-color: var(--dark-b);
+  width: 8em;
+}
+
+time.icon .event-card-day {
+  font-size: 250%;
   font-weight: bolder;
 }
 
-time.icon .event-card-week-day
-{
+time.icon .event-card-week-day {
+  margin-top: 1rem;
+  font-weight: lighter;
+}
+
+@media(max-width:770px) {
+  time.icon {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    height: 3em;
+    color: white;
+    margin: 0;
+    border-bottom: solid 1px black;
+    background-color:var(--dark-bg-color);
+  }
+
+  time.icon .event-card-month {
+    font-size: large;
+    font-weight: normal;
+    width: auto;
+    margin: 0;
+    background-color:transparent !important;
+  }
+
+  time.icon .event-card-day {
+    font-size: large;
+    font-weight: normal;
+    margin: 0 0.3em;
+  }
+
+  time.icon .event-card-week-day {
+    font-weight: lighter;
+    margin: 0;
+  }
+  time.icon .event-card-week-day::after {
+    content: " - ";
+  }
 }
 
 
 /*          BIG CALENDAR    */
 
-#calendar{
+#calendar {
   margin: 0 auto;
+}
+
+#calendar h4,
+#calendar h6 {
+  margin: 0;
+}
+
+/* #calendar .row.week:last-child .col:first-child {
+  border-radius: 0 0 0 15px !important;
+}
+
+#calendar .row:nth-child(2) .col:last-child {
+  border-radius: 0 15px 0 0 !important;
+} */
+
+.day .current-day span {
+  background-color: rgba(253, 147, 147, 0.698);
+  font-weight: bolder;
+  padding: 0.2em;
+  border-radius: 50%;
+  margin-top: 0.3em;
+}
+
+.day {
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: right;
+  vertical-align: top;
+  padding: 0.25em;
+  height: 100%;
+  margin: 0;
+  height: 6em;
+  ;
 }
 
 #calendar .row.week:last-child .col:first-child {
   border-radius: 0 0 0 15px !important;
 }
 
-#calendar .row:nth-child(2) .col:last-child {
-  border-radius: 0 15px 0 0 !important;
+#calendar .row.week:last-child .col:last-child {
+  border-radius: 0 0 15px 0 !important;
 }
 
-.day .current-day{
-  background-color: rgba(255, 0, 0, 0.698);
+#calendar .row:nth-child(2) {
+  border-top: solid 1px var(--border-calendar);
 }
 
-.day{
-  width: 100%;
-  background-color: white;
-  color: black;
-  text-align: right;
-  vertical-align: top;
-  padding: 1.5em;
-  padding-top: 0.25em;
-  padding-bottom: 3em;
-  height: 100%;
-  margin: 0;
+#calendar .col:first-child {
+  border-left: solid 1px var(--border-calendar);
+  ;
 }
 
-.day .day-value{
-  font-weight: bolder;
+#calendar .col {
+
+  border-right: solid 1px var(--border-calendar);
+  ;
+  border-bottom: solid 1px var(--border-calendar);
+  ;
+}
+
+.day .day-value {
+  font-weight: 500;
   font-size: large;
 }
 
-.week-day{
+.week-day {
   width: 100%;
   background-color: white;
   color: black;
   text-align: center;
-  padding: 1.5em;
+  padding: 1em;
   height: 100%;
   margin: 0;
 }
 
-.unactive{
+.text-muted .day-value {
   color: grey;
+  font-weight: lighter;
 }
 
-.active{
-  color: black;
+.month {
+  padding: 1em 0.25em 0em 0.25em;
+  vertical-align: middle;
+  text-align: center;
 }
-.month{
-  padding:  1em 0.25em 0.2em 0.25em;
-  background-color: white;
+
+.month .month-name {
+  margin-bottom: 0;
+  font-size: xx-large;
+  font-weight: normal;
+}
+
+.previous-month {
+  padding: 1em 0.25em 0em 1em;
 
   vertical-align: middle;
   text-align: center;
 }
 
-.previous-month{
-  padding: 1em 0.25em 0.2em 1em;
-  background-color: white;
-
-  vertical-align: middle;
-  text-align: center;}
-
-.next-month{
-  padding: 1em 1em 0.2em 0.25em;
-  background-color: white;
-
+.next-month {
+  padding: 1em 1em 0em 0.25em;
   vertical-align: middle;
   text-align: center;
 }
 
-.month-selector:hover{
+.month-selector:hover {
   font-weight: bolder;
+}
+
+.calendar-mobile {
+  display: none;
+}
+
+@media(max-width:770px) {
+  .calendar-desktop {
+    display: none;
+  }
+
+  .calendar-mobile {
+    display: initial !important;
+  }
+
+
+
+  .week-day {
+    height: 4em;
+    width: auto;
+    padding: 0.5em;
+  }
+
+  .day {
+
+    height: 5em;
+    width: auto;
+    padding: 0.1em 0.3em;
+  }
+
+  .month {
+    padding: 0.3em;
+  }
+
+  .month-name {
+    font-size: large;
+    font-weight: bold;
+    height: auto;
+    margin: 0;
+  }
+
+  .previous-month {
+    height: auto;
+    padding: 0.1em;
+    padding-left: 0.5em;
+  }
+
+  .next-month {
+    height: auto;
+    padding: 0.1em;
+    padding-right: 0.5em;
+  }
 }
 
 /* time.icon:hover, time.icon:focus

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en"><head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Calendar Icon-->
+    <link rel="stylesheet" href="../css/calendar.css" type="text/css">
+
+    <!-- Member Icon-->
+    <link rel="stylesheet" href="../css/member.css" type="text/css">
+
+    <!-- Modal View-->
+    <link rel="stylesheet" href="../css/modal.css" type="text/css">
+
+    <!-- Event Page-->
+    <link rel="stylesheet" href="../css/event.css" type="text/css">
+
+    <!-- Log In -->
+    <link rel="stylesheet" href="../css/initial-page.css" type="text/css">
+
+    <!-- Profile -->
+    <link rel="stylesheet" href="../css/profile.css" type="text/css">
+
+    <!-- Log In -->
+    <link rel="stylesheet" href="../css/home-dash.css" type="text/css">
+
+    <!-- Groups listing -->
+    <link rel="stylesheet" href="../css/groups-listing.css" type="text/css">
+
+    <!-- Notifications -->
+    <link rel="stylesheet" href="../css/notification.css" type="text/css">
+
+    <!-- Admin -->
+    <link rel="stylesheet" href="../css/admin.css" type="text/css">
+
+    <!-- Faq -->
+    <link rel="stylesheet" href="../css/faq.css" type="text/css">
+
+    <!-- Create group -->
+    <link rel="stylesheet" href="../css/create-group.css" type="text/css">
+
+    <!-- Section Manage -->
+    <link rel="stylesheet" href="../css/section-manage.css" type="text/css">
+
+
+    <!-- Search -->
+    <link rel="stylesheet" href="../css/search.css" type="text/css">
+
+    <!-- Common -->
+    <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+    <!-- FontAwesome-->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=Acme|Francois+One|Indie+Flower|Josefin+Sans|Permanent+Marker|Quicksand|Sniglet|Rock+Salt" rel="stylesheet">
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Nunito|PT+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Barrio|Kite+One|Questrial|Snippet" rel="stylesheet">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer=""></script>
+    <script src="../bootstrap/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer=""></script>
+
+
+
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer=""></script>
+    <script src="../js/map.js" type="text/javascript" defer=""></script>
+    <script src="../js/home.js" type="text/javascript" defer=""></script>
+    <script src="../js/member.js" type="text/javascript"></script>
+    <script src="../js/event.js" type="text/javascript" defer=""></script>
+    <script src="../js/group.js" type="text/javascript" defer=""></script>
+    <script src="../js/profile.js" type="text/javascript" defer=""></script>
+    <script src="../js/notification.js" type="text/javascript" defer=""></script>
+    <script src="../js/admin.js" type="text/javascript" defer=""></script>
+    <script src="../js/section-manage.js" type="text/javascript" defer=""></script>
+
+    <title>Agrupa</title>
+</head>
+
+<body>
+    
+
+
+
+<div id="notifications-toggle-content" class="hidden">
+    <ul class="unstyled">
+        <li data-alert_id="1" class="alert_li">
+            <a href="../" class="alert_message"> <span class="notification-important"> João </span> também comentou no
+            grupo Caminheiros!</a>
+        </li>
+        <li data-alert_id="2" class="alert_li">
+            <a href="#"> Atenção! O teu evento <span class="notification-important"> XPTO </span> é amanhã.</a>
+        </li>
+        <li data-alert_id="3" class="alert_li">
+            <a href="#"> <span class="notification-important"> António </span> e <span class="notification-important">
+                    Diogo </span> também vão a 4 eventos na terça!</a>
+        </li>
+    </ul>
+</div>
+
+  
+  <div class="modal fade" id="manage-children-modal" tabindex="-1" role="dialog" aria-labelledby="manage-children-modal-Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="manage-children-modal">Educandos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div data-toggle="modal" data-target="#manage-children-modal" class="modal-body member-container" id="manage-kids-faces">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"> Perfil de Encarregado </button>
+          <button type="button" class="btn btn-primary">Selecionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light ">
+    <a class="navbar-brand" href="homepage.html" id="website-name">
+        <img src="../icons/favicon.png" width="35" height="35" class="d-inline-block align-top" alt=""> Agrupa
+    </a>
+    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <form class="form-inline mr-2">
+                <span id="search">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <a href="search.html" class="advanced" data-toggle="tooltip" data-placement="top" title="Pesquisa Avançada"> <i class="fas fa-ellipsis-v"></i> </a>
+                </span>
+            </form>
+            <li>
+                <span>
+                    <a data-toggle="modal" data-target="#manage-children-modal" href="#" class="navbar-text navbar-manage-kid" onclick="placeChildren()">
+                        Gerir educando
+                    </a>
+                </span>
+            </li>
+            <li>
+                <a class="navbar-section-manage navbar-text" href="section_managment.html">
+                    Gerir secção
+                </a>
+            </li>
+            <li>
+                <a class="user-name navbar-text" href="profile.html">
+                    João Fernandes
+                </a>
+            </li>
+            <li>
+                <span id="notification-bell" data-toggle="tooltip" data-placement="right" title="Notificações">
+                    <a class="navbar-text" id="notifications-toggle" tabindex="0" data-toggle="popover" data-trigger="focus" title="" data-placement="bottom" data-original-title="Notificações">
+                        <i class="far fa-bell"></i>
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+        <div id="create-group-page" class="container col-lg-6 col-xs-10">
+            <form>
+                <div class=" create-group-top">
+                    <img src="https://beta.health.gov.au/sites/default/files/styles/content__max_width_no_upscale_/public/contact-group_0.jpg?itok=xPU3t4jy" class="mx-auto d-block create-group-image" alt="...">
+                        
+                    <label for="file-input">
+                        <i class="fas fa-pen-square fa-2x create-group-edit-image "> </i>
+                    </label>
+
+                    <input id="file-input" type="file">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="create-group-name">Nome do Grupo</label>
+                    <input type="text" class="form-control" id="create-group-name" aria-describedby="create-group-name" placeholder="Insere um nome para o grupo">
+                </div>
+                <div class="form-group">
+                    <label for="create-group-description">Descrição</label>
+                    <textarea class="form-control" id="create-group-description" rows="3"></textarea>
+                </div>
+                <div class="create-group-buttons">
+                    <div class="create-group-members ">
+                        <button type="button" class="btn btn-dark create-group-add-elements" data-toggle="modal" data-target="#create-group-members-modal">
+                            Adicionar Elementos
+                        </button>
+                    </div>
+
+                    <button type="submit" class="btn btn-success ">Criar</button>
+                </div>
+
+                <div class="modal fade" id="create-group-members-modal" tabindex="-1" role="dialog" aria-labelledby="create-group-members-modal-label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="create-group-members-modal-label">Participantes</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="create-group-modal-body">
+                            <h5 class="modal-title" id="create-group-members-modal-added">Adicionados</h5>
+                            <div class="added-members">
+                                <figure class="added-member">
+                                    <img src="https://avatars3.githubusercontent.com/u/19807634?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                    <i class="fas fa-times remove-member-button"></i>
+                                </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars3.githubusercontent.com/u/19807634?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                    <i class="fas fa-times remove-member-button"></i>
+                                    </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars3.githubusercontent.com/u/19807634?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                    <i class="fas fa-times remove-member-button"></i>
+                                    </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars3.githubusercontent.com/u/19807634?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                    <i class="fas fa-times remove-member-button"></i>
+                                    </figure>
+                            </div>
+                            <hr>
+
+                            <div class="members-modal-list">
+                                <figure class="added-member">
+                                    <img src="https://avatars1.githubusercontent.com/u/25830462?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Rui </figcaption>
+                                </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars1.githubusercontent.com/u/25830462?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Pedro </figcaption>
+                                </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars1.githubusercontent.com/u/25830462?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                </figure>
+                                <figure class="added-member">
+                                    <img src="https://avatars1.githubusercontent.com/u/25830462?s=460&amp;v=4" class="rounded mx-auto d-block create-group-member-icon" alt="...">
+                                    <figcaption> Duarte </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="../pages/homepage.html">
+                                <button type="button" class="btn btn-success">Save changes</button>
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    <footer>
+      Copyright © Agrupa 2019
+    </footer>
+
+</body></html>

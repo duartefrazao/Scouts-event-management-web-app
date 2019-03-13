@@ -61,7 +61,7 @@ header h3{
 }
 
 hr{
-    margin-bottom: 1em;
+    margin: 2em 0;
 }
 
 .first-row{
@@ -73,6 +73,14 @@ hr{
     margin-right: 5%;
 }
 
+.first-row a{
+    grid-row-end: span 2;
+}
+.first-row #date-poll{
+    grid-row-start: 3;
+    grid-column-end: 2 span;
+}
+
 .first-row time{
     grid-row-end: span 2;
 }
@@ -81,4 +89,10 @@ hr{
     display: grid;
     grid-template-columns: repeat(auto-fit, 55px);
     justify-content: center;
+}
+
+
+#groups-modal .modal-content{
+
+    background-color: #f8f9fa !important;
 }

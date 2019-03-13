@@ -1,0 +1,126 @@
+body{
+    --create-group-image-size: 25%; 
+    --create-group-image-border: 4px;
+    --create-group-image-original-size:160px;
+    --screen-size:100%;
+    --bg-img: url("../images/test8.jpg");
+}
+
+/* body{
+    
+}
+
+#create-group-page{
+    background: var(--bg-img);
+    height: 100vh;
+    background-size: cover;
+    opacity: 0.7;
+    z-index: -1;
+}
+ */
+#create-group-page form {
+    color: black;
+}
+
+.create-group-image {
+    border-radius:50%;
+    margin-top: 2em;
+    width: 25%;
+}
+
+#create-group-page{
+    --create-group-image-size: 25%; 
+    --create-group-image-border: 4px;
+    --create-group-image-original-size:160px;
+    --screen-size:100%;
+}
+
+.create-group-top {
+    display: block;
+    position: relative;
+    margin:3em auto;
+}
+
+.create-group-top input {
+    display: none;
+}
+
+.create-group-top label {
+    display: block;
+}
+
+.create-group-edit-image {
+    margin: 0 auto;
+    opacity: 0.8;
+    cursor: pointer;
+    position: absolute;
+    bottom: 2px;
+    right: calc(var(--create-group-image-border) - 
+           var(--create-group-image-original-size)/2 
+           + var(--screen-size)/2 - (var(--create-group-image-size) -
+           var(--create-group-image-original-size))/2);
+}
+
+.create-group-edit-image:hover {
+    opacity: 1;
+    transition: opacity 0.1s;
+}
+
+@media(max-width:1340px) {
+    .create-group-edit-image {
+        right: calc(var(--create-group-image-border) - var(--create-group-image-original-size)/2 + var(--screen-size)/2);
+    }
+
+    .create-group-image {
+        width: 10em;
+    }
+}
+
+#create-group-page button[type="submit"]{
+    float:right;
+}
+
+.create-group-add-elements{
+    background-color:#343a40dc;
+}
+.create-group-add-elements:hover{
+    background-color:#343a40;
+    
+}
+
+.create-group-buttons{
+    display:flex;
+    justify-content: space-between;
+}
+
+
+.added-member, .to-add-member{
+   
+    margin:auto 0.5em;
+}
+
+.members-modal-list{
+    display: flex;
+    flex-direction: row;
+}
+
+.added-member figcaption{
+    text-align: center;
+}
+
+#create-group-modal-body .create-group-member-icon{
+    width:4em;
+    border-radius:100% !important;
+}
+
+.added-members{
+    display: flex;
+    margin-top:3em;
+}
+
+.remove-member-button{
+    position: relative;
+    left:3em;
+    bottom:3em;
+    border-radius:100%;
+}
