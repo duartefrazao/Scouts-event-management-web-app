@@ -87,6 +87,26 @@ a.card-wrap:hover {
     
 }
 
+.event-comment{
+    padding: 0.5em;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+
+.event-comment .comment-author{
+    font-weight: bold;
+    font-size: large;
+}
+
+.event-comment .comment-body{
+    text-indent: 2em;
+    
+}
+
 .event-page .confirm{
     margin-right: 1em;
 }
