@@ -6,11 +6,13 @@ $('#admin-tab .nav-tabs a').click(function (e) {
 
 $('#users-choice  a').click(function (e) {
     // No e.preventDefault() here
+    console.log('yo');
     $(this).tab('show');
 });
 
 $('#section-choice  a').click(function (e) {
     // No e.preventDefault() here
+    console.log('yo');
     $(this).tab('show');
 });
 

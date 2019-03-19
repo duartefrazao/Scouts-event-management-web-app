@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en"><head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -49,6 +50,9 @@
     <!-- Search -->
     <link rel="stylesheet" href="../css/search.css" type="text/css">
 
+    <!-- About -->
+    <link rel="stylesheet" href="../css/about.css" type="text/css">
+
     <!-- Common -->
     <link rel="stylesheet" href="../css/common.css" type="text/css">
 
@@ -82,6 +86,7 @@
     <script src="../js/notification.js" type="text/javascript" defer=""></script>
     <script src="../js/admin.js" type="text/javascript" defer=""></script>
     <script src="../js/section-manage.js" type="text/javascript" defer=""></script>
+    <script src="../js/search.js" type="text/javascript" defer=""></script>
 
     <title>Agrupa</title>
 </head>
@@ -123,14 +128,14 @@
 <div class="admin-section-title"> Registos </div>
     <ul class="list-group">
         <li class="list-group-item">
-    <div class="pending-single-info d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/83.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class="pending-single-info d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-1" aria-expanded="false" aria-controls="register-serial-1">
             José Costa - Registo com Encarregado de Educação        </div>
-        <button type="button" class="btn btn-success ml-auto">Aceitar</button>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/women/72.jpg" class="rounded-circle">
+        </label></div></span>
+        <button type="button" class="btn btn-success">Aceitar</button>
         <button type="button" class="btn btn-danger">Reset</button>
     </div>
     <div class="collapse pending pt-1" id="register-serial-1">
@@ -154,11 +159,11 @@
             <fieldset disabled="disabled">
     <legend> Encarregado de Educação: </legend>
     <div class="form-group guardian-info align-self-center">
+        <span class="guardian-name align-self-center"> Fernando Costa </span>
         <span class="member-face"> <div class="member-wrap">
         <label>
-            <img src="https://randomuser.me/api/portraits/thumb/women/20.jpg" class="rounded-circle">
+            <img src="https://randomuser.me/api/portraits/thumb/men/35.jpg" class="rounded-circle">
         </label></div></span>
-        <span class="guardian-name align-self-center"> Fernando Costa </span>
     </div>
     <div class="form-group  ">
         <label>Data de Nascimento:</label>
@@ -181,14 +186,14 @@
 
 
         <li class="list-group-item">
-    <div class="pending-single-info d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/16.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class="pending-single-info d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-2" aria-expanded="false" aria-controls="register-serial-2">
             Carlos Almeida - Registo Simples        </div>
-        <button type="button" class="btn btn-success ml-auto">Aceitar</button>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/men/79.jpg" class="rounded-circle">
+        </label></div></span>
+        <button type="button" class="btn btn-success">Aceitar</button>
         <button type="button" class="btn btn-danger">Reset</button>
     </div>
     <div class="collapse pending pt-1" id="register-serial-2">
@@ -213,14 +218,14 @@
     </div>
 </li>
         <li class="list-group-item">
-    <div class="pending-single-info d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/women/29.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class="pending-single-info d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-3" aria-expanded="false" aria-controls="register-serial-3">
             Patríca Martins - Registo Simples        </div>
-        <button type="button" class="btn btn-success ml-auto">Aceitar</button>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/men/54.jpg" class="rounded-circle">
+        </label></div></span>
+        <button type="button" class="btn btn-success">Aceitar</button>
         <button type="button" class="btn btn-danger">Reset</button>
     </div>
     <div class="collapse pending pt-1" id="register-serial-3">
@@ -245,14 +250,14 @@
     </div>
 </li>
         <li class="list-group-item">
-    <div class="pending-single-info d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/women/3.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class="pending-single-info d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-4" aria-expanded="false" aria-controls="register-serial-4">
             Fernando Silva - Registo Simples        </div>
-        <button type="button" class="btn btn-success ml-auto">Aceitar</button>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/women/48.jpg" class="rounded-circle">
+        </label></div></span>
+        <button type="button" class="btn btn-success">Aceitar</button>
         <button type="button" class="btn btn-danger">Reset</button>
     </div>
     <div class="collapse pending pt-1" id="register-serial-4">
@@ -311,13 +316,13 @@
 
     
 <li class="list-group-item user-list-info lobito">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/67.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-1" aria-expanded="false" aria-controls="register-serial-1">
             Miguel Costa        </div>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/men/12.jpg" class="rounded-circle">
+        </label></div></span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-1">
         <div class="card card-body">
@@ -344,13 +349,13 @@
 
 
 <li class="list-group-item user-list-info pioneiro">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/62.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-2" aria-expanded="false" aria-controls="register-serial-2">
             Sandro Silva        </div>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/women/82.jpg" class="rounded-circle">
+        </label></div></span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-2">
         <div class="card card-body">
@@ -377,13 +382,13 @@
 
 
 <li class="list-group-item user-list-info explorador">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/74.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-3" aria-expanded="false" aria-controls="register-serial-3">
             Killian Bastos        </div>
+        <span class="member-face"> <div class="member-wrap">
+        <label>
+            <img src="https://randomuser.me/api/portraits/thumb/men/36.jpg" class="rounded-circle">
+        </label></div></span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-3">
         <div class="card card-body">
@@ -410,13 +415,10 @@
 
 
 <li class="list-group-item user-list-info caminheiro">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/10.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-4" aria-expanded="false" aria-controls="register-serial-4">
             Éder Campos        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-4">
         <div class="card card-body">
@@ -443,13 +445,10 @@
 
 
 <li class="list-group-item user-list-info encarregado">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/women/70.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-5" aria-expanded="false" aria-controls="register-serial-5">
             José Almeida        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-5">
         <div class="card card-body">
@@ -485,13 +484,10 @@
 
     
 <li class="list-group-item user-list-info lobito">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> <div class="member-wrap">
-        <label>
-            <img src="https://randomuser.me/api/portraits/thumb/men/76.jpg" class="rounded-circle">
-        </label></div></span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-1" aria-expanded="false" aria-controls="register-serial-1">
             Miguel Costa        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-1">
         <div class="card card-body">
@@ -527,10 +523,10 @@
 
     
 <li class="list-group-item user-list-info pioneiro">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-2" aria-expanded="false" aria-controls="register-serial-2">
             Sandro Silva        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-2">
         <div class="card card-body">
@@ -565,10 +561,10 @@
 
     
 <li class="list-group-item user-list-info explorador">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-3" aria-expanded="false" aria-controls="register-serial-3">
             Killian Bastos        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-3">
         <div class="card card-body">
@@ -602,10 +598,10 @@
 
     
 <li class="list-group-item user-list-info caminheiro">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-4" aria-expanded="false" aria-controls="register-serial-4">
             Éder Campos        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-4">
         <div class="card card-body">
@@ -639,10 +635,10 @@
 
     
 <li class="list-group-item user-list-info encarregado">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-5" aria-expanded="false" aria-controls="register-serial-5">
             José Almeida        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-5">
         <div class="card card-body">
@@ -688,10 +684,10 @@
             <legend> De: </legend>
             
 <li class="list-group-item user-list-info encarregado">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-1" aria-expanded="false" aria-controls="register-serial-1">
             Killian Bastos        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-1">
         <div class="card card-body">
@@ -725,10 +721,10 @@
             <legend> Para: </legend>
             
 <li class="list-group-item user-list-info encarregado">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-2" aria-expanded="false" aria-controls="register-serial-2">
             Éder Campos        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-2">
         <div class="card card-body">
@@ -759,10 +755,10 @@
         <legend> Escuteiro: </legend>
         
 <li class="list-group-item user-list-info lobito">
-    <div class=" d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
+    <div class=" d-flex flex-md-row flex-column">
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-3" aria-expanded="false" aria-controls="register-serial-3">
             Miguel Costa        </div>
+        <span class="member-face"> </span>
     </div>
     <div class="collapse pending pt-1" id="register-serial-3">
         <div class="card card-body">
@@ -790,7 +786,7 @@
     </div>
     <div class="row buttons">
         <button type="button" class="btn btn-danger">Recusar</button>
-        <button type="button" class="btn btn-success ml-auto">Aceitar</button>
+        <button type="button" class="btn btn-success">Aceitar</button>
     </div>
 </div>
 
@@ -832,9 +828,9 @@
 
         <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-1" aria-expanded="false" aria-controls="manager-serial-1">
-            Miguel Costa        </div>
+            Miguel Costa            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-1">
@@ -860,9 +856,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-2" aria-expanded="false" aria-controls="manager-serial-2">
-            Sandro Silva        </div>
+            Sandro Silva            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-2">
@@ -888,9 +884,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-3" aria-expanded="false" aria-controls="manager-serial-3">
-            Killian Bastos        </div>
+            Killian Bastos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-3">
@@ -916,9 +912,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-4" aria-expanded="false" aria-controls="manager-serial-4">
-            Éder Campos        </div>
+            Éder Campos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-4">
@@ -960,9 +956,9 @@
 
         <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-1" aria-expanded="false" aria-controls="manager-serial-1">
-            Miguel Costa        </div>
+            Miguel Costa            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-1">
@@ -988,9 +984,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-2" aria-expanded="false" aria-controls="manager-serial-2">
-            Sandro Silva        </div>
+            Sandro Silva            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-2">
@@ -1016,9 +1012,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-3" aria-expanded="false" aria-controls="manager-serial-3">
-            Killian Bastos        </div>
+            Killian Bastos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-3">
@@ -1044,9 +1040,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-4" aria-expanded="false" aria-controls="manager-serial-4">
-            Éder Campos        </div>
+            Éder Campos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-4">
@@ -1088,9 +1084,9 @@
 
         <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-1" aria-expanded="false" aria-controls="manager-serial-1">
-            Miguel Costa        </div>
+            Miguel Costa            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-1">
@@ -1116,9 +1112,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-2" aria-expanded="false" aria-controls="manager-serial-2">
-            Sandro Silva        </div>
+            Sandro Silva            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-2">
@@ -1144,9 +1140,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-3" aria-expanded="false" aria-controls="manager-serial-3">
-            Killian Bastos        </div>
+            Killian Bastos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-3">
@@ -1172,9 +1168,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-4" aria-expanded="false" aria-controls="manager-serial-4">
-            Éder Campos        </div>
+            Éder Campos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-4">
@@ -1216,9 +1212,9 @@
 
         <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-1" aria-expanded="false" aria-controls="manager-serial-1">
-            Miguel Costa        </div>
+            Miguel Costa            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-1">
@@ -1244,9 +1240,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-2" aria-expanded="false" aria-controls="manager-serial-2">
-            Sandro Silva        </div>
+            Sandro Silva            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-2">
@@ -1272,9 +1268,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-3" aria-expanded="false" aria-controls="manager-serial-3">
-            Killian Bastos        </div>
+            Killian Bastos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-3">
@@ -1300,9 +1296,9 @@
 </li>
 <li class="list-group-item manager-info">
     <div class="d-flex flex-sm-row flex-column">
-        <span class="member-face"> </span>
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#manager-serial-4" aria-expanded="false" aria-controls="manager-serial-4">
-            Éder Campos        </div>
+            Éder Campos            <span class="member-face"> </span>
+        </div>
         <button type="button" class="btn btn-danger"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="manager-serial-4">

@@ -1,3 +1,5 @@
+#chief-section-manage * {font-size: var(--font-size-default)}
+
 #chief-section-manage .promote-user-info {
     margin-top: 1em;
 

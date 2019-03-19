@@ -50,6 +50,9 @@
     <!-- Search -->
     <link rel="stylesheet" href="../css/search.css" type="text/css">
 
+    <!-- About -->
+    <link rel="stylesheet" href="../css/about.css" type="text/css">
+
     <!-- Common -->
     <link rel="stylesheet" href="../css/common.css" type="text/css">
 
@@ -83,9 +86,10 @@
     <script src="../js/notification.js" type="text/javascript" defer=""></script>
     <script src="../js/admin.js" type="text/javascript" defer=""></script>
     <script src="../js/section-manage.js" type="text/javascript" defer=""></script>
+    <script src="../js/search.js" type="text/javascript" defer=""></script>
 
     <title>Agrupa</title>
-<script type="text/javascript" charset="UTF-8" src="http://maps.googleapis.com/maps-api-v3/api/js/36/5/intl/pt_pt/common.js"></script><script type="text/javascript" charset="UTF-8" src="http://maps.googleapis.com/maps-api-v3/api/js/36/5/intl/pt_pt/util.js"></script><script type="text/javascript" charset="UTF-8" src="http://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1shttp%3A%2F%2Flocalhost%3A8080%2Fpages%2Fsearch.html&amp;5shttp%3A%2F%2Flocalhost%3A8080%2Fpages%2Fsearch.html&amp;callback=_xdc_._938w2y&amp;token=110485"></script></head>
+</head>
 
 <body>
     
@@ -142,7 +146,7 @@
             <form class="form-inline mr-2">
                 <span id="search">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    <a href="search.html" class="advanced" data-toggle="tooltip" data-placement="top" title="Pesquisa Avançada"> <i class="fas fa-ellipsis-v"></i> </a>
+                    <a href="search.html" class="advanced" data-toggle="tooltip" data-placement="top" title="Pesquisa Avançada"><i class="fas fa-search"></i> </a>
                 </span>
             </form>
             <li>
@@ -176,23 +180,25 @@
 
 <div class="container col-lg-6 col-xs-11" id="users-list-page">
     <div class="admin-section-title"> Pesquisa </div>
-    <ul class="nav nav-tabs admin-select-tab" id="users-choice" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active " id="search-users-tab" href="#search-users" role="tab" aria-controls="all-users" aria-selected="true"> Utilizadores </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="search-events-tab" href="#search-events" role="tab" aria-controls="search-events" aria-selected="false"> Eventos </a>
-        </li>
-        <!--         <li class="nav-item">
+    <span class="advanced-toggle"> Pesquisa avançada <i class="fas fa-arrow-down"></i> </span>
+    <div class="advanced-search" style="display: none;">
+        <ul class="nav nav-tabs admin-select-tab" id="users-choice" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active " id="search-users-tab" href="#search-users" role="tab" aria-controls="all-users" aria-selected="true"> Utilizadores </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="search-events-tab" href="#search-events" role="tab" aria-controls="search-events" aria-selected="false"> Eventos </a>
+            </li>
+            <!--         <li class="nav-item">
             <a class="nav-link" id="search-groups-tab"" href=" #search-groups" role="tab" aria-controls="search-events"
                 aria-selected="false"> Grupos </a>
         </li> -->
 
-    </ul>
+        </ul>
 
-    <div class="tab-content">
-        <div class="tab-pane active" id="search-users" role="tabpanel" aria-labelledby="search-users-tab">
-            <form>
+        <div class="tab-content">
+            <div class="tab-pane active" id="search-users" role="tabpanel" aria-labelledby="search-users-tab">
+                <form>
     <div class="form-row d-flex justify-content-center">
         <div class="form-group col-md-auto">
             <label for="age-input">Idade</label>
@@ -209,17 +215,14 @@
         </div>
         <div class="form-group col-md-auto">
             <label for="name-input">Nome</label>
-            <input type="number" class="form-control" id="name-input" placeholder="Nome">
+            <input type="text" class="form-control" id="name-input" placeholder="Nome">
         </div>
     </div>
     <button type="submit" class="btn btn-primary search-button">Pesquisar</button>
 </form>
-<div class="container-fluid col-11 mt-4 search-results">
-    Resultados:
-</div>
-        </div>
-        <div class="tab-pane" id="search-events" role="tabpanel" aria-labelledby="search-events-tab">
-            <form>
+            </div>
+            <div class="tab-pane" id="search-events" role="tabpanel" aria-labelledby="search-events-tab">
+                <form>
     <div class=" form-row d-flex justify-content-center">
         <div class="form-group col-md-auto">
             <label for="begin-date">Data de início</label>
@@ -240,20 +243,100 @@
         </div>
         <div class="form-group col-md-auto">
             <label for="name-event-input">Nome</label>
-            <input type="number" class="form-control" id="name-event-input" placeholder="Nome">
+            <input type="text" class="form-control" id="name-event-input" placeholder="Nome">
         </div>
     </div>
     <button type="submit" class="btn btn-primary search-button">Pesquisar</button>
 </form>
-<div class="container-fluid col-11 mt-4 search-results">
-    Resultados:
-</div>
+            </div>
+            <!--         <div class="tab-pane" id="search-groups" role="tabpanel" aria-labelledby="search-groups-tab">
+        </div> -->
         </div>
-        <!--         <div class="tab-pane" id="search-groups" role="tabpanel" aria-labelledby="search-groups-tab">
+    </div>
+
+    <div class="container-fluid events-flex ">
+        
+<div class="event-wrap">
+    <a class="card-wrap" href="../pages/event.html">
+    </a><div class="card"><a class="card-wrap" href="../pages/event.html">
+        
+        </a><div class="card-block"><a class="card-wrap" href="../pages/event.html">
+            
+            </a><div class="event-info"><a class="card-wrap" href="../pages/event.html">
+                </a><div class="event-basic-info"><a class="card-wrap" href="../pages/event.html">
+                    <time datetime="2019-03-03" class="icon calendar">
+                        <span class="event-card-month "> MAR </span>
+                        <span class="event-card-day"> 1 </span>
+                        <span class="event-card-week-day">Domingo</span>
+                    </time>
+                    </a><div class="container center-container-vertically"><a class="card-wrap" href="../pages/event.html">
+
+                        <h5 class="card-title">Caminhada a S. João 1</h5>
+                        <h6 class="card-subtitle sec  text-muted">
+                            <div class="loc text-muted ">Porto, Portugal </div>
+                            <div class="text-muted card-number-participants justify-content-center">18 confirmaram </div>    
+                                
+                        </h6>
+
+                        <div class="text-muted">Hora: 9:00</div>
+                        <div class="text-muted">Preço: 0 euros</div>
+                        
+
+                        <div class=" card-test-invited"> 
+                            Convidados 
+                        </div>
+                        
+
+
+                        </a><div class="card-body group-members"><a class="card-wrap" href="../pages/event.html">
+                            </a><div class="member-wrap"><a class="card-wrap" href="../pages/event.html">
+                                </a><a href="#" class="group-member-name text-muted">Daniel</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Bruno</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Sofia</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Joana</a>
+                            </div>
+                            
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">António ...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+            
+                       
+                        </div>
+
+                        <hr class="event-line"> 
+                        <div class="card-common-groups">
+                            <button type="button" class="btn btn-light card-group-name">Caminheiros</button>
+                            <button type="button" class="btn btn-light card-group-name">ENG</button>
+                            <button type="button" class="btn btn-light card-group-name">Imaginário</button>
+                            <button type="button" class="btn btn-light card-group-name">ACAVER</button>
+                        </div>
+                        
+        </div>
+        <!-- <div class="card-footer w-100 text-muted">
+            FOOTER
         </div> -->
     </div>
+
+
 </div>
 
+
+    </div>
+</div>
     
     <footer>
       Copyright © Agrupa 2019

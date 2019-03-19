@@ -19,27 +19,29 @@ time.icon {
 
 time.icon .event-card-month {
   font-size: 150%;
-  font-weight: bolder;
   color: white;
   background-color: var(--dark-b);
   width: 8em;
 }
 
 time.icon .event-card-day {
-  font-size: 250%;
-  font-weight: bolder;
+  font-size: 250% !important;
+  color:var( --dark-bg-color);
 }
 
 time.icon .event-card-week-day {
   margin-top: 1rem;
-  font-weight: lighter;
+ 
 }
 
 @media(max-width:770px) {
+
+
   time.icon {
     flex-direction: row;
+    padding:0 !important;
     justify-content: center;
-    width: 100%;
+    width: 100% !important;
     text-align: center;
     height: 3em;
     color: white;
@@ -139,7 +141,7 @@ time.icon .event-card-week-day {
 
 .day .day-value {
   font-weight: 500;
-  font-size: large;
+  font-size: 20px;
 }
 
 .week-day {
@@ -188,6 +190,12 @@ time.icon .event-card-week-day {
 
 .calendar-mobile {
   display: none;
+}
+
+
+.calendar-event{
+  background-color: rgba(18, 85, 18, 0.767);
+  border-radius: 0.25rem;
 }
 
 @media(max-width:770px) {

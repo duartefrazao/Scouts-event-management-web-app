@@ -3,7 +3,8 @@ body {
     --dark-bg-color: rgba(0, 7, 36, 0.801);
     --dark-sec-bg-color: #232A07;
     --dark-brown: #33281f;
-    background-color: rgba(218, 206, 197, 0.226);
+    background-color:#f8f7faea;
+    /* background-color: rgba(226, 218, 213, 0.157); */
 
     --dark-blue: rgba(2, 5, 24, 0.527);
     --grey-blue: rgba(32, 34, 51, 0.527);
@@ -21,16 +22,38 @@ body {
     --pioneiros: rgba(0, 0, 255, 0.7);
     --caminheiros: rgba(255, 0, 0, 0.7);
 
-    
+    --card-width:35em;
+    --card-height:calc(-2em + 35em*3/5);
+
+    /* Tamanho das fontes */
+    --font-size-navbar-website-name:23pt;
+    --font-size-navbar-actions:14pt;
+    --font-size-regular:14pt;
+    --font-size-default: 16pt;
+    --font-size-subtitle:24pt;
+    --font-size-page-title:30pt;
+
+        /* Cards */
+    --font-size-card-subtitle:16pt;
+    --font-size-homepage-card-title:24pt;
+    --font-size-homepage-group-card-title:12pt;
+    --letter-spacing-family-animated-cards:2px;
+
+    /* Animated font  */
+    --font-family-animated: 'Amatic SC', cursive;
+    --letter-spacing-family-animated: 4px;
+    --font-size-family-animated-regular:15pt;
+    --letter-spacing-family-tags-animated:1px;
+}
+
+#navbar .navbar-text{
+    font-size: var(--font-size-navbar-actions);
 }
 
 #navbar * {
     color: rgb(211, 193, 179);
 }
 
-#navbar .user-name{
-    font-size: large;
-}
 
 #navbar .navbar-toggler-icon{
     color: white;
@@ -57,8 +80,8 @@ body {
 }
 
 #website-name{
-    /*font-weight: bold;*/
-    font-size: 1.75em;
+    
+    font-size: var(--font-size-navbar-website-name);
     letter-spacing: 5px;
     margin-left: 0.1em;
 }
@@ -81,7 +104,6 @@ body {
     border: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: solid 1px grey;
 }
 
 #search .advanced{
@@ -125,6 +147,10 @@ footer{
     color: black;
     bottom: 0;
     margin-top: 3em;
+}
+
+.common-page-subtitle{
+    font-size:var(--font-size-subtitle);
 }
 
 

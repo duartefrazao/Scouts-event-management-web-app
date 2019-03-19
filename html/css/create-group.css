@@ -1,3 +1,4 @@
+
 body{
     --create-group-image-size: 25%; 
     --create-group-image-border: 4px;
@@ -6,25 +7,27 @@ body{
     --bg-img: url("../images/test8.jpg");
 }
 
-/* body{
-    
-}
 
-#create-group-page{
-    background: var(--bg-img);
+.background-container{
+    background-color: var(bg-color);
     height: 100vh;
+    width:100%;
+    opacity: 0.8;
     background-size: cover;
-    opacity: 0.7;
     z-index: -1;
 }
- */
+#navbar{
+    margin-bottom: 0;
+}
+#create-group-page {
+    font-size: 22px;
+}
 #create-group-page form {
     color: black;
 }
 
 .create-group-image {
     border-radius:50%;
-    margin-top: 2em;
     width: 25%;
 }
 
@@ -38,7 +41,7 @@ body{
 .create-group-top {
     display: block;
     position: relative;
-    margin:3em auto;
+    margin:0em auto;
 }
 
 .create-group-top input {

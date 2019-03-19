@@ -6,7 +6,9 @@
    
 }
 .modal-title{
+    font-size: var(--font-size-page-title);
     width: 100%;
+    color:black;
     text-align: center;
     position: absolute;
     left: 0px;
@@ -14,7 +16,7 @@
 
 .modal-header {
     background: #f8f9fa;
-    margin: 0;
+    padding-bottom: 2em;
     border-bottom: 5px solid #d8d9da;
     position:relative;
 }

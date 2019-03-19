@@ -77,8 +77,7 @@ html * {
 
 
 .group-member-name {
-    font-size: medium;
-    ;
+    font-size: var(--font-size-regular);
     margin: 0;
 }
 
@@ -124,7 +123,7 @@ html * {
 .group-event {
     margin: 0.2em 0.4em;
     padding: 0.2em 0.4em;
-    font-size: 120%;
+    font-size: var(--font-size-default);
     border-radius: 2%;
     font-family: 'Indie Flower', cursive;
     background-color: rgba(211, 203, 203, 0.411);
@@ -150,28 +149,6 @@ html * {
     width: 70%;
 }
 
-.group-events.event-wrap .event-description-card-text {
-    display: none;
+.group-events.event-wrap time{
+    box-shadow: 0 4px 15px 0 rgba(40,44,53,.06),0 4px 15px 0 rgba(40,44,53,.06);
 }
-
-.group-events.event-wrap .card-wrap {
-    border: solid 1px var(dark-bg-color);
-}
-
-.group-events.event-wrap .card-wrap .card {
-    width: auto;
-    margin-top: 1em;
-}
-
-.group-events.event-wrap .card-common-groups {
-    display: none;
-}
-
-.group-events.event-wrap hr {
-    display: none;
-}
-
-.group-events.event-wrap .card-number-participants {
-    display: none;
-}
-
