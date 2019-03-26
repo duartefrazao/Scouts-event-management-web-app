@@ -1,4 +1,5 @@
---DROP
+-- DROP
+
 DROP TABLE IF EXISTS guardian;
 DROP TABLE IF EXISTS guardian_added_minors;
 DROP TABLE IF EXISTS guardian_exchange_validation;
@@ -42,6 +43,8 @@ DROP TYPE IF EXISTS NotificationState;
 DROP TYPE IF EXISTS ParticipationStatus;
 DROP TYPE IF EXISTS RegisterStatus;
 
+
+
 -- Types
 
 CREATE TYPE NotificationState AS ENUM ('Seen', 'Not Seen');
@@ -49,6 +52,8 @@ CREATE TYPE NotificationState AS ENUM ('Seen', 'Not Seen');
 CREATE TYPE ParticipationStatus AS ENUM ('Going', 'Not Going', 'Pending');
 
 CREATE TYPE RegisterStatus AS ENUM ('Accepted', 'Rejected', 'Pending');
+
+
 
 -- Tables
 
@@ -62,7 +67,6 @@ CREATE TABLE "user" (
    description text NOT NULL,
    deactivated BOOLEAN NOT NULL
 );
-
 
 CREATE TABLE registration_request(
     id SERIAL PRIMARY KEY,
@@ -91,7 +95,6 @@ CREATE TABLE event(
    location INTEGER REFERENCES location (id) ON UPDATE CASCADE
 );
 
-
 CREATE TABLE guardian(
    guardian INTEGER NOT NULL REFERENCES "user" (id) ON UPDATE CASCADE,
    minor INTEGER PRIMARY KEY REFERENCES "user" (id) ON UPDATE CASCADE
@@ -108,8 +111,6 @@ CREATE TABLE guardian_added_minors(
    request INTEGER PRIMARY KEY REFERENCES registration_request (id) ON UPDATE CASCADE,
    guardian INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE
 );
-
-
 
 CREATE TABLE event_participant(
    participant INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -131,7 +132,6 @@ CREATE TABLE comment(
    date DATE NOT NULL DEFAULT CURRENT_DATE,
    "text" text NOT NULL
 );
-
 
 CREATE TABLE file(
    id SERIAL PRIMARY KEY,
@@ -197,13 +197,10 @@ CREATE TABLE notification(
     state NotificationState NOT NULL
 );
 
-
-
 CREATE TABLE notification_event(
     notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
     event SERIAL NOT NULL REFERENCES event ON DELETE CASCADE
 );
-
 
 CREATE TABLE notification_guardian(
     notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
@@ -215,15 +212,11 @@ CREATE TABLE notification_group(
     "group" SERIAL NOT NULL REFERENCES "group" ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE admin(
     id SERIAL PRIMARY KEY ,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
 );
-
-
 
 CREATE TABLE group_elimination(
     id SERIAL PRIMARY KEY ,
@@ -232,8 +225,6 @@ CREATE TABLE group_elimination(
     "date" DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
-
-
 CREATE TABLE user_elimination(
     id SERIAL PRIMARY KEY ,
     admin SERIAL REFERENCES admin NOT NULL,
@@ -241,20 +232,16 @@ CREATE TABLE user_elimination(
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
 
-
-
 CREATE TABLE guardian_exchange_validation(
     exchange SERIAL PRIMARY KEY REFERENCES guardian_exchange,
     admin SERIAL REFERENCES admin NOT NULL
 );
-
 
 CREATE TABLE registration_handling(
     request SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
     admin SERIAL REFERENCES admin NOT NULL,
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
-
 
 CREATE TABLE registration_request_handling(
     minor SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
