@@ -1,19 +1,56 @@
+--DROP
+DROP TABLE IF EXISTS guardian;
+DROP TABLE IF EXISTS guardian_added_minors;
+DROP TABLE IF EXISTS guardian_exchange_validation;
+DROP TABLE IF EXISTS guardian_exchange;
+
+DROP TABLE IF EXISTS comment_elimation;
+DROP TABLE IF EXISTS comment;
+
+DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS vote;
+DROP TABLE IF EXISTS option;
+DROP TABLE IF EXISTS poll;
+
+DROP TABLE IF EXISTS notification_group;
+DROP TABLE IF EXISTS notification_guardian;
+DROP TABLE IF EXISTS notification_event;
+DROP TABLE IF EXISTS notification;
+
+DROP TABLE IF EXISTS event_organizer;
+DROP TABLE IF EXISTS event_participant;
+DROP TABLE IF EXISTS event;
+
+DROP TABLE IF EXISTS group_member;
+DROP TABLE IF EXISTS group_moderator;
+
+DROP TABLE IF EXISTS "user";
+
+DROP TABLE IF EXISTS registration_request_handling;
+DROP TABLE IF EXISTS registration_handling;
+DROP TABLE IF EXISTS registration_request;
+
+DROP TABLE IF EXISTS group_elimination;
+DROP TABLE IF EXISTS user_elimination;
+DROP TABLE IF EXISTS admin;
+
+DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS "group";
+DROP TABLE IF EXISTS code;
+
+DROP TYPE IF EXISTS NotificationState;
+DROP TYPE IF EXISTS ParticipationStatus;
+DROP TYPE IF EXISTS RegisterStatus;
 
 -- Types
 
-
-DROP TYPE IF EXISTS NotificationState;
 CREATE TYPE NotificationState AS ENUM ('Seen', 'Not Seen');
 
-DROP TYPE IF EXISTS ParticipationStatus;
 CREATE TYPE ParticipationStatus AS ENUM ('Going', 'Not Going', 'Pending');
 
-DROP TYPE IF EXISTS RegisterStatus;
 CREATE TYPE RegisterStatus AS ENUM ('Accepted', 'Rejected', 'Pending');
 
-
 -- Tables
-DROP TABLE IF EXISTS "user";
 
 CREATE TABLE "user" (
    id SERIAL PRIMARY KEY,
@@ -27,7 +64,6 @@ CREATE TABLE "user" (
 );
 
 
-DROP TABLE IF EXISTS registration_request;
 CREATE TABLE registration_request(
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -38,7 +74,6 @@ CREATE TABLE registration_request(
     description TEXT NOT NULL
 );
 
-DROP TABLE IF EXISTS location;
 CREATE TABLE location(
    id SERIAL PRIMARY KEY,
    name text NOT NULL,
@@ -47,7 +82,6 @@ CREATE TABLE location(
     CONSTRAINT proper_postal_code CHECK (postal_code ~* '^[0-9]{4}-[0-9]{3}$')
 );
 
-DROP TABLE IF EXISTS event;
 CREATE TABLE event(
    id SERIAL PRIMARY KEY,
    title text NOT NULL,
@@ -57,14 +91,12 @@ CREATE TABLE event(
    location INTEGER REFERENCES location (id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS guardian;
 
 CREATE TABLE guardian(
    guardian INTEGER NOT NULL REFERENCES "user" (id) ON UPDATE CASCADE,
    minor INTEGER PRIMARY KEY REFERENCES "user" (id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS guardian_exchange;
 CREATE TABLE guardian_exchange(
    id SERIAL PRIMARY KEY,
    minor INTEGER NOT NULL REFERENCES "user" (id) ON UPDATE CASCADE,
@@ -72,7 +104,6 @@ CREATE TABLE guardian_exchange(
    state RegisterStatus NOT NULL DEFAULT 'Pending'
 );
 
-DROP TABLE IF EXISTS guardian_added_minors;
 CREATE TABLE guardian_added_minors(
    request INTEGER PRIMARY KEY REFERENCES registration_request (id) ON UPDATE CASCADE,
    guardian INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE
@@ -80,7 +111,6 @@ CREATE TABLE guardian_added_minors(
 
 
 
-DROP TABLE IF EXISTS event_participant;
 CREATE TABLE event_participant(
    participant INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE CASCADE,
    event INTEGER REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -88,14 +118,12 @@ CREATE TABLE event_participant(
    PRIMARY KEY (participant, event)
 );
 
-DROP TABLE IF EXISTS event_organizer;
 CREATE TABLE event_organizer(
    organizer INTEGER REFERENCES "user" (id) ON UPDATE CASCADE,
    event INTEGER REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
    PRIMARY KEY (organizer, event)
 );
 
-DROP TABLE IF EXISTS comment;
 CREATE TABLE comment(
    id SERIAL PRIMARY KEY,
    participant INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE SET NULL,
@@ -105,7 +133,6 @@ CREATE TABLE comment(
 );
 
 
-DROP TABLE IF EXISTS file;
 CREATE TABLE file(
    id SERIAL PRIMARY KEY,
    title text NOT NULL,
@@ -114,7 +141,6 @@ CREATE TABLE file(
    UNIQUE(title, event)
 );
 
-DROP TABLE IF EXISTS poll;
 CREATE TABLE poll(
    id INTEGER PRIMARY KEY REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
    begin_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -122,56 +148,46 @@ CREATE TABLE poll(
    CONSTRAINT poll_date_ck CHECK (end_date > begin_date)
 );
 
-DROP TABLE IF EXISTS option;
 CREATE TABLE option(
    id SERIAL PRIMARY KEY,
    date DATE NOT NULL,
    poll INTEGER NOT NULL REFERENCES poll (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS vote;
 CREATE TABLE vote(
    voter INTEGER NOT NULL REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE CASCADE,
    option INTEGER NOT NULL REFERENCES option (id) ON UPDATE CASCADE ON DELETE CASCADE,
    PRIMARY KEY (voter, option)
 );
 
-DROP TABLE IF EXISTS comment_elimation;
 CREATE TABLE comment_elimation(
    comment INTEGER PRIMARY KEY REFERENCES comment (id) ON DELETE CASCADE,
    "user" INTEGER NOT NULL REFERENCES "user" (id) ON DELETE SET NULL,
    "date" DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
-DROP TABLE IF EXISTS "group";
 CREATE TABLE "group"(
    id SERIAL PRIMARY KEY,
    name text NOT NULL,
    is_section BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-DROP TABLE IF EXISTS group_member;
 CREATE TABLE group_member(
    member INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE CASCADE,
    "group" INTEGER REFERENCES "group" (id) ON UPDATE CASCADE ON DELETE CASCADE,
    PRIMARY KEY(member, "group")
 );
 
-DROP TABLE IF EXISTS group_moderator;
 CREATE TABLE group_moderator(
    moderator INTEGER REFERENCES "user" (id) ON UPDATE CASCADE,
    "group" INTEGER REFERENCES "group" (id) ON UPDATE CASCADE ON DELETE CASCADE,
    PRIMARY KEY(moderator, "group")
 );
 
-DROP TABLE IF EXISTS code;
-
 CREATE TABLE code(
     code SERIAL PRIMARY KEY ,
     description TEXT NOT NULL
 );
-
-DROP TABLE IF EXISTS notification;
 
 CREATE TABLE notification(
     id SERIAL PRIMARY KEY,
@@ -182,20 +198,17 @@ CREATE TABLE notification(
 );
 
 
-DROP TABLE IF EXISTS notification_event;
 
 CREATE TABLE notification_event(
     notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
     event SERIAL NOT NULL REFERENCES event ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS notification_guardian;
 
 CREATE TABLE notification_guardian(
     notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
     guardian SERIAL NOT NULL REFERENCES "user" ON DELETE CASCADE
 );
-DROP TABLE IF EXISTS notification_group;
 
 CREATE TABLE notification_group(
     notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
@@ -203,7 +216,6 @@ CREATE TABLE notification_group(
 );
 
 
-DROP TABLE IF EXISTS admin;
 
 CREATE TABLE admin(
     id SERIAL PRIMARY KEY ,
@@ -213,8 +225,6 @@ CREATE TABLE admin(
 
 
 
-DROP TABLE IF EXISTS group_elimination;
-
 CREATE TABLE group_elimination(
     id SERIAL PRIMARY KEY ,
     admin SERIAL REFERENCES admin,
@@ -223,7 +233,6 @@ CREATE TABLE group_elimination(
 );
 
 
-DROP TABLE IF EXISTS user_elimination;
 
 CREATE TABLE user_elimination(
     id SERIAL PRIMARY KEY ,
@@ -233,7 +242,6 @@ CREATE TABLE user_elimination(
 );
 
 
-DROP TABLE IF EXISTS guardian_exchange_validation;
 
 CREATE TABLE guardian_exchange_validation(
     exchange SERIAL PRIMARY KEY REFERENCES guardian_exchange,
@@ -241,16 +249,12 @@ CREATE TABLE guardian_exchange_validation(
 );
 
 
-DROP TABLE IF EXISTS registration_handling;
-
 CREATE TABLE registration_handling(
     request SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
     admin SERIAL REFERENCES admin NOT NULL,
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
 
-
-DROP TABLE IF EXISTS registration_request_handling;
 
 CREATE TABLE registration_request_handling(
     minor SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
@@ -260,4 +264,3 @@ CREATE TABLE registration_request_handling(
     g_birthdate DATE NOT NULL,
     g_description TEXT NOT NULL
 );
-
