@@ -1,0 +1,395 @@
+#admin-content {font-size: var(--font-size-default)}
+
+#admin-actions .nav-link.active {
+    background-color: rgba(0, 7, 36, 0.801);
+    border-radius: 0;
+}
+
+#admin-actions .nav-link:hover {
+    border-radius: 0;
+}
+
+#admin-content .member-face {
+    margin-left: 1em;
+}
+
+
+#admin-content .btn-success{
+    background-color: rgba(35, 119, 34, 0.315);
+    color: black;
+    border-color: transparent;
+}
+
+#admin-content .btn-success:hover{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+#admin-content .btn-danger{
+    background-color: rgba(110, 24, 24, 0.308);
+    color: black;
+    border-color: transparent;
+}
+
+#admin-content .btn-danger:hover{
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#admin-content .lobito {
+    border-left: solid 7px var(--lobitos);
+}
+
+
+#admin-content .pioneiro {
+    border-left: solid 7px var(--pioneiros);
+}
+
+
+#admin-content .explorador {
+    border-left: solid 7px var(--exploradores);
+}
+
+
+#admin-content .caminheiro {
+    border-left: solid 7px var(--caminheiros)
+}
+
+#admin-content .encarregado{
+    border-left: solid 7px black;
+}
+
+
+.admin-section-title {
+    padding: 1em;
+    padding-left: 0;
+    padding-bottom: 0.5em;
+    border-bottom: solid 1px gray;
+    font-weight: bold;
+    font-size:140%;
+}
+
+.admin-select-tab {
+    margin: 1em auto;
+    padding: 0;
+    justify-content: center;
+}
+
+.admin-select-tab .nav-link.active {
+    background-color: white;
+    border-radius: 0;
+}
+
+.admin-select-tab.nav-link:hover {
+    border-radius: 0;
+}
+
+
+#all-users-tab {
+    border-bottom: solid 3px rgb(255, 145, 0);
+}
+
+.color-lobitos-tab {
+    border-bottom: solid 3px var(--lobitos) !important;
+}
+
+.color-pioneiros-tab {
+    border-bottom: solid 3px var(--pioneiros) !important;
+}
+
+.color-exploradores-tab {
+    border-bottom: solid 3px var(--exploradores) !important;
+}
+
+.color-caminheiros-tab {
+    border-bottom: solid 3px var(--caminheiros) !important;
+}
+
+.color-encarregados-tab{
+    border-bottom: solid 3px black !important;
+}
+
+.name-toggle:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/**
+
+  _____               _ _             
+ |  __ \             | (_)            
+ | |__) |__ _ __   __| |_ _ __   __ _ 
+ |  ___/ _ \ '_ \ / _` | | '_ \ / _` |
+ | |  |  __/ | | | (_| | | | | | (_| |
+ |_|   \___|_| |_|\__,_|_|_| |_|\__, |
+                                 __/ |
+                                |___/ 
+
+**/
+
+#pending-content legend {
+
+    font-size: large;
+    text-decoration: underline;
+
+}
+
+#pending-content li {
+    margin: 1em 0;
+}
+
+
+#pending-content .btn {
+    max-height: 3em;
+}
+
+#pending-content .btn-success {
+    margin: 0 1em;
+    margin-left: auto;
+}
+
+#pending-content .guardian-info {
+    display: flex;
+    align-content: center;
+    vertical-align: middle;
+}
+
+#pending-content .guardian-name {
+    font-size: large;
+}
+
+/**
+
+  _    _                   
+ | |  | |                  
+ | |  | |___  ___ _ __ ___ 
+ | |  | / __|/ _ \ '__/ __|
+ | |__| \__ \  __/ |  \__ \
+  \____/|___/\___|_|  |___/
+                           
+                           
+
+**/
+
+
+
+#users-list-page .user-list-info {
+    margin-top: 1em;
+
+}
+
+.admin-section-title.users{
+    display: flex;
+}
+
+.admin-section-title.users input{
+    float: right;
+    margin-left: auto;
+    width: auto;
+}
+
+#users-choice li a {
+    color: black;
+}
+
+
+.animate {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+.alert-pending-user {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+}
+
+
+/**
+   _____                     _ _                 
+  / ____|                   | (_)                
+ | |  __ _   _  __ _ _ __ __| |_  __ _ _ __  ___ 
+ | | |_ | | | |/ _` | '__/ _` | |/ _` | '_ \/ __|
+ | |__| | |_| | (_| | | | (_| | | (_| | | | \__ \
+  \_____|\__,_|\__,_|_|  \__,_|_|\__,_|_| |_|___/
+                                                 
+**/
+
+
+
+#guardians-content .arrow-mobile {
+    display: none;
+}
+
+#guardians-content .guardian-exchange {
+    padding: 1em;
+    background-color: white;
+}
+
+#guardians-content .card-body {
+    border: none;
+}
+
+#guardians-content legend {
+    font-size: large;
+    margin-bottom: 0.1em;
+}
+
+#guardians-content .guardian-exchange .i {
+    margin-top: 1em;
+}
+
+
+#guardians-content .guardian-exchange .exchanged {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#guardians-content .guardian-exchange .buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+#guardians-content .guardian-exchange .btn {
+    margin: 0 1em !important;
+}
+
+#guardians-content .guardian-exchange .guardians {
+    display: flex;
+}
+
+/**
+
+  __  __                                       
+ |  \/  |                                      
+ | \  / | __ _ _ __   __ _  __ _  ___ _ __ ___ 
+ | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__/ __|
+ | |  | | (_| | | | | (_| | (_| |  __/ |  \__ \
+ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|  |___/
+                            __/ |              
+                           |___/               
+
+**/
+
+
+.managers-container header {
+    text-align: center;
+}
+
+
+.manager-info .btn {
+    margin-left: auto;
+    justify-self: flex-end;
+}
+
+.manager-info {
+    margin-top: 1em;
+}
+
+.add-manager{
+    float: right;
+    margin-top: 1em;
+    margin-right: 2.1em;
+}
+
+/**
+
+  _____                                 _           
+ |  __ \                               (_)          
+ | |__) |___  ___ _ __   ___  _ __  ___ ___   _____ 
+ |  _  // _ \/ __| '_ \ / _ \| '_ \/ __| \ \ / / _ \
+ | | \ \  __/\__ \ |_) | (_) | | | \__ \ |\ V /  __/
+ |_|  \_\___||___/ .__/ \___/|_| |_|___/_| \_/ \___|
+                 | |                                
+                 |_|                                
+
+**/
+
+
+
+@media(max-width:770px) {
+
+
+
+    #admin-content .nav-item{
+        margin-top: 0.5em;
+    }
+
+    #guardians-content .admin-section-title {
+
+        font-size: large;
+        padding: 0.5em;
+        padding-left: 0;
+        padding-bottom: 0.5em;
+    }
+
+    #guardians-content .arrow-desktop {
+        display: none;
+    }
+
+    #guardians-content .arrow-mobile {
+        display: initial !important;
+    }
+
+    #guardians-content .arrow {
+        margin-top: 1em;
+    }
+
+    #pending-content .btn-success {
+
+        margin: 1em 0 !important;
+
+    }
+
+    #managers-content .btn{
+        justify-self: center;
+        align-self: center;
+        margin: 1em 0 !important;
+    }
+
+    #guardians-content .guardian-exchange .buttons {
+        justify-content: center !important;
+    }
+
+    .alert-pending-user {
+        position: absolute;
+        bottom: 0;
+        margin: 0 auto;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        top: initial !important;
+        right: initial !important;
+    }
+
+    #admin-content .member-face{
+        justify-self: center;
+        align-self: center;
+        margin: 0 1em;
+    }
+
+
+    #guardians-content .guardian-exchange .guardians {
+        flex-direction: column;
+    }
+
+    .admin-section-title.users {
+        text-align: center;
+        flex-direction: column;
+        margin: 0 auto;
+        width: auto;
+    }
+
+    .admin-section-title.users input{
+        margin: 0 auto;
+        
+    }
+
+
+
+}
