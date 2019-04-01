@@ -1,6 +1,5 @@
--- DROP
+-- Drop
 
-DROP TABLE IF EXISTS guardian;
 DROP TABLE IF EXISTS guardian_added_minors;
 DROP TABLE IF EXISTS guardian_exchange_validation;
 DROP TABLE IF EXISTS guardian_exchange;
@@ -63,7 +62,9 @@ CREATE TABLE "user" (
    password text NOT NULL,
    name text NOT NULL,
    birthdate DATE NOT NULL,
+   guardian INTEGER REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE, 
    is_responsible BOOLEAN NOT NULL,
+   is_guardian BOOLEAN NOT NULL,
    description text NOT NULL,
    deactivated BOOLEAN NOT NULL
 );
@@ -93,11 +94,6 @@ CREATE TABLE event(
    price REAL NOT NULL DEFAULT 0,
    final_date DATE,
    location INTEGER REFERENCES location (id) ON UPDATE CASCADE
-);
-
-CREATE TABLE guardian(
-   guardian INTEGER NOT NULL REFERENCES "user" (id) ON UPDATE CASCADE,
-   minor INTEGER PRIMARY KEY REFERENCES "user" (id) ON UPDATE CASCADE
 );
 
 CREATE TABLE guardian_exchange(
@@ -142,7 +138,8 @@ CREATE TABLE file(
 );
 
 CREATE TABLE poll(
-   id INTEGER PRIMARY KEY REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
+   id SERIAL PRIMARY KEY, 
+   event INTEGER REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
    begin_date DATE NOT NULL DEFAULT CURRENT_DATE,
    end_date DATE NOT NULL,
    CONSTRAINT poll_date_ck CHECK (end_date > begin_date)
@@ -191,25 +188,25 @@ CREATE TABLE code(
 
 CREATE TABLE notification(
     id SERIAL PRIMARY KEY,
-    code SERIAL REFERENCES code NOT NULL,
-    member SERIAL NOT NULL REFERENCES "user" ON DELETE CASCADE,
+    code INTEGER REFERENCES code NOT NULL,
+    member INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     date DATE NOT NULL,
     state NotificationState NOT NULL
 );
 
 CREATE TABLE notification_event(
-    notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
-    event SERIAL NOT NULL REFERENCES event ON DELETE CASCADE
+    notification INTEGER PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
+    event INTEGER NOT NULL REFERENCES event ON DELETE CASCADE
 );
 
 CREATE TABLE notification_guardian(
-    notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
-    guardian SERIAL NOT NULL REFERENCES "user" ON DELETE CASCADE
+    notification INTEGER PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
+    guardian INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE
 );
 
 CREATE TABLE notification_group(
-    notification SERIAL PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
-    "group" SERIAL NOT NULL REFERENCES "group" ON DELETE CASCADE
+    notification INTEGER PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
+    "group" INTEGER NOT NULL REFERENCES "group" ON DELETE CASCADE
 );
 
 CREATE TABLE admin(
@@ -220,26 +217,26 @@ CREATE TABLE admin(
 
 CREATE TABLE group_elimination(
     id SERIAL PRIMARY KEY ,
-    admin SERIAL REFERENCES admin,
+    admin INTEGER REFERENCES admin,
     group_name TEXT NOT NULL,
     "date" DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE user_elimination(
     id SERIAL PRIMARY KEY ,
-    admin SERIAL REFERENCES admin NOT NULL,
+    admin INTEGER REFERENCES admin NOT NULL,
     user_name TEXT NOT NULL,
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE guardian_exchange_validation(
-    exchange SERIAL PRIMARY KEY REFERENCES guardian_exchange,
-    admin SERIAL REFERENCES admin NOT NULL
+    exchange INTEGER PRIMARY KEY REFERENCES guardian_exchange,
+    admin INTEGER REFERENCES admin NOT NULL
 );
 
 CREATE TABLE registration_handling(
     request SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
-    admin SERIAL REFERENCES admin NOT NULL,
+    admin INTEGER REFERENCES admin NOT NULL,
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
 
