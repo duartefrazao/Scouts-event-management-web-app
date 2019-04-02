@@ -92,6 +92,7 @@ CREATE TABLE event(
    title text NOT NULL,
    description text,
    price REAL NOT NULL DEFAULT 0,
+   start_date DATE,
    final_date DATE,
    location INTEGER REFERENCES location (id) ON UPDATE CASCADE
 );
@@ -189,9 +190,9 @@ CREATE TABLE code(
 CREATE TABLE notification(
     id SERIAL PRIMARY KEY,
     code INTEGER REFERENCES code NOT NULL,
-    member INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
+    "user" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     date DATE NOT NULL,
-    state NotificationState NOT NULL
+    state NotificationState NOT NULL DEFAULT 'Not Seen'
 );
 
 CREATE TABLE notification_event(
