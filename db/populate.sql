@@ -154,6 +154,7 @@ INSERT INTO "group" (id, name, is_section)
         VALUES(7, 1);
     INSERT INTO group_member(member, "group")
         VALUES(8, 1);
+        
         --Pioneiros
     INSERT INTO group_member(member, "group")
         VALUES(9, 2);
@@ -163,6 +164,7 @@ INSERT INTO "group" (id, name, is_section)
         VALUES(11, 2);
     INSERT INTO group_member(member, "group")
         VALUES(12, 2);
+
         --Exploradores
     INSERT INTO group_member(member, "group")
         VALUES(13, 3);
