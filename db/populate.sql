@@ -86,15 +86,23 @@ INSERT INTO "user" (id,email,password,name,birthdate,is_responsible,is_guardian,
     'sem ut cursus luctus, ipsum leo elementum sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae purus gravida','false');
 
 -- Chiefs
+
+    --Lobitos
 INSERT INTO "user" (id,email,password,name,birthdate,is_responsible,is_guardian,description,deactivated) 
     VALUES (22,'vitae@acurna.co.uk','OUN72HCE3TK','Xanthus Peck','1990-02-19','true','false',
     'dapibus id, blandit at, nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel nisl.','false');
+    
+    --Pioneiros
 INSERT INTO "user" (id,email,password,name,birthdate,is_responsible,is_guardian,description,deactivated) 
     VALUES (23,'erat.Etiam@lobortisnisinibh.co.uk','NTE93CSR8GQ','Hall Mayo','1993-08-11','true','false',
     'et, rutrum eu, ultrices sit amet, risus. Donec nibh enim, gravida sit amet, dapibus id, blandit at, nisi. Cum sociis','false');
+
+    --Exploradores
 INSERT INTO "user" (id,email,password,name,birthdate,is_responsible,is_guardian,description,deactivated) 
     VALUES (24,'neque.In.ornare@Duiscursus.com','NQH91ENB3BA','Dexter Golden','1989-02-16','true','false',
     'Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus sit amet ante.','false');
+
+    --Caminheiros
 INSERT INTO "user" (id,email,password,name,birthdate,is_responsible,is_guardian,description,deactivated) 
     VALUES (25,'odio@atliberoMorbi.ca','TYV87KKG4HX','Vernon Deleon','1994-04-29','true','false',
     'ut lacus. Nulla tincidunt, neque vitae semper egestas, urna justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend.','false');
@@ -106,27 +114,113 @@ INSERT INTO location (name, coordinates, postal_code) VALUES ('Vila Real', point
 INSERT INTO location (name, coordinates, postal_code) VALUES ('Porto', point(41.1579,8.6291), '4465-500');
 
 
+
 -- EVENTS
+    -- EVENT 1 -> FOR PIONEIROS  
+    -- EVENT 2 -> FOR PIONEIROS -> NEEDS POOL
+    -- EVENT 3 -> FOR EXPLORADORES -> NEEDS POOL
+    -- EVENT 4 -> FOR CAMINHEIROS
+    -- EVENT 5 -> MIXED
+    -- EVENT 6 -> USER CREATED EVENT
 
--- EVENT 1 NEEDS POLL
-INSERT INTO event (id,title,description,price,location) 
-    VALUES (1,'eu augue','pulvinar',9,1);
 INSERT INTO event (id,title,description,price,start_date,final_date) 
-    VALUES (2,'Aliquam ultrices','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
+    VALUES (1,'Aliquam ultrices','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
     10,'2019-10-21 17:00','2019-10-23 19:00');
-INSERT INTO event (id,title,description,price,start_date,final_date,location) 
-    VALUES (3,'ut ipsum','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
-    5,'2019-07-16 14:04','2020-01-16 22:51',3);
-
--- EVENT 4 NEEDS POLL
+INSERT INTO event (id,title,description,price,location) 
+    VALUES (2,'eu augue','pulvinar',9,1);
 INSERT INTO event (id,title,description,price) 
-    VALUES (4,'luctus et','non, cursus non, egestas a',6);
-
+    VALUES (3,'luctus et','non, cursus non, egestas a',6);
+INSERT INTO event (id,title,description,price,start_date,final_date,location) 
+    VALUES (4,'ut ipsum','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
+    5,'2019-07-16 14:04','2020-01-16 22:51',3);
 INSERT INTO event (id,title,description,price,start_date,final_date,location) 
     VALUES (5,'eu','ligula. Aenean gravida',2,'2019-09-12 04:40','2019-09-21 07:21',1);
 INSERT INTO event (id,title,description,price,start_date,final_date,location) 
     VALUES (6,'mus. Donec dignissim','justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed',
     11,'2019-05-20 10:40','2019-05-21 06:23',2);
+
+    -- EVENT ORGANIZERS
+
+        --Lobitos
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(22, 1);
+        --Pioneiros
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(23, 2);
+        --Exploradores
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(24, 3);
+        --Caminheiros
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(25, 4);
+        --Mixed
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(22, 5);
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(23, 5);
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(17, 5);
+        --User created
+    INSERT INTO event_organizer (organizer, event)
+        VALUES(15, 6);
+
+
+    -- EVENT PARTICIPANTS
+        --Lobitos
+    INSERT INTO event_participant (participant, event)
+        VALUES(4, 1);
+    INSERT INTO event_participant (participant, event)
+        VALUES(5, 1);
+    INSERT INTO event_participant (participant, event)
+        VALUES(6, 1);
+    INSERT INTO event_participant (participant, event)
+        VALUES(7, 1);
+    INSERT INTO event_participant (participant, event)
+        VALUES(8, 1);
+        --Pioneiros
+    INSERT INTO event_participant (participant, event)
+        VALUES(9, 2);
+    INSERT INTO event_participant (participant, event)
+        VALUES(10, 2);
+    INSERT INTO event_participant (participant, event)
+        VALUES(11, 2);
+    INSERT INTO event_participant (participant, event)
+        VALUES(12, 2);
+        --Exploradores
+    INSERT INTO event_participant (participant, event)
+        VALUES(13, 3);
+    INSERT INTO event_participant (participant, event)
+        VALUES(14, 3);
+    INSERT INTO event_participant (participant, event)
+        VALUES(15, 3);
+    INSERT INTO event_participant (participant, event)
+        VALUES(16, 3);
+        --Caminheiros
+    INSERT INTO event_participant (participant, event)
+        VALUES(17, 4);  
+    INSERT INTO event_participant (participant, event)
+        VALUES(18, 4);
+    INSERT INTO event_participant (participant, event)
+        VALUES(19, 4);
+    INSERT INTO event_participant (participant, event)
+        VALUES(20, 4);
+    INSERT INTO event_participant (participant, event)
+        VALUES(21, 4);
+        --Mixed
+    INSERT INTO event_participant (participant, event)
+        VALUES(11, 5);
+    INSERT INTO event_participant (participant, event)
+        VALUES(6, 5);
+    INSERT INTO event_participant (participant, event)
+        VALUES(19, 5);
+    INSERT INTO event_participant (participant, event)
+        VALUES(24, 5);
+    INSERT INTO event_participant (participant, event)
+        VALUES(13, 5);
+    INSERT INTO event_participant (participant, event)
+        VALUES(15, 5); 
+        --User Created
+
 
 
 -- GROUPS
@@ -140,6 +234,24 @@ INSERT INTO "group" (id, name, is_section)
     VALUES(4, 'Caminheiros', 'true');
 INSERT INTO "group" (id, name, is_section)
     VALUES(5, 'ViriaTUs', 'false');
+
+
+    -- GROUP MODERATORS
+
+        --Lobitos
+        INSERT INTO group_moderator(moderator, "group")
+            VALUES(22, 1);
+        --Pioneiros
+        INSERT INTO group_moderator(moderator, "group")
+            VALUES(23, 2);
+
+        --Exploradores
+        INSERT INTO group_moderator(moderator, "group")
+            VALUES(24, 3);
+
+        --Caminheiros
+        INSERT INTO group_moderator(moderator, "group")
+            VALUES(25, 4);
 
 
     -- GROUP MEMBER
@@ -236,3 +348,54 @@ INSERT INTO notification (id, code, "user", date)
 
     INSERT INTO notification_group(notification, "group")
         VALUES(6, 3);
+
+
+-- POLLS
+
+INSERT INTO poll (id, event, begin_date, end_date)
+    VALUES(1, 1, '2019-05-13', '2019-06-20');
+INSERT INTO poll (id, event, begin_date, end_date)
+    VALUES(2, 4, '2019-05-20', '2019-07-20');
+
+    -- OPTIONS
+    INSERT INTO option(id, date, poll)
+        VALUES(1, '2019-05-13 10:30', 1);
+    INSERT INTO option(id, date, poll)
+        VALUES(2, '2019-05-13 12:30', 1);
+    INSERT INTO option(id, date, poll)
+        VALUES(3, '2019-05-15 9:30', 1);
+    INSERT INTO option(id, date, poll)
+        VALUES(4, '2019-05-20 11:40', 1);
+
+    INSERT INTO option(id, date, poll)
+        VALUES(5, '2019-05-21 10:30', 2);
+    INSERT INTO option(id, date, poll)
+        VALUES(6, '2019-05-24 12:30', 2);
+    INSERT INTO option(id, date, poll)
+        VALUES(7, '2019-05-25 9:30', 2);
+    INSERT INTO option(id, date, poll)
+        VALUES(8, '2019-05-30 11:40', 2);
+
+
+    -- VOTES
+    INSERT INTO vote(voter, option)
+        VALUES (9, 1);
+    INSERT INTO vote(voter, option)
+        VALUES (10, 2);
+    INSERT INTO vote(voter, option)
+        VALUES (10, 3);
+    INSERT INTO vote(voter, option)
+        VALUES (11, 2);
+    INSERT INTO vote(voter, option)
+        VALUES (12, 4);
+
+    INSERT INTO vote(voter, option)
+        VALUES (13, 5);
+    INSERT INTO vote(voter, option)
+        VALUES (13, 6);
+    INSERT INTO vote(voter, option)
+        VALUES (13, 7);
+    INSERT INTO vote(voter, option)
+        VALUES (15, 6);
+    INSERT INTO vote(voter, option)
+        VALUES (16, 6);

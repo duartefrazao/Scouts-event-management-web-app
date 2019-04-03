@@ -1,46 +1,46 @@
 -- Drop
 
-DROP TABLE IF EXISTS guardian_added_minors;
-DROP TABLE IF EXISTS guardian_exchange_validation;
-DROP TABLE IF EXISTS guardian_exchange;
+DROP TABLE IF EXISTS guardian_added_minors CASCADE;
+DROP TABLE IF EXISTS guardian_exchange_validation CASCADE;
+DROP TABLE IF EXISTS guardian_exchange CASCADE;
 
-DROP TABLE IF EXISTS comment_elimation;
-DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS comment_elimation CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
 
-DROP TABLE IF EXISTS file;
-DROP TABLE IF EXISTS vote;
-DROP TABLE IF EXISTS option;
-DROP TABLE IF EXISTS poll;
+DROP TABLE IF EXISTS file CASCADE;
+DROP TABLE IF EXISTS vote CASCADE;
+DROP TABLE IF EXISTS option CASCADE;
+DROP TABLE IF EXISTS poll CASCADE;
 
-DROP TABLE IF EXISTS notification_group;
-DROP TABLE IF EXISTS notification_guardian;
-DROP TABLE IF EXISTS notification_event;
-DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS notification_group CASCADE;
+DROP TABLE IF EXISTS notification_guardian CASCADE;
+DROP TABLE IF EXISTS notification_event CASCADE;
+DROP TABLE IF EXISTS notification CASCADE;
 
-DROP TABLE IF EXISTS event_organizer;
-DROP TABLE IF EXISTS event_participant;
-DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS event_organizer CASCADE;
+DROP TABLE IF EXISTS event_participant CASCADE;
+DROP TABLE IF EXISTS event CASCADE;
 
-DROP TABLE IF EXISTS group_member;
-DROP TABLE IF EXISTS group_moderator;
+DROP TABLE IF EXISTS group_member CASCADE;
+DROP TABLE IF EXISTS group_moderator CASCADE;
 
-DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS "user" CASCADE;
 
-DROP TABLE IF EXISTS registration_request_handling;
-DROP TABLE IF EXISTS registration_handling;
-DROP TABLE IF EXISTS registration_request;
+DROP TABLE IF EXISTS registration_request_handling CASCADE;
+DROP TABLE IF EXISTS registration_handling CASCADE;
+DROP TABLE IF EXISTS registration_request CASCADE;
 
-DROP TABLE IF EXISTS group_elimination;
-DROP TABLE IF EXISTS user_elimination;
-DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS group_elimination CASCADE;
+DROP TABLE IF EXISTS user_elimination CASCADE;
+DROP TABLE IF EXISTS admin CASCADE;
 
-DROP TABLE IF EXISTS location;
-DROP TABLE IF EXISTS "group";
-DROP TABLE IF EXISTS code;
+DROP TABLE IF EXISTS location CASCADE;
+DROP TABLE IF EXISTS "group" CASCADE;
+DROP TABLE IF EXISTS code CASCADE;
 
-DROP TYPE IF EXISTS NotificationState;
-DROP TYPE IF EXISTS ParticipationStatus;
-DROP TYPE IF EXISTS RegisterStatus;
+DROP TYPE IF EXISTS NotificationState CASCADE;
+DROP TYPE IF EXISTS ParticipationStatus CASCADE;
+DROP TYPE IF EXISTS RegisterStatus CASCADE;
 
 
 
