@@ -17,6 +17,8 @@ DROP TABLE IF EXISTS notification_guardian CASCADE;
 DROP TABLE IF EXISTS notification_event CASCADE;
 DROP TABLE IF EXISTS notification CASCADE;
 
+DROP TABLE IF EXISTS event_group CASCADE;
+
 DROP TABLE IF EXISTS event_organizer CASCADE;
 DROP TABLE IF EXISTS event_participant CASCADE;
 DROP TABLE IF EXISTS event CASCADE;
@@ -41,6 +43,14 @@ DROP TABLE IF EXISTS code CASCADE;
 DROP TYPE IF EXISTS NotificationState CASCADE;
 DROP TYPE IF EXISTS ParticipationStatus CASCADE;
 DROP TYPE IF EXISTS RegisterStatus CASCADE;
+
+
+DROP FUNCTION IF EXISTS check_moderator() CASCADE;
+DROP FUNCTION IF EXISTS event_group_add() CASCADE;
+
+
+DROP TRIGGER IF EXISTS check_moderator ON event_organizer CASCADE;
+DROP TRIGGER IF EXISTS event_group_add ON event_group CASCADE;
 
 
 
@@ -182,6 +192,12 @@ CREATE TABLE group_moderator(
    PRIMARY KEY(moderator, "group")
 );
 
+CREATE TABLE event_group(
+   event INTEGER REFERENCES event (id) ON UPDATE CASCADE, 
+   "group" INTEGER REFERENCES "group" (id) ON UPDATE CASCADE,
+   PRIMARY KEY(event, "group")
+);
+
 CREATE TABLE code(
     code SERIAL PRIMARY KEY ,
     description TEXT NOT NULL
@@ -249,3 +265,58 @@ CREATE TABLE registration_request_handling(
     g_birthdate DATE NOT NULL,
     g_description TEXT NOT NULL
 );
+
+
+
+CREATE FUNCTION check_moderator() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS(
+        SELECT event_organizer.event FROM event_organizer
+        WHERE event_organizer.event = OLD.event
+        GROUP BY event_organizer.event
+        HAVING COUNT(*) = 1)
+    THEN
+        IF EXISTS
+            (SELECT * FROM event
+                WHERE OLD.event = event.id
+                AND event.final_date IS NOT NULL
+                AND event.final_date > CURRENT_DATE
+            )
+        THEN
+            RAISE EXCEPTION 'An event cannot lose all organizers before it ends';
+        END IF;
+    END IF;
+    RETURN OLD;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER check_moderator
+    BEFORE DELETE ON event_organizer
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_moderator();
+
+
+CREATE FUNCTION event_group_add() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    INSERT INTO event_participant (participant, event, state)
+    SELECT group_member.member, NEW.event, 'Pending'
+    FROM group_member
+    WHERE
+        group_member."group" = NEW."group"
+        AND group_member.member NOT IN 
+        (SELECT event_participant.participant 
+            FROM event_participant
+            WHERE event_participant.event = NEW.event);
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER event_group_add
+    AFTER INSERT ON event_group
+    FOR EACH ROW
+    EXECUTE PROCEDURE event_group_add(); 
