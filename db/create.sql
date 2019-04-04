@@ -53,6 +53,10 @@ DROP TRIGGER IF EXISTS check_moderator ON event_organizer CASCADE;
 DROP TRIGGER IF EXISTS event_group_add ON event_group CASCADE;
 
 
+DROP TRIGGER IF EXISTS verify_participation ON vote CASCADE;
+DROP FUNCTION IF EXISTS verify_part_procedure() CASCADE;
+
+
 
 -- Types
 
@@ -320,3 +324,24 @@ CREATE TRIGGER event_group_add
     AFTER INSERT ON event_group
     FOR EACH ROW
     EXECUTE PROCEDURE event_group_add(); 
+
+
+CREATE FUNCTION verify_part_procedure() RETURNS trigger AS $BODY$
+BEGIN
+
+	IF NOT EXISTS (
+				SELECT * 
+				FROM option, poll, event, event_participant
+				WHERE NEW.option = option.id AND option.poll = poll.id AND poll.event = event_participant.event AND event_participant.participant = NEW.voter
+				) THEN
+        RAISE EXCEPTION 'You are not allowed to vote in this event';
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER verify_participation
+	BEFORE INSERT ON vote
+	FOR EACH ROW
+	EXECUTE PROCEDURE verify_part_procedure();

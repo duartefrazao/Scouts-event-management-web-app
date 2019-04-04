@@ -354,27 +354,31 @@ INSERT INTO notification (id, code, "user", date)
 
 INSERT INTO poll (id, event, begin_date, end_date)
     VALUES(1, 1, '2019-05-13', '2019-06-20');
+    INSERT INTO poll (id, event, begin_date, end_date)
+    VALUES(2, 2, '2019-05-20', '2019-07-20');
 INSERT INTO poll (id, event, begin_date, end_date)
-    VALUES(2, 4, '2019-05-20', '2019-07-20');
+    VALUES(3, 3, '2019-05-20', '2019-07-20');
+INSERT INTO poll (id, event, begin_date, end_date)
+    VALUES(4, 4, '2019-05-20', '2019-07-20');
 
     -- OPTIONS
     INSERT INTO option(id, date, poll)
-        VALUES(1, '2019-05-13 10:30', 1);
+        VALUES(1, '2019-05-13 10:30', 2);
     INSERT INTO option(id, date, poll)
-        VALUES(2, '2019-05-13 12:30', 1);
+        VALUES(2, '2019-05-13 12:30', 2);
     INSERT INTO option(id, date, poll)
-        VALUES(3, '2019-05-15 9:30', 1);
+        VALUES(3, '2019-05-15 9:30', 2);
     INSERT INTO option(id, date, poll)
-        VALUES(4, '2019-05-20 11:40', 1);
+        VALUES(4, '2019-05-20 11:40', 2);
 
     INSERT INTO option(id, date, poll)
-        VALUES(5, '2019-05-21 10:30', 2);
+        VALUES(5, '2019-05-21 10:30', 3);
     INSERT INTO option(id, date, poll)
-        VALUES(6, '2019-05-24 12:30', 2);
+        VALUES(6, '2019-05-24 12:30', 3);
     INSERT INTO option(id, date, poll)
-        VALUES(7, '2019-05-25 9:30', 2);
+        VALUES(7, '2019-05-25 9:30', 3);
     INSERT INTO option(id, date, poll)
-        VALUES(8, '2019-05-30 11:40', 2);
+        VALUES(8, '2019-05-30 11:40', 3);
 
 
     -- VOTES
