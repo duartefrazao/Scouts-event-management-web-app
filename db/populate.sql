@@ -167,6 +167,8 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
 
     -- EVENT PARTICIPANTS
         --Lobitos
+        -- can be achived by adding an entry to event_group, due to the trigger
+    /*
     INSERT INTO event_participant (participant, event)
         VALUES(4, 1);
     INSERT INTO event_participant (participant, event)
@@ -177,7 +179,12 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
         VALUES(7, 1);
     INSERT INTO event_participant (participant, event)
         VALUES(8, 1);
+    */
+
         --Pioneiros
+        -- can be achived by adding an entry to event_group, due to the trigger
+
+    /*    
     INSERT INTO event_participant (participant, event)
         VALUES(9, 2);
     INSERT INTO event_participant (participant, event)
@@ -186,7 +193,11 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
         VALUES(11, 2);
     INSERT INTO event_participant (participant, event)
         VALUES(12, 2);
+    */
         --Exploradores
+        -- can be achived by adding an entry to event_group, due to the trigger
+
+    /*
     INSERT INTO event_participant (participant, event)
         VALUES(13, 3);
     INSERT INTO event_participant (participant, event)
@@ -195,7 +206,12 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
         VALUES(15, 3);
     INSERT INTO event_participant (participant, event)
         VALUES(16, 3);
+    */
+
         --Caminheiros
+        -- can be achived by adding an entry to event_group, due to the trigger
+
+    /*
     INSERT INTO event_participant (participant, event)
         VALUES(17, 4);  
     INSERT INTO event_participant (participant, event)
@@ -206,6 +222,8 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
         VALUES(20, 4);
     INSERT INTO event_participant (participant, event)
         VALUES(21, 4);
+    */
+
         --Mixed
     INSERT INTO event_participant (participant, event)
         VALUES(11, 5);
@@ -256,6 +274,7 @@ INSERT INTO "group" (id, name, is_section)
 
     -- GROUP MEMBER
         --Lobitos
+    
     INSERT INTO group_member(member, "group")
         VALUES(4, 1);
     INSERT INTO group_member(member, "group")
@@ -299,6 +318,17 @@ INSERT INTO "group" (id, name, is_section)
     INSERT INTO group_member(member, "group")
         VALUES(21, 4);
          
+
+-- EVENT GROUP
+
+INSERT INTO event_group(event, "group")
+    VALUES(1, 1);
+INSERT INTO event_group(event, "group")
+    VALUES(2, 2);
+INSERT INTO event_group(event, "group")
+    VALUES(3, 3);
+INSERT INTO event_group(event, "group")
+    VALUES(4, 4);
 
 
 -- CODE
