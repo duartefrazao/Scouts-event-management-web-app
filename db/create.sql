@@ -271,7 +271,7 @@ CREATE TABLE registration_request_guardian(
     g_description TEXT NOT NULL
 );
 
-
+-- Triggers
 
 CREATE FUNCTION check_moderator() RETURNS TRIGGER AS
 $BODY$
@@ -346,3 +346,10 @@ CREATE TRIGGER verify_participation
 	BEFORE INSERT ON vote
 	FOR EACH ROW
 	EXECUTE PROCEDURE verify_part_procedure();
+
+-- Indexes
+
+CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'
+
+
+CREATE INDEX search_event_title ON "event" USING GIST (to_tsvector('english', title));
