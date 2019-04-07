@@ -80,7 +80,7 @@ CREATE TABLE "user" (
    is_responsible BOOLEAN NOT NULL,
    is_guardian BOOLEAN NOT NULL,
    description text NOT NULL,
-   deactivated BOOLEAN NOT NULL
+   deactivated BOOLEAN NOT NULL DEFAULT 'false'
 );
 
 CREATE TABLE registration_request(
@@ -211,7 +211,7 @@ CREATE TABLE notification(
     id SERIAL PRIMARY KEY,
     code INTEGER REFERENCES code NOT NULL,
     "user" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    date DATE NOT NULL,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
     state NotificationState NOT NULL DEFAULT 'Not Seen'
 );
 

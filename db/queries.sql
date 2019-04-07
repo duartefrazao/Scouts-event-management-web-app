@@ -1,3 +1,5 @@
+--PESQUISAS MAIS FREQUENTES
+
 -- Query das notificações
 
 DROP VIEW IF EXISTS all_notifications;
@@ -92,3 +94,58 @@ FROM event_group, event
 WHERE event_group."group" = 2
     AND event.id = event_group.event
     LIMIT 5;
+
+
+--ALTERAÇÕES MAIS FREQUENTES
+
+--convite para um evento 
+INSERT INTO event_participant (participant, event)
+    VALUES($participant, $event);
+
+    --também pode ser feito através da seguinte query recorrendo ao trigger
+    INSERT INTO event_group(event, "group")
+        VALUES($event, $group);
+
+--criação de evento
+INSERT INTO event (title, description, price, start_date, location)
+    VALUES($title, $description, $price, $start_date, $location);
+
+--criação de grupo 
+INSERT INTO "group"(name)
+    VALUES($name);
+
+--voto numa sondagem 
+INSERT INTO vote(voter, option)
+    VALUES($voter, $option)
+
+--definição da data final de um evento
+UPDATE event
+    SET final_date = $final_date
+    WHERE event.id = $id;
+
+--criação de um comentário
+INSERT INTO comment(participant, event, "text")
+    VALUES($user_id, $event, $text);
+
+--criação de uma nova notificação
+INSERT INTO notification(code, "user")
+    VALUES($code, $user);
+    --especial enfâse nas de evento
+    INSERT INTO notification_event(notification, event)
+        VALUES($notification, $event);
+
+--inserção de um novo user após confirmação do registo
+    --aceitação do pedido
+UPDATE registration_request
+SET state = 'Accepted'
+WHERE registration_request.id = $id; 
+
+    --registo que foi aceite
+INSERT INTO registration_handling(request, admin)
+    VALUES($request_id, $admin_id);
+
+    --inserção no sistema
+INSERT INTO "user"(email, password, name, birthdate, is_responsible, is_guardian, description)
+    VALUES($email, $password, $name, $birthdate, $is_responsible, $is_guardian, $description);
+
+
