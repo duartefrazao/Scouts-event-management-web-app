@@ -166,63 +166,17 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
 
 
     -- EVENT PARTICIPANTS
-        --Lobitos
-        -- can be achived by adding an entry to event_group, due to the trigger
-    /*
-    INSERT INTO event_participant (participant, event)
-        VALUES(4, 1);
-    INSERT INTO event_participant (participant, event)
-        VALUES(5, 1);
-    INSERT INTO event_participant (participant, event)
-        VALUES(6, 1);
-    INSERT INTO event_participant (participant, event)
-        VALUES(7, 1);
-    INSERT INTO event_participant (participant, event)
-        VALUES(8, 1);
-    */
-
-        --Pioneiros
+        --Lobitos 4-5-6-7-8
         -- can be achived by adding an entry to event_group, due to the trigger
 
-    /*    
-    INSERT INTO event_participant (participant, event)
-        VALUES(9, 2);
-    INSERT INTO event_participant (participant, event)
-        VALUES(10, 2);
-    INSERT INTO event_participant (participant, event)
-        VALUES(11, 2);
-    INSERT INTO event_participant (participant, event)
-        VALUES(12, 2);
-    */
-        --Exploradores
+        --Pioneiros 9-10-11-12
         -- can be achived by adding an entry to event_group, due to the trigger
 
-    /*
-    INSERT INTO event_participant (participant, event)
-        VALUES(13, 3);
-    INSERT INTO event_participant (participant, event)
-        VALUES(14, 3);
-    INSERT INTO event_participant (participant, event)
-        VALUES(15, 3);
-    INSERT INTO event_participant (participant, event)
-        VALUES(16, 3);
-    */
-
-        --Caminheiros
+        --Exploradores 13-14-15-16
         -- can be achived by adding an entry to event_group, due to the trigger
 
-    /*
-    INSERT INTO event_participant (participant, event)
-        VALUES(17, 4);  
-    INSERT INTO event_participant (participant, event)
-        VALUES(18, 4);
-    INSERT INTO event_participant (participant, event)
-        VALUES(19, 4);
-    INSERT INTO event_participant (participant, event)
-        VALUES(20, 4);
-    INSERT INTO event_participant (participant, event)
-        VALUES(21, 4);
-    */
+        --Caminheiros 17-18-19-20
+        -- can be achived by adding an entry to event_group, due to the trigger
 
         --Mixed
     INSERT INTO event_participant (participant, event)
@@ -238,6 +192,20 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
     INSERT INTO event_participant (participant, event)
         VALUES(15, 5); 
         --User Created
+
+
+    -- COMMENTS
+    INSERT INTO comment (participant, event, "text")
+        VALUES(13, 3, 'Este evento vai ser mesmo fixe!');
+
+    INSERT INTO comment (participant, event, "text")
+        VALUES(20, 4, 'Vamos!');
+
+    INSERT INTO comment (participant, event, "text")
+        VALUES(12, 2, 'Gosto de ser Escuteiro!');
+
+    -- FILES
+   
 
 
 
@@ -433,3 +401,55 @@ INSERT INTO poll (id, event, begin_date, end_date)
         VALUES (15, 6);
     INSERT INTO vote(voter, option)
         VALUES (16, 6);
+
+
+-- ADMIN
+INSERT INTO admin(id, email, password)
+    VALUES (1, 'agrupa-admin@agrupa.com','AOS67sAC6DU');
+
+
+-- REGISTRATION
+
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (1,'Lee George','magna.nec.quam@euodio.ca','AON60VAC6DU','2001-10-16','Pending',
+    'Cras sed leo. Cras');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (2,'Leo Rogers','Sed.eu.nibh@neceuismod.ca','ALA87SFW4HP','2008-07-15','Pending',
+    'In tincidunt congue turpis. In condimentum.');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (3,'Thor Lee','arcu@urnaNunc.ca','CNO80QJB5CX','2004-03-15','Pending',
+    'consectetuer adipiscing elit. Etiam laoreet,');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (4,'Thor Castaneda','erat@commodoatlibero.org','HMM34FTE4VQ','2013-04-10','Pending',
+    'diam. Sed diam lorem,');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (5,'Cedric Dickson','fermentum.vel.mauris@mattisvelitjusto.co.uk','HZJ37OJC4XV','1996-04-13','Pending',
+    'feugiat placerat velit. Quisque');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (6,'Kasimir Hancock','malesuada.malesuada@turpis.co.uk','WWI42NGW2NV','1997-09-28','Pending',
+    'nibh. Aliquam ornare, libero at');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (7,'Herman Tyson','mus.Donec.dignissim@ipsumcursusvestibulum.net','ZTJ80LED4CI','1996-04-06','Pending',
+    'mauris erat eget ipsum. Suspendisse sagittis.');
+INSERT INTO registration_request (id,name,email,password,birthdate,state,description) 
+    VALUES (8,'Victor Booth','at.fringilla@auctorvitae.org','HFG73YTJ5OX','2005-10-21','Pending',
+    'imperdiet ornare. In faucibus.');
+
+    -- REGISTRATION WITH GUARDIAN
+    INSERT INTO registration_request_guardian (minor,g_name,g_email,g_password,g_birthdate,g_description) 
+        VALUES (1,'Linus Ashley','suscipit@urnaconvallis.edu','FVF13TKW5LF','1953-10-03','velit. Pellentesque ultricies dignissim lacus. Aliquam');
+    INSERT INTO registration_request_guardian (minor,g_name,g_email,g_password,g_birthdate,g_description) 
+        VALUES (2,'Shad York','elementum.lorem@Aeneaneget.edu','KPK78MWN1GD','1954-08-02','auctor non, feugiat nec,');
+    INSERT INTO registration_request_guardian (minor,g_name,g_email,g_password,g_birthdate,g_description) 
+        VALUES (3,'Jasper Britt','Vivamus.non.lorem@semegestasblandit.ca','ZNS55MQS4MK','1965-05-31','Aliquam erat volutpat. Nulla');
+    INSERT INTO registration_request_guardian (minor,g_name,g_email,g_password,g_birthdate,g_description) 
+        VALUES (4,'Felix Gallegos','libero.Proin@Nulla.co.uk','AXC64KUA5PW','1952-10-29','congue a, aliquet vel, vulputate eu,');
+
+    -- ADDED MINORS
+    INSERT INTO guardian_added_minors(request, guardian)
+        VALUES (8, 3);
+
+-- GUARDIAN EXCHANGE
+    --Request to make User 2 the new guardian of the User 1 (previous guardian -> 1)
+INSERT INTO guardian_exchange(id, minor, new_guardian)
+    VALUES(1, 1, 2);

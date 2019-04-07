@@ -28,8 +28,8 @@ DROP TABLE IF EXISTS group_moderator CASCADE;
 
 DROP TABLE IF EXISTS "user" CASCADE;
 
-DROP TABLE IF EXISTS registration_request_handling CASCADE;
 DROP TABLE IF EXISTS registration_handling CASCADE;
+DROP TABLE IF EXISTS registration_request_guardian CASCADE;
 DROP TABLE IF EXISTS registration_request CASCADE;
 
 DROP TABLE IF EXISTS group_elimination CASCADE;
@@ -252,17 +252,18 @@ CREATE TABLE user_elimination(
 
 CREATE TABLE guardian_exchange_validation(
     exchange INTEGER PRIMARY KEY REFERENCES guardian_exchange,
-    admin INTEGER REFERENCES admin NOT NULL
+    admin INTEGER REFERENCES admin NOT NULL, 
+    "date" DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE registration_handling(
-    request SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
+    request INTEGER PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
     admin INTEGER REFERENCES admin NOT NULL,
     "date" DATE  NOT NULL DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE registration_request_handling(
-    minor SERIAL PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
+CREATE TABLE registration_request_guardian(
+    minor INTEGER PRIMARY KEY REFERENCES registration_request ON DELETE CASCADE,
     g_name TEXT NOT NULL,
     g_email TEXT NOT NULL UNIQUE,
     g_password TEXT NOT NULL UNIQUE,
