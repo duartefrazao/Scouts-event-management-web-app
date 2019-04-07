@@ -43,14 +43,13 @@ DROP TABLE IF EXISTS code CASCADE;
 DROP TYPE IF EXISTS NotificationState CASCADE;
 DROP TYPE IF EXISTS ParticipationStatus CASCADE;
 DROP TYPE IF EXISTS RegisterStatus CASCADE;
-
-
-DROP FUNCTION IF EXISTS check_moderator() CASCADE;
-DROP FUNCTION IF EXISTS event_group_add() CASCADE;
-
+DROP TYPE IF EXISTS ReserverGroupNames CASCADE;
 
 DROP TRIGGER IF EXISTS check_moderator ON event_organizer CASCADE;
+DROP FUNCTION IF EXISTS check_moderator() CASCADE;
+
 DROP TRIGGER IF EXISTS event_group_add ON event_group CASCADE;
+DROP FUNCTION IF EXISTS event_group_add() CASCADE;
 
 DROP TRIGGER IF EXISTS verify_participation ON vote;
 DROP FUNCTION IF EXISTS verify_part_procedure();
@@ -64,6 +63,9 @@ DROP FUNCTION IF EXISTS notification_guardian_procedure();
 DROP TRIGGER IF EXISTS notification_group_trigger ON notification_group;
 DROP FUNCTION IF EXISTS notification_group_procedure();
 
+DROP TRIGGER IF EXISTS group_name ON "group";
+DROP FUNCTION IF EXISTS check_group_name();
+
 
 
 -- Types
@@ -73,6 +75,8 @@ CREATE TYPE NotificationState AS ENUM ('Seen', 'Not Seen');
 CREATE TYPE ParticipationStatus AS ENUM ('Going', 'Not Going', 'Pending');
 
 CREATE TYPE RegisterStatus AS ENUM ('Accepted', 'Rejected', 'Pending');
+
+CREATE TYPE ReserverGroupNames AS ENUM ('lobitos', 'pioneiros', 'exploradores', 'caminheiros');
 
 
 
@@ -425,11 +429,27 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-
 CREATE TRIGGER notification_group_trigger
 	BEFORE INSERT ON notification_group
 	FOR EACH ROW
 	EXECUTE PROCEDURE notification_group_procedure();
+
+CREATE FUNCTION check_group_name() RETURNS trigger AS $BODY$
+BEGIN 
+    IF ( SELECT lower(NEW.name) = any (enum_range(null::ReserverGroupNames)::name[]) ) THEN
+        IF EXISTS (SELECT true FROM "group" WHERE lower("group".name) = lower(NEW.name)) THEN
+            RAISE EXCEPTION 'ERROR: Cannot create a new group with that name';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER group_name
+    BEFORE INSERT ON "group"
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_group_name();
+
 
 
 
@@ -437,4 +457,10 @@ CREATE TRIGGER notification_group_trigger
 
 CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'
 
-CREATE INDEX search_event_title ON "event" USING GIST (to_tsvector('english', title));
+CREATE INDEX search_event_title ON event USING GIST (to_tsvector('english', title));
+
+--pesquisa de eventos por data inicial
+CREATE INDEX search_event_date ON event USING btree (start_date);
+
+--pesquisa de comentários de um evento
+CREATE INDEX event_comments ON comment USING hash(event);
