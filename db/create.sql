@@ -52,9 +52,17 @@ DROP FUNCTION IF EXISTS event_group_add() CASCADE;
 DROP TRIGGER IF EXISTS check_moderator ON event_organizer CASCADE;
 DROP TRIGGER IF EXISTS event_group_add ON event_group CASCADE;
 
+DROP TRIGGER IF EXISTS verify_participation ON vote;
+DROP FUNCTION IF EXISTS verify_part_procedure();
 
-DROP TRIGGER IF EXISTS verify_participation ON vote CASCADE;
-DROP FUNCTION IF EXISTS verify_part_procedure() CASCADE;
+DROP TRIGGER IF EXISTS notification_event_trigger ON notification_event;
+DROP FUNCTION IF EXISTS notification_event_procedure();
+
+DROP TRIGGER IF EXISTS notification_guardian_trigger ON notification_guardian;
+DROP FUNCTION IF EXISTS notification_guardian_procedure();
+
+DROP TRIGGER IF EXISTS notification_group_trigger ON notification_group;
+DROP FUNCTION IF EXISTS notification_group_procedure();
 
 
 
@@ -347,9 +355,86 @@ CREATE TRIGGER verify_participation
 	FOR EACH ROW
 	EXECUTE PROCEDURE verify_part_procedure();
 
+
+--Notification triggers
+
+CREATE FUNCTION notification_event_procedure() RETURNS trigger AS $BODY$
+BEGIN
+	IF EXISTS (
+				SELECT NEW.notification
+				FROM notification_group
+				WHERE NEW.notification = notification_group.notification
+                UNION ALL
+                SELECT NEW.notification 
+                FROM notification_guardian
+				WHERE NEW.notification = notification_guardian.notification
+			    ) THEN
+        RAISE EXCEPTION 'ERROR: Notification already assign';
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER notification_event_trigger
+	BEFORE INSERT ON notification_event
+	FOR EACH ROW
+	EXECUTE PROCEDURE notification_event_procedure();
+
+
+
+CREATE FUNCTION notification_guardian_procedure() RETURNS trigger AS $BODY$
+BEGIN
+	IF EXISTS (
+				SELECT NEW.notification
+				FROM notification_group
+				WHERE NEW.notification = notification_group.notification
+                UNION ALL
+                SELECT NEW.notification 
+                FROM notification_event
+				WHERE NEW.notification = notification_event.notification
+			    ) THEN
+        RAISE EXCEPTION 'ERROR: Notification already assign';
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER notification_guardian_trigger
+	BEFORE INSERT ON notification_guardian
+	FOR EACH ROW
+	EXECUTE PROCEDURE notification_guardian_procedure();
+
+
+
+CREATE FUNCTION notification_group_procedure() RETURNS trigger AS $BODY$
+BEGIN
+	IF EXISTS (
+				SELECT NEW.notification
+				FROM notification_guardian
+				WHERE NEW.notification = notification_guardian.notification
+                UNION ALL
+                SELECT NEW.notification 
+                FROM notification_event
+				WHERE NEW.notification = notification_event.notification
+			    ) THEN
+        RAISE EXCEPTION 'ERROR: Notification already assign';
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER notification_group_trigger
+	BEFORE INSERT ON notification_group
+	FOR EACH ROW
+	EXECUTE PROCEDURE notification_group_procedure();
+
+
+
 -- Indexes
 
 CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'
-
 
 CREATE INDEX search_event_title ON "event" USING GIST (to_tsvector('english', title));
