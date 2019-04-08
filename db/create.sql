@@ -466,4 +466,4 @@ CREATE INDEX search_event_date ON event USING btree (start_date);
 CREATE INDEX event_comments ON comment USING hash(event);
 
 --pesquisa de minors - TO TEST
-create INDEX user_guards ON user USING hash(guardian);
+create INDEX guardians ON "user" USING hash(guardian) WHERE guardian IS NOT NULL;
