@@ -124,19 +124,19 @@ INSERT INTO location (name, coordinates, postal_code) VALUES ('Porto', point(41.
     -- EVENT 6 -> USER CREATED EVENT
 
 INSERT INTO event (id,title,description,price,start_date,final_date) 
-    VALUES (1,'Aliquam ultrices','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
+    VALUES (1,'Acampamento Regional dos Pioneiros','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
     10,'2019-10-21 17:00','2019-10-23 19:00');
 INSERT INTO event (id,title,description,price,location) 
-    VALUES (2,'eu augue','pulvinar',9,1);
+    VALUES (2,'Atividade de secção','pulvinar',9,1);
 INSERT INTO event (id,title,description,price) 
-    VALUES (3,'luctus et','non, cursus non, egestas a',6);
+    VALUES (3,'Kimeras','non, cursus non, egestas a',6);
 INSERT INTO event (id,title,description,price,start_date,final_date,location) 
-    VALUES (4,'ut ipsum','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
+    VALUES (4,'Acampamento para os noviços','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
     5,'2019-07-16 14:04','2020-01-16 22:51',3);
 INSERT INTO event (id,title,description,price,start_date,final_date,location) 
-    VALUES (5,'eu','ligula. Aenean gravida',2,'2019-09-12 04:40','2019-09-21 07:21',1);
+    VALUES (5,'eu','Acampamento de verao',2,'2019-09-12 04:40','2019-09-21 07:21',1);
 INSERT INTO event (id,title,description,price,start_date,final_date,location) 
-    VALUES (6,'mus. Donec dignissim','justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed',
+    VALUES (6,'ACANAC','justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed',
     11,'2019-05-20 10:40','2019-05-21 06:23',2);
 
     -- EVENT ORGANIZERS

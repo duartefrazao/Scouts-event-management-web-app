@@ -149,3 +149,19 @@ INSERT INTO "user"(email, password, name, birthdate, is_responsible, is_guardian
     VALUES($email, $password, $name, $birthdate, $is_responsible, $is_guardian, $description);
 
 
+/* dads */
+Select event.id,title,ts_rank((
+        setweight(to_tsvector('Portuguese',title), 'A')                     ||
+        setweight(to_tsvector('Portuguese',coalesce(description,'')),'C')      ||
+        setweight(to_tsvector('Portuguese',coalesce(name,'')),'A')
+    ),keywords,1) AS rank
+FROM event JOIN location 
+    ON (event.location = location.id)
+    ,plainto_tsquery('Portuguese','acampamento') keywords
+WHERE (
+        setweight(to_tsvector('Portuguese',title), 'A')                     ||
+        setweight(to_tsvector('Portuguese',coalesce(description,'')),'C')      ||
+        setweight(to_tsvector('Portuguese',coalesce(name,'')),'A')
+    ) @@ keywords
+ORDER BY rank DESC
+LIMIT 10;
