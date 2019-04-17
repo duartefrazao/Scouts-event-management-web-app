@@ -1148,7 +1148,7 @@ VALUES (16, 6);
 
 -- ADMIN
 INSERT INTO admin(id, email, password)
-VALUES (1, 'agrupa-admin@agrupa.com','AOS67sAC6DU');
+VALUES (1, 'agrupa-admin@agrupa.com','$2y$12$S7AhzhobTdNsi1bLGKd1A.1Bu7yVlrib9P1hfiY65K7K7hKgyq4Cq');
 
 
 -- REGISTRATION

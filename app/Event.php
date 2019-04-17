@@ -28,4 +28,8 @@ class Event extends Model
     public function organizers() {
         return $this->belongsToMany('App\User', 'event_organizer', 'event', 'organizer');
     }
+
+    public function location(){
+        return $this->hasOne('App\Location');
+    }
 }
