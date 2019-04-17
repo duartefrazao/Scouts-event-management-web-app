@@ -39,19 +39,19 @@ class User extends Authenticatable
 
 
     public function participant(){
-         return $this->belongsToMany('App\Event')->using('App\EventParticipant');
+         return $this->belongsToMany('App\Event', 'event_participant', 'participant', 'event');
     }
 
     public function organizer(){
-        return $this->belongsToMany('App\Event')->using('App\EventOrganizer');
+        return $this->belongsToMany('App\Event', 'event_organizer', 'organizer', 'event');
     }
 
     public function member(){
-         return $this->belongsToMany('App\Group')->using('App\GroupMember');
+         return $this->belongsToMany('App\Group', 'group_member');
     }
 
     public function moderator(){
-        return $this->belongsToMany('App\Group')->using('App\GroupModerator');
+        return $this->belongsToMany('App\Group', 'group_moderator');
     }
 
     /**

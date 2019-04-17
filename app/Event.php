@@ -21,6 +21,11 @@ class Event extends Model
      * The card this item belongs to.
      */
     public function participants() {
-        return $this->belongsTo('App\User');
+        return $this->belongsToMany('App\User', 'event_participant', 'event', 'participant');
+    }
+
+
+    public function organizers() {
+        return $this->belongsToMany('App\User', 'event_organizer', 'event', 'organizer');
     }
 }

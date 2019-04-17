@@ -898,6 +898,11 @@ VALUES(17, 5);
 INSERT INTO event_organizer (organizer, event)
 VALUES(15, 6);
 
+INSERT INTO event_organizer (organizer, event)
+VALUES(1, 5);
+INSERT INTO event_participant(participant, event)
+VALUES(1, 6);
+
 
 -- EVENT PARTICIPANTS
 --Lobitos 4-5-6-7-8

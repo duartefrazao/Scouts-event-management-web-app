@@ -15,6 +15,11 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+
+// Events
+Route::get('events', 'EventController@list');
+Route::get('events/{id}', 'EventController@show');
+
 // Cards
 Route::get('cards', 'CardController@list');
 Route::get('cards/{id}', 'CardController@show');
