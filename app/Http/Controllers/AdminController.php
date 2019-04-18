@@ -15,9 +15,6 @@ class AdminController extends Controller
 
     public function list(){
 
-
-        sleep(1);
-
         if (!Auth::check()) return redirect('admin/login');
 
         return view('pages.admindash');
