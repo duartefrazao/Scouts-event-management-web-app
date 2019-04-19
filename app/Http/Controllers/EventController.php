@@ -55,10 +55,9 @@ class EventController extends Controller
      * @param  Request request containing the description
      * @return Response
      */
-    public function create(Request $request, $event_id)
+    public function create(Request $request)
     {
         $event = new Event();
-        $event->id = $event_id;
 
         $this->authorize('create', $event);
 

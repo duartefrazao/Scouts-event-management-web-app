@@ -18,9 +18,15 @@ class Group extends Model
     public $timestamps  = false;
 
     /**
-     * The card this item belongs to.
+     * The group members
      */
-    public function participants() {
-        return $this->belongsTo('App\Card');
+    public function members() {
+        return $this->belongsToMany('App\User', 'group_member', 'group', 'member');
     }
+
+
+    public function moderators() {
+        return $this->belongsToMany('App\User', 'group_moderator', 'group', 'moderator');
+    }
+
 }

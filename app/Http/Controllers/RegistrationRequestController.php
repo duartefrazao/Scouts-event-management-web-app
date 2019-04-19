@@ -49,10 +49,9 @@ class RegistrationRequestController extends Controller
      * @param  Request request containing the description
      * @return Response
      */
-    public function create(Request $request, $reg_request_id)
+    public function create(Request $request)
     {
         $reg_request = new RegistrationRequest();
-        $reg_request->id = $reg_request_id;
 
         //$this->authorize('create', $reg_request);
 
