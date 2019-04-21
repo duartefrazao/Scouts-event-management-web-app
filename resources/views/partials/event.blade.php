@@ -1,9 +1,72 @@
-<article class="event" data-id="{{ $event->id }}">
-    <header>
-        <h2><a href="/events/{{ $event->id }}">{{ $event->title }}</a></h2>
-        <a href="#" class="delete">&#10761;</a>
-    </header>
-    <div>
-        {{ $event->description }}
+<a class="card-wrap" href="/events/{{ $event->id }}">
+    @php
+        $date = new Datetime($event->start_date)
+    @endphp
+    <div class="card">
+        <div class="card-block">
+            <div class="event-info">
+                <div class="event-basic-info">
+                    <time datetime="2019-03-03" class="icon calendar">
+                        <span class="event-card-month ">{{$date->format('M')}}</span>
+                        <span class="event-card-day"> {{$date->format('d')}} </span>
+                        <span class="event-card-week-day">{{$date->format('Y')}}</span>
+                    </time>
+                    <div class="container center-container-vertically">
+
+                        <h5 class="card-title">{{$event->title}}</h5>
+                        <h6 class="card-subtitle sec  text-muted">
+                            <div class="loc text-muted ">{{$event->location}} </div>
+                            <div class="text-muted card-number-participants justify-content-center">18 confirmaram </div>    
+                                
+                        </h6>
+
+                        <div class="text-muted">Hora: 9:00</div>
+                        <div class="text-muted">Preço: 0 euros</div>
+                        
+
+                        <div class=" card-test-invited"> 
+                            Convidados 
+                        </div>
+                        
+
+
+                        <div class="card-body group-members">
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Daniel</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Bruno</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Sofia</a>
+                            </div>
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">Joana</a>
+                            </div>
+                            
+
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">António ...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+            
+                       
+                </div>
+
+                <hr class="event-line"> 
+                <div class="card-common-groups">
+                    <button type="button" class="btn btn-light card-group-name">Caminheiros</button>
+                    <button type="button" class="btn btn-light card-group-name">ENG</button>
+                    <button type="button" class="btn btn-light card-group-name">Imaginário</button>
+                    <button type="button" class="btn btn-light card-group-name">ACAVER</button>
+                </div>
+                        
+        </div>
     </div>
-</article>
+</a>
