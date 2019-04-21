@@ -54,6 +54,14 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Group', 'group_moderator');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function votes(){
+        return $this->hasMany('App\Vote');
+    }
+
     /**
      * The cards this user owns.
      */

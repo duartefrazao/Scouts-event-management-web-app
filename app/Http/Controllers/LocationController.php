@@ -12,7 +12,6 @@ class LocationController extends Controller
     /**
      * Creates a new location.
      *
-     * @param int $event_id
      * @param Request request containing the description
      * @return Response
      */

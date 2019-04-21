@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Item;
-use App\Card;
 
 use Illuminate\Http\Request;
 

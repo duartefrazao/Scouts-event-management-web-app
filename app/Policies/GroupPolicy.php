@@ -2,19 +2,19 @@
 
 namespace App\Policies;
 
+use App\Group;
 use App\User;
-use App\Event;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class EventPolicy
+class GroupPolicy
 {
     use HandlesAuthorization;
 
-    public function show(User $user, Event $event)
+    public function show(User $user, Group $group)
     {
-        return $event->participants->contains($user->id) || $event->organizers->contains($user->id);
+        return $group->members->contains($user->id) || $group->moderators->contains($user->id);
     }
 
     public function list(User $user)
@@ -29,9 +29,9 @@ class EventPolicy
         return Auth::check() && $user->is_responsible;
     }
 
-    public function delete(User $user, Event $event)
+    public function delete(User $user, Group $group)
     {
-        // Only a card owner can delete it
-        return $event->organizers->contains($user->id);
+        // Only a group moderator can delete the group
+        return $group->moderators->contains($user->id);
     }
 }
