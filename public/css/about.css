@@ -1,0 +1,33 @@
+.about-section{
+    padding: 1em;
+    display: flex;
+
+    font-size: large;
+    flex-direction: column;
+    text-indent: 1em;
+}
+
+
+.about-title{
+    font-weight: bold;
+    margin: 0 auto;
+    font-size: xx-large;
+    text-decoration: underline;
+    padding: 1.5em 0;
+}
+
+
+.about-us{
+    font-weight: bold;
+    margin: 0 auto;
+    font-size: xx-large;
+    text-decoration: underline;
+    padding: 1em 0;
+}
+
+
+.about-initial{
+    margin: 0 auto;
+    margin-bottom: 2em;
+}
+

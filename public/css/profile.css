@@ -1,0 +1,150 @@
+#profile-page{
+    --profile-image-size: 25%; 
+    --profile-image-border: 4px;
+    --profile-image-original-size:160px;
+    --screen-size:100%;
+}
+
+.profile-image {
+    margin-top: 2em;
+    width: 25%;
+}
+
+.profile-section-name {
+    margin-top: 0;
+    text-align: center;
+}
+
+.profile-member-name {
+    margin-bottom: 0;
+}
+
+.profile-member-name {
+    text-align: center;
+}
+
+.profile-line-identified {
+    border-color: rgba(255, 0, 0, 0.657);
+    border-width: 0.2em;
+    width: 10%;
+    margin: 0 auto;
+}
+
+.profile-top {
+    display: block;
+    position: relative;
+}
+
+.profile-top input {
+    display: none;
+}
+
+.profile-top label {
+    display: block;
+}
+
+.profile-edit-image {
+    margin: 0 auto;
+    opacity: 0.8;
+    cursor: pointer;
+    position: absolute;
+    bottom: 2px;
+    right: calc(var(--profile-image-border) - 
+           var(--profile-image-original-size)/2 
+           + var(--screen-size)/2 - (var(--profile-image-size) -
+           var(--profile-image-original-size))/2);
+}
+
+.profile-edit-image:hover {
+    opacity: 1;
+    transition: opacity 0.1s;
+    -webkit-transition: opacity 0.1s;
+}
+
+.profile-description {
+    resize: none;
+}
+
+#profile-page form {
+    color: black;
+}
+
+@media(max-width:1340px) {
+    .profile-edit-image {
+        right: calc(var(--profile-image-border) - var(--profile-image-original-size)/2 + var(--screen-size)/2);
+    }
+
+    .profile-image {
+        width: 10em;
+    }
+}
+
+.profile-edit {
+    margin-top: 2em;
+    display: flex;
+}
+
+.profile-edit .account-manage{
+    justify-self: flex-end;
+    margin-left: auto;
+}
+
+.profile-edit .fas{
+    color: rgba(20, 20, 20, 0.623);
+
+
+}
+.profile-edit .fas:hover::before {
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+.profile-edit .fas:before {
+    display: inline-block;
+    /* mandatory to be able to use transform */
+    transition: 0.5s all;
+}
+
+
+.profile-form-btns {
+    float: right;
+    margin-right: 1em;
+    display: none;
+}
+
+.profile-form-btns button {
+    margin-right: 1em;
+}
+
+.profile-alert {
+    position: absolute;
+    right: 10em;
+    top: 100px;
+}
+
+
+
+@media(max-width:770px) {
+    .profile-alert {
+        position: absolute;
+        bottom: 0;
+        margin: 0 auto;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        top: initial !important;
+        right: initial !important;
+    }
+}
+
+
+/* Form */
+
+/* .profile-form-group{
+    margin:0 2em 1em 2em;
+}
+
+.profile-update-btn{
+    float:right;
+    margin:0 2em 2em 0;
+} */
