@@ -1,0 +1,125 @@
+#chief-section-manage .promote-user-info {
+    margin-top: 1em;
+
+    align-content: center;
+    vertical-align: middle;
+    align-content: center;
+}
+
+#chief-section-manage .promote-user-info .member-face {
+    margin-right: 1em;
+}
+
+#chief-section-manage .promote-arrow {
+    margin-left: auto;
+    margin-right: 2em;
+    font-size: large;
+}
+
+.promote-arrow:hover::before {
+    transform: scale(1.5);
+    cursor: pointer;
+    color: rgb(0, 194, 0);
+}
+
+.promote-arrow:before {
+    display: inline-block;
+    /* mandatory to be able to use transform */
+    transition: 0.5s all;
+}
+
+.promote-arrow.active {
+    color: rgb(0, 194, 0);
+}
+
+.section-manage-title {
+    font-size: x-large;
+    padding: 1em;
+    padding-left: 0;
+    padding-bottom: 0.5em;
+    border-bottom: solid 1px gray;
+    font-weight: bold;
+}
+
+
+
+.section-manage-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.section-manage-info .section-manage-subtitle{
+    text-align: center;
+    vertical-align: center;
+
+    font-size: large;
+    font-weight: lighter;
+}
+
+.section-manage-info .btn-success {
+    margin-left: 1em;
+}
+
+.section-manage-info .btn-danger {
+    margin-left: auto;
+}
+
+.animate-section-transition {
+    -webkit-animation: mover 0.5s ease-out;
+    animation: mover 0.5s ease-out;
+}
+
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translateY(-30px);
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translateY(-30px);
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+@media(max-width:770px) {
+
+
+    #chief-section-manage .promote-arrow {
+        justify-self: center;
+        align-self: center;
+        margin: 1em 0 !important;
+    }
+
+    #chief-section-manage .member-face {
+        justify-self: center;
+        align-self: center;
+        margin: 0 1em;
+    }
+
+}
