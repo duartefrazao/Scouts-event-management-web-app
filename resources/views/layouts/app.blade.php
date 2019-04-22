@@ -86,12 +86,36 @@
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
     <script type="text/javascript" src={{ asset('js/app.js') }} defer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+        defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
+        defer></script>
+    <script src="../bootstrap/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+        defer></script>
+
+
+
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer></script>
+    <script src="../js/map.js" type="text/javascript" defer></script>
+    <script src="../js/home.js" type="text/javascript" defer></script>
+    <script src="../js/member.js" type="text/javascript"></script>
+    <script src="../js/event.js" type="text/javascript" defer></script>
+    <script src="../js/group.js" type="text/javascript" defer></script>
+    <script src="../js/profile.js" type="text/javascript" defer></script>
+    <script src="../js/notification.js" type="text/javascript" defer></script>
+    <script src="../js/admin.js" type="text/javascript" defer></script>
+    <script src="../js/section-manage.js" type="text/javascript" defer></script>
+    <script src="../js/search.js" type="text/javascript" defer></script>
+
 </script>
   </head>
   <body>
     <main>
       <header>
-        <h1><a href="{{ url('/cards') }}">Agrupa!</a></h1>
+       {{--  <h1><a href="{{ url('/cards') }}">Agrupa!</a></h1> --}}
         @if (Auth::check())
         <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
         @endif
