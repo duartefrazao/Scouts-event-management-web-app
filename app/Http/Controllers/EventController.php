@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Event;
+use App\Location;
 
 class EventController extends Controller
 {
@@ -41,9 +43,13 @@ class EventController extends Controller
 
         $events_part = Auth::user()->participant()->orderBy('id')->get();
 
+
         $events_org = Auth::user()->organizer()->orderBy('id')->get();
 
         $events = $events_part->merge($events_org);
+
+        foreach ($events as $event)
+            $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
 
         return view('pages.events', ['events' => $events]);
     }

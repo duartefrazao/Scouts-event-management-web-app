@@ -181,8 +181,8 @@ CREATE TABLE event(
                       title text NOT NULL,
                       description text,
                       price REAL NOT NULL DEFAULT 0,
-                      start_date DATE,
-                      final_date DATE,
+                      start_date TIMESTAMP,
+                      final_date TIMESTAMP,
                       location INTEGER REFERENCES location (id) ON UPDATE CASCADE,
                       vector tsvector,
                       CONSTRAINT start_date_limit CHECK (start_date < CURRENT_DATE + interval '1 year')

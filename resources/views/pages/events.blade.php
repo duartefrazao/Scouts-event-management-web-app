@@ -7,10 +7,9 @@
 @endsection
 
 @section('content')
-
-    <section id="events">
+    <div id="events" class="container-fluid events-flex ">
         @each('partials.event', $events, 'event')
-    </section>
+    </div>
 
 @endsection
 
