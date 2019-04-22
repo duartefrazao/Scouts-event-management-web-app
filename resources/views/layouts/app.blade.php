@@ -96,7 +96,7 @@
             defer></script>
 
 
-    <!--<script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer></script>
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer></script>
     <script src="../js/map.js" type="text/javascript" defer></script>
     <script src="../js/home.js" type="text/javascript" defer></script>
     <script src="../js/member.js" type="text/javascript"></script>
@@ -106,7 +106,7 @@
     <script src="../js/notification.js" type="text/javascript" defer></script>
     <script src="../js/admin.js" type="text/javascript" defer></script>
     <script src="../js/section-manage.js" type="text/javascript" defer></script>
-    <script src="../js/search.js" type="text/javascript" defer></script>-->
+    <script src="../js/search.js" type="text/javascript" defer></script>
 
     </head>
 <body>

@@ -17,7 +17,7 @@
                         <h5 class="card-title">{{$event->title}}</h5>
                         <h6 class="card-subtitle sec  text-muted">
                             <div class="loc text-muted ">{{$event->loc_name}} </div>
-                            <div class="text-muted card-number-participants justify-content-center">18 confirmaram </div>    
+                            <div class="text-muted card-number-participants justify-content-center">{{count($event->going)}} confirmaram </div>    
                                 
                         </h6>
 
@@ -34,30 +34,15 @@
                         <div class=" card-test-invited"> 
                             Convidados 
                         </div>
-                        
-
 
                         <div class="card-body group-members">
-                            <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">Daniel</a>
-                            </div>
 
+                            @foreach($event->invited as $inv)
                             <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">Bruno</a>
+                                <a href="#" class="group-member-name text-muted">{{$inv}}</a>
                             </div>
-
-                            <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">Sofia</a>
-                            </div>
-
-                            <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">Joana</a>
-                            </div>
+                            @endforeach
                             
-
-                            <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">António ...</a>
-                            </div>
                         </div>
                     </div>
                 </div>

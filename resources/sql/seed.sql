@@ -900,8 +900,7 @@ VALUES(15, 6);
 
 INSERT INTO event_organizer (organizer, event)
 VALUES(1, 5);
-INSERT INTO event_participant(participant, event)
-VALUES(1, 6);
+
 
 
 -- EVENT PARTICIPANTS
@@ -930,6 +929,12 @@ INSERT INTO event_participant (participant, event)
 VALUES(13, 5);
 INSERT INTO event_participant (participant, event)
 VALUES(15, 5);
+INSERT INTO event_participant(participant, event)
+VALUES(1, 6);
+INSERT INTO event_participant(participant, event)
+VALUES(9, 6);
+
+
 --User Created
 
 

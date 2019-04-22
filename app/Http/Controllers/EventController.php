@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Event;
 use App\Location;
+use App\Group;
 
 class EventController extends Controller
 {
@@ -25,6 +26,10 @@ class EventController extends Controller
         $event = Event::find($id);
 
         $this->authorize('show', $event);
+        $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
+        $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
+        $event['going'] = DB::table('event_participant')->where('event', $event->id)->where('state', 'Going')->get()->toArray();
+        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
 
         return view('pages.event', ['event' => $event]);
     }
@@ -52,6 +57,8 @@ class EventController extends Controller
         foreach ($events as $event){
             $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
             $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
+            $event['going'] = DB::table('event_participant')->where('event', $event->id)->where('state', 'Going')->get()->toArray();
+            $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
         }
             
         return view('pages.events', ['events' => $events]);
