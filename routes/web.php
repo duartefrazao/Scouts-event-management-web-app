@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return redirect('login');
-});
+})->name('/');
 
 
 // Events
@@ -30,6 +30,10 @@ Route::delete('api/cards/{card_id}', 'CardController@delete');
 Route::put('api/cards/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
+
+//Profile
+Route::get('profile/{id}', 'CardController@list')->name('profile')->where('id','[0-9]+');
+
 
 // Authentication
 

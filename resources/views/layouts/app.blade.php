@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,12 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <!--<link href="{{ asset('css/milligram.min.css') }}" rel="stylesheet">-->
-    <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
-    
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--<link href="{{ asset('css/milligram.min.css') }}" rel="stylesheet">-->
+<!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Calendar Icon-->
     <link rel="stylesheet" href="../css/calendar.css" type="text/css">
@@ -73,9 +73,8 @@
     <link rel="stylesheet" href="../fontawesome/css/all.min.css" type="text/css">
 
     <link
-        href="https://fonts.googleapis.com/css?family=Acme|Francois+One|Indie+Flower|Josefin+Sans|Permanent+Marker|Quicksand|Sniglet|Rock+Salt"
-        rel="stylesheet">
-
+            href="https://fonts.googleapis.com/css?family=Acme|Francois+One|Indie+Flower|Josefin+Sans|Permanent+Marker|Quicksand|Sniglet|Rock+Salt"
+            rel="stylesheet">
 
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Nunito|PT+Sans" rel="stylesheet">
@@ -85,17 +84,16 @@
         // Fix for Firefox autofocus CSS bug
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
-    <script type="text/javascript" src={{ asset('js/app.js') }} defer>
+    <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
-        defer></script>
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+            defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
-        defer></script>
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
+            defer></script>
     <script src="../bootstrap/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
-        defer></script>
-
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+            defer></script>
 
 
     <script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer></script>
@@ -110,19 +108,15 @@
     <script src="../js/section-manage.js" type="text/javascript" defer></script>
     <script src="../js/search.js" type="text/javascript" defer></script>
 
-</script>
-  </head>
-  <body>
+    </head>
+<body>
     <main>
-      <header>
-       {{--  <h1><a href="{{ url('/cards') }}">Agrupa!</a></h1> --}}
-        @if (Auth::check())
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-        @endif
-      </header>
-      <section id="content">
-        @yield('content')
-      </section>
+        <header>
+            @yield('navbar')
+        </header>
+        <section id="content">
+            @yield('content')
+        </section>
     </main>
-  </body>
+</body>
 </html>
