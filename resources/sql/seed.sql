@@ -1040,6 +1040,13 @@ INSERT INTO event_group(event, "group")
 VALUES(3, 3);
 INSERT INTO event_group(event, "group")
 VALUES(4, 4);
+INSERT INTO event_group(event, "group")
+VALUES(5, 3);
+INSERT INTO event_group(event, "group")
+VALUES(5, 4);
+INSERT INTO event_group(event, "group")
+VALUES(6, 3);
+
 
 
 -- CODE

@@ -68,10 +68,9 @@
 
                 <hr class="event-line"> 
                 <div class="card-common-groups">
-                    <button type="button" class="btn btn-light card-group-name">Caminheiros</button>
-                    <button type="button" class="btn btn-light card-group-name">ENG</button>
-                    <button type="button" class="btn btn-light card-group-name">Imaginário</button>
-                    <button type="button" class="btn btn-light card-group-name">ACAVER</button>
+                    @foreach ($event->groups as $group)
+                        <button type="button" class="btn btn-light card-group-name">{{$group}}</button>
+                    @endforeach
                 </div>
                         
         </div>

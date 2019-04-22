@@ -48,9 +48,12 @@ class EventController extends Controller
 
         $events = $events_part->merge($events_org);
 
-        foreach ($events as $event)
+        
+        foreach ($events as $event){
             $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
-
+            $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
+        }
+            
         return view('pages.events', ['events' => $events]);
     }
 
