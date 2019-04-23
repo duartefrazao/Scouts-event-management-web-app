@@ -12,7 +12,7 @@ loadMembers(3, member_container[3]);*/
 
 let confirm_button = document.querySelector(".confirm-presence");
 let remove_button = document.querySelector(".deny-presence");
-
+let members = document.querySelectorAll(".member-wrap");
 
 function addEventListeners() {
 
@@ -23,7 +23,6 @@ function addEventListeners() {
     remove_button.addEventListener('click', function (event) {
         newConfirmation(false, remove_button.classList.contains('active'));
     });
-
 
 }
 
@@ -93,3 +92,7 @@ function sendAjaxRequest(method, url, data, handler) {
 
 
 addEventListeners();
+members.forEach(member => {
+    if(member.getAttribute('data-id') == user)
+        confirm_button.classList.add('active');
+});

@@ -77,7 +77,7 @@
 
             <div class="member-container">
                 @foreach($event->going as $part)
-                <div class="member-wrap">
+                <div class="member-wrap" data-id="{{$part->id}}">
                     <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
                     <label>{{$part->name}}</label>
                 </div>
