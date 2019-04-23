@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,10 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 use App\Event;
 use App\Location;
-use App\Group;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Shows the event for a given id.
@@ -29,13 +32,11 @@ class EventController extends Controller
 
         $this->getEventInformation($event);
 
-
         return view('pages.event', ['event' => $event]);
     }
 
     public function getEventInformation($event)
     {
-
         $event['loc_name'] = Location::find($event->location)->name;
 
         //TODO CHANGE THIS
@@ -44,7 +45,6 @@ class EventController extends Controller
         $event['going'] = $event->participants()->where('state', 'Going')->get();
 
         $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
-
     }
 
     /**

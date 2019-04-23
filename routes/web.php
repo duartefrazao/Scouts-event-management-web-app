@@ -12,17 +12,22 @@
 */
 
 Route::get('/', function () {
-    return redirect('login');
+    if (!Auth::check())
+        return redirect(route('start'));
+    else
+        return redirect(route('home'));
 })->name('/');
 
 
 // Events
-Route::get('events', 'EventController@list');
+Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+
+// Groups
+Route::get('groups', 'EventController@list')->name('groups');
+
+
 
 // API
 Route::put('api/cards', 'CardController@create');
@@ -32,13 +37,13 @@ Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 
 //Profile
-Route::get('profile/{id}', 'CardController@list')->name('profile')->where('id','[0-9]+');
+Route::get('profile/{id}', 'CardController@list')->name('profile')->where('id', '[0-9]+');
 
 
 // Authentication
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+Route::get('start', 'Auth\LoginController@showLoginForm')->name('start');
+Route::post('start', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
