@@ -81,12 +81,6 @@
                 </a>
             </li>
             <li>
-                @if (Auth::check())
-                    <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-                @endif
-
-            </li>
-            <li>
                 <span id="notification-bell" data-toggle="tooltip" data-placement="right" title="Notificações">
                     <a class="navbar-text" id="notifications-toggle" tabindex="0" data-toggle="popover"
                        data-trigger="focus" title="Notificações" data-placement="bottom">
