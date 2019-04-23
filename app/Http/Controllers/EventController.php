@@ -35,22 +35,30 @@ class EventController extends Controller
 
         $this->authorize('show', $event);
 
-        $this->getEventKeyInfo($event);
+        $this->getEventFullInfo($event);
 
         return view('pages.event', ['event' => $event]);
     }
 
     public function getEventKeyInfo($event)
     {
-        $event['loc_name'] = Location::find($event->location)->name;
+        $event['location'] = Location::find($event->location);
+        if ($event['location'])
+            $event['loc_name'] = $event->location->name;
 
         //TODO CHANGE THIS
         $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
 
-        $event['going'] = $event->participants()->where('state', 'Going')->get();
+        $event['going'] = $event->participants()->where('state', 'Going')->get()->toArray();
 
         $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
         
+        
+    }
+
+    public function getEventFullInfo($event){
+        $this->getEventKeyInfo($event);
+
         $event['files'] = File::where('event', $event->id)->get();
 
         $poll = Poll::where('event', $event->id)->first();
@@ -71,8 +79,8 @@ class EventController extends Controller
         $event['comments'] = Comment::where('event', $event->id)->join('user', 'user.id', '=', 'comment.participant')->orderBy('comment.id', 'DESC')->get();
     }
 
-    public function getEventFullInfo($event){
-        $this->getEventKeyInfo($event);
+    public function getGroupInfo($group){
+
     }
 
     /**
@@ -94,12 +102,14 @@ class EventController extends Controller
 
         $events = $events_part->merge($events_org);
 
-
         foreach ($events as $event) {
             $this->getEventKeyInfo($event);
         }
 
-        return view('pages.events', ['events' => $events]);
+        $groups = [];
+        $groups = Auth::user()->member()->get();
+
+        return view('pages.events', ['events' => $events], ['groups' => $groups]);
     }
 
     /**

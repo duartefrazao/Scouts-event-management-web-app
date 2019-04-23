@@ -1008,7 +1008,8 @@ VALUES(25, 5);
 
 -- GROUP MEMBER
 --Lobitos
-
+INSERT INTO group_member(member, "group")
+VALUES(1, 3);
 INSERT INTO group_member(member, "group")
 VALUES(4, 1);
 INSERT INTO group_member(member, "group")

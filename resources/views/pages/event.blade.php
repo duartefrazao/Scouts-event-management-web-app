@@ -10,7 +10,6 @@
 
 <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-6">
 
-
     <div class="modal-body">
 
         <h5 class="event-title" data-id="{{$event->id}}">{{$event->title}}</h5>
@@ -105,7 +104,13 @@
             </p>
         </div>
         <div class="map-container">
-            <h6 class="map-caption"><i class="fas fa-map-marker-alt fa-sm"></i>{{$event->loc_name}}</h6>
+            <h6 class="map-caption"><i class="fas fa-map-marker-alt fa-sm"></i>
+            @if ($event->location)
+            {{$event->loc_name}}
+            @else 
+            Local Indefinido
+            @endif 
+            </h6>
             <div class="map"></div>
         </div>
 

@@ -26,7 +26,7 @@ Route::get('events/{id}', 'EventController@show');
 
 // Groups
 Route::get('groups', 'EventController@list')->name('groups');
-
+Route::get('groups/{id}', 'GroupController@show');
 
 
 // API

@@ -29,4 +29,8 @@ class Group extends Model
         return $this->belongsToMany('App\User', 'group_moderator', 'group', 'moderator');
     }
 
+    public function events(){
+        return $this->belongstoMany('App\Event', 'event_group', 'group', 'event');
+    }
+
 }

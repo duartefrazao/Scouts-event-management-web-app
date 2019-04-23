@@ -27,12 +27,26 @@
 
                         <h5 class="card-title">{{$event->title}}</h5>
                         <h6 class="card-subtitle sec  text-muted">
-                            <div class="loc text-muted ">{{$event->loc_name}} </div>
-                            <div class="text-muted card-number-participants justify-content-center">{{count($event->going)}} confirmaram </div>    
+                            <div class="loc text-muted ">
+                            @if ($event->location)
+                            {{$event->loc_name}}
+                            @else 
+                            Local Indefinido
+                            @endif </div>
+                            <div class="text-muted card-number-participants justify-content-center">
+                            @if ($event->going)
+                            {{count($event->going)}}
+                            @else
+                            0
+                            @endif
+                            confirmaram </div>    
                                 
                         </h6>
-
+                        @if($event->start_date)
                         <div class="text-muted">Hora: {{$date->format('H:i')}}</div>
+                        @else 
+                        <div class="text-muted">Hora: Por definir</div>
+                        @endif
                         <div class="text-muted">Preço: 
                         @if ($event->price > 0)
                             {{$event->price}} euros
@@ -47,8 +61,7 @@
                         </div>
 
                         <div class="card-body group-members">
-
-                            @foreach($event->invited as $inv)
+                            @foreach($event['invited'] as $inv)
                             <div class="member-wrap">
                                 <a href="#" class="group-member-name text-muted">{{$inv}}</a>
                             </div>
