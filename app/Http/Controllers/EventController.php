@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +18,11 @@ use App\Comment;
 class EventController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Shows the event for a given id.
      *
@@ -33,13 +37,11 @@ class EventController extends Controller
 
         $this->getEventKeyInfo($event);
 
-
         return view('pages.event', ['event' => $event]);
     }
 
     public function getEventKeyInfo($event)
     {
-
         $event['loc_name'] = Location::find($event->location)->name;
 
         //TODO CHANGE THIS

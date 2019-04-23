@@ -1,3 +1,5 @@
+#admin-content {font-size: var(--font-size-default)}
+
 #admin-actions .nav-link.active {
     background-color: rgba(0, 7, 36, 0.801);
     border-radius: 0;
@@ -8,7 +10,31 @@
 }
 
 #admin-content .member-face {
-    margin-right: 1em;
+    margin-left: 1em;
+}
+
+
+#admin-content .btn-success{
+    background-color: rgba(35, 119, 34, 0.315);
+    color: black;
+    border-color: transparent;
+}
+
+#admin-content .btn-success:hover{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+#admin-content .btn-danger{
+    background-color: rgba(110, 24, 24, 0.308);
+    color: black;
+    border-color: transparent;
+}
+
+#admin-content .btn-danger:hover{
+    background-color: #dc3545;
+    color: #fff;
 }
 
 #admin-content .lobito {
@@ -36,12 +62,12 @@
 
 
 .admin-section-title {
-    font-size: x-large;
     padding: 1em;
     padding-left: 0;
     padding-bottom: 0.5em;
     border-bottom: solid 1px gray;
     font-weight: bold;
+    font-size:140%;
 }
 
 .admin-select-tab {
