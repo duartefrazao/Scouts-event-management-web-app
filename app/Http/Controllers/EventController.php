@@ -152,12 +152,20 @@ class EventController extends Controller
      */
     public function delete(Request $request, $id)
     {
-        $event = event::find($id);
+        $event = Event::find($id);
 
         $this->authorize('delete', $event);
         $event->delete();
 
         return $event;
     }
+
+/*    public function addParticipant($id){
+
+
+        $event = Event::find($id);
+
+        $event->participants()->attach(Auth::id());
+    }*/
 
 }

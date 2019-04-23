@@ -13,7 +13,7 @@
 
     <div class="modal-body">
 
-        <h5 class="event-title">{{$event->title}}</h5>
+        <h5 class="event-title" data-id="{{$event->id}}">{{$event->title}}</h5>
 
         <div class="first-row">
             @if($event->start_date)
@@ -66,12 +66,12 @@
             @endif
 
             <div class="btn-group-toggle presence d-flex" data-toggle="buttons">
-                <label class="btn btn-light confirm">
-                    <input type="checkbox" checked autocomplete="off"><i class="fal fa-check"></i> Vou
+                <label class="btn btn-light confirm-presence">
+                    <input type="radio" name="presence" checked autocomplete="off"><i class="fal fa-check"></i> Vou
                 </label>
 
-                <label class="btn btn-light">
-                    <input type="checkbox" checked autocomplete="off"><i class="fal fa-times"></i> Não vou
+                <label class="btn btn-light deny-presence">
+                    <input type="radio" name="presence" checked autocomplete="off"><i class="fal fa-times"></i> Não vou
                 </label>
             </div>
 
