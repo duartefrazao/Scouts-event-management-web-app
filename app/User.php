@@ -62,11 +62,5 @@ class User extends Authenticatable
         return $this->hasMany('App\Vote');
     }
 
-    /**
-     * The cards this user owns.
-     */
-    public function cards() {
-        return $this->hasMany('App\Card');
-    }
 
 }
