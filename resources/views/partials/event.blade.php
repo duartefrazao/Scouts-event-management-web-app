@@ -7,11 +7,22 @@
         <div class="card-block">
             <div class="event-info">
                 <div class="event-basic-info">
+                    @if($event->start_date)
+                        @php
+                        $date = new Datetime($event->start_date)
+                        @endphp
                     <time datetime="2019-03-03" class="icon calendar">
                         <span class="event-card-month ">{{$date->format('M')}}</span>
                         <span class="event-card-day"> {{$date->format('d')}} </span>
                         <span class="event-card-week-day">{{$date->format('l')}}</span>
                     </time>
+                    @else
+                        <time datetime="2019-03-03" class="icon">
+                        <span class="event-card-month">Data</span>
+                        <span class="event-card-day">???</span>
+                        <span class="event-card-week-day"></span>
+                        </time>
+                    @endif
                     <div class="container center-container-vertically">
 
                         <h5 class="card-title">{{$event->title}}</h5>

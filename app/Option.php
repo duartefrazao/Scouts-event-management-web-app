@@ -21,7 +21,11 @@ class Option extends Model
      * The poll this option belongs to.
      */
     public function poll(){
-        return $this->belongsTo('App\Poll');
+        return $this->belongsTo('App\Poll', 'poll');
+    }
+
+    public function votes(){
+        return $this->hasMany('App\Vote', 'option');
     }
 
 }

@@ -5,7 +5,6 @@ function placeChildren(){
 }
 
 function addMembers(membersJSON, elemDOM){
-
     membersJSON.forEach(member => {
         let memberHTML = `
         <label>
@@ -16,7 +15,7 @@ function addMembers(membersJSON, elemDOM){
         memberDOM.classList.add('member-wrap');
         memberDOM.innerHTML = memberHTML;
         elemDOM.appendChild(memberDOM);
-    });    
+    });  
 }
 
 

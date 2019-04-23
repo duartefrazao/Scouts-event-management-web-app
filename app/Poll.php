@@ -25,6 +25,6 @@ class Poll extends Model
     }
 
     public function options(){
-        return $this->hasMany('App\Option');
+        return $this->hasMany('App\Option', 'poll');
     }
 }
