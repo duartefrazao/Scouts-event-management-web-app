@@ -2,12 +2,12 @@ let event_page = document.querySelector('.event-page');
 
 let mapDOM = event_page.querySelector('.map');
 
-loadMembers(5, event_page.querySelector(".organizer-container .member-container"));
 let member_container = event_page.querySelectorAll(".member-container");
-loadMembers(10, member_container[0]);
-loadMembers(3, member_container[1]);
-loadMembers(10, member_container[2]);
-loadMembers(3, member_container[3]);
+//loadMembers(10, member_container[0]);
+//loadMembers(3, member_container[1]);
+loadMembers(3, member_container[2]);
+loadMembers(10, member_container[3]);
+loadMembers(3, member_container[4]);
 
 
 initializeGMap(41.1780, -8.5980, mapDOM);

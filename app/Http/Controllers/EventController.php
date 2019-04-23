@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 use App\Event;
 use App\Location;
 use App\Group;
+use App\File;
+use App\Poll;
+use App\EventOrganizer;
+use App\Comment;
 
 class EventController extends Controller
 {
@@ -27,13 +31,13 @@ class EventController extends Controller
 
         $this->authorize('show', $event);
 
-        $this->getEventInformation($event);
+        $this->getEventKeyInfo($event);
 
 
         return view('pages.event', ['event' => $event]);
     }
 
-    public function getEventInformation($event)
+    public function getEventKeyInfo($event)
     {
 
         $event['loc_name'] = Location::find($event->location)->name;
@@ -44,7 +48,29 @@ class EventController extends Controller
         $event['going'] = $event->participants()->where('state', 'Going')->get();
 
         $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+        
+        $event['files'] = File::where('event', $event->id)->get();
 
+        $poll = Poll::where('event', $event->id)->first();
+        if ($poll)
+            $event['options'] = $poll->options()->get();
+        else $event['options'] = [];
+
+        $total = 0;
+        foreach ($event['options'] as $option){
+            $option['num_votes'] = $option->votes()->get()->count();
+            $total += $option['num_votes'];
+        }
+
+        $event['total_votes'] = $total;
+
+        $event['organizers'] = EventOrganizer::where('event', $event->id)->join('user', 'user.id', '=', 'event_organizer.organizer')->pluck('name')->toArray();
+
+        $event['comments'] = Comment::where('event', $event->id)->join('user', 'user.id', '=', 'comment.participant')->get();
+    }
+
+    public function getEventFullInfo($event){
+        $this->getEventKeyInfo($event);
     }
 
     /**
@@ -68,7 +94,7 @@ class EventController extends Controller
 
 
         foreach ($events as $event) {
-            $this->getEventInformation($event);
+            $this->getEventKeyInfo($event);
         }
 
         return view('pages.events', ['events' => $events]);

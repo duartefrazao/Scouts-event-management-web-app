@@ -16,6 +16,16 @@
         <h5 class="event-title">{{$event->title}}</h5>
 
         <div class="first-row">
+            @if($event->start_date)
+            @php
+                $date = new Datetime($event->start_date)
+            @endphp
+            <time datetime="2019-03-03" class="icon calendar">
+                <span class="event-card-month ">{{$date->format('M')}}</span>
+                <span class="event-card-day"> {{$date->format('d')}} </span>
+                <span class="event-card-week-day">{{$date->format('l')}}</span>
+            </time>
+            @else
             <!-- the icon as a time element -->
             <a class="" data-toggle="collapse" href="#date-poll" role="button" aria-expanded="false" aria-controls="date-poll">
 
@@ -26,47 +36,34 @@
             </time>
 
             </a>
+
+           
+            
             <div class="collapse" id="date-poll">
 
             <ul class="available-dates">
+            @foreach($event->options as $option)
                 <li>
                     <div class="custom-control custom-checkbox" style="float:left; margin-right:1em;">
                         <input type="checkbox" class="custom-control-input" id="defaultUnchecked1">
-                        <label class="custom-control-label" for="defaultUnchecked1">10/03 18:00 </label>
+                        <label class="custom-control-label" for="defaultUnchecked1">{{date("m-d-Y H:i", strtotime($option->date))}}</label>
                     </div>
 
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
-                            aria-valuemax="100">50%</div>
+                    @php
+                        if ($event->total_votes > 0)
+                            $val = $option->num_votes*100/$event->total_votes;
+                        else $val = 0;
+                    
+                    @endphp
+                        <div class="progress-bar" role="progressbar" style="width: {{$val}}%;" aria-valuenow="{{$val}}" aria-valuemin="0"
+                            aria-valuemax="100">{{$option->votes->count()}}</div>
                     </div>
                 </li>
-
-                <li>
-                    <div class="custom-control custom-checkbox" style="float:left; margin-right:1em;">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked2">
-                        <label class="custom-control-label" for="defaultUnchecked2">10/03 20:00 </label>
-                    </div>
-
-                    <div class="progress">
-
-                        <div class="progress-bar" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0"
-                            aria-valuemax="100">15%</div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="custom-control custom-checkbox" style="float:left; margin-right:1em;">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked3">
-                        <label class="custom-control-label" for="defaultUnchecked3">12/03 17:00 </label>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0"
-                            aria-valuemax="100">35%</div>
-                    </div>
-                </li>
+            @endforeach
             </ul>
             </div>
+            @endif
 
             <div class="btn-group-toggle presence d-flex" data-toggle="buttons">
                 <label class="btn btn-light confirm">
@@ -79,6 +76,12 @@
             </div>
 
             <div class="member-container">
+                @foreach($event->going as $part)
+                <div class="member-wrap">
+                    <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
+                    <label>{{$part->name}}</label>
+                </div>
+                @endforeach
             </div>
 
         </div>
@@ -111,16 +114,11 @@
                 <h3 class="common-page-subtitle">Ficheiros</h3>
             </header>
             <span>
+                @foreach ($event->files as $file)
                 <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                    File1.pdf</button>
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                    File2.pdf</button>
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                    File3.pdf</button>
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                    File4.pdf</button>
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                    File5.pdf</button>
+                {{$file->title}}</button>
+                @endforeach
+                
             </span>
         </div>
 
@@ -133,7 +131,12 @@
             </header>
 
             <div class="member-container">
-
+                @foreach($event->organizers as $organizer)
+                <div class="member-wrap">
+                    <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
+                    <label>{{$organizer}}</label>
+                </div>
+                @endforeach
             </div>
 
         </div>
@@ -149,18 +152,14 @@
                     placeholder="Adicione um comentário.."></textarea>
             </div>
 
+            @foreach($event->comments as $comment)
             <div class="row col-11">
                 <div class="col-12 event-comment ">
-                    <span class="comment-author"> João </span>
-                    <span class="comment-body">Este evento é mesmo fixe! </span>
+                    <span class="comment-author">{{$comment->name}}</span>
+                    <span class="comment-body">{{$comment->text}}</span>
                 </div>
             </div>
-            <div class="row col-11">
-                <div class="col-12 event-comment ">
-                    <span class="comment-author"> Pedro </span>
-                    <span class="comment-body">Vamos todos caminhar!</span>
-                </div>
-            </div>
+            @endforeach
         </div>
 
     </div>
