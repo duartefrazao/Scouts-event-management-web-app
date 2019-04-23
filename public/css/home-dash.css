@@ -12,11 +12,56 @@
 }
 
 #event-view-toggle{
-
+    padding: 0.5em;
     position: absolute;
     top: 85px; 
     right: calc((100% - 560px )/2);
 
+}
+
+#nav-event-tab, #nav-groups-tab, #calendar-view-tab, #single-view-tab{
+    font-size: large;
+    padding: 0.5em 1em;
+    color: var(--dark-bg-color);    
+}
+
+
+#nav-tab .nav-link:hover, #event-view-toggle .nav-link:hover{
+    box-shadow: 0 4px 10px 0 rgba(27, 30, 36, 0.144), 0 2px 2px 0 rgba(40, 44, 53, 0.144);
+    color: rgb(94, 164, 255);
+}
+#nav-tab .nav-link, #event-view-toggle .nav-link{
+    color: rgba(9, 33, 65, 0.836);
+}
+
+#nav-tab .nav-link.active, #event-view-toggle .nav-link.active{
+    color: var(--dark-bg);
+}
+
+#nav-tab i{
+    font-size: 150%;
+}
+
+#event-view-toggle i{
+    font-size: 130%;
+}
+
+@media(max-width:770px){
+    #nav-event-tab, #nav-groups-tab{
+        
+    padding: .5rem 1rem;
+    }
+
+    #nav-tab{
+        margin-left: 0 !important;
+    }
+    #nav-tab i{
+        font-size: 100%;
+    }
+    
+    #event-view-toggle i{
+        font-size: 100%;
+    }
 }
 
 #nav-tab{

@@ -197,6 +197,8 @@ a.card-wrap:hover {
         height:auto;
         margin:auto 0.5em;
         order:2;
+        color: white;
+        font-size: var(--font-size-regular) !important;
     }
 
     

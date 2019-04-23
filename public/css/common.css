@@ -29,6 +29,7 @@ body {
     --font-size-navbar-website-name:23pt;
     --font-size-navbar-actions:14pt;
     --font-size-regular:14pt;
+    --font-size-default: 16pt;
     --font-size-subtitle:24pt;
     --font-size-page-title:30pt;
 
@@ -41,7 +42,7 @@ body {
     /* Animated font  */
     --font-family-animated: 'Amatic SC', cursive;
     --letter-spacing-family-animated: 4px;
-    --font-size-family-animated-regular:14pt;
+    --font-size-family-animated-regular:15pt;
     --letter-spacing-family-tags-animated:1px;
 }
 
@@ -103,7 +104,6 @@ body {
     border: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: solid 1px grey;
 }
 
 #search .advanced{
