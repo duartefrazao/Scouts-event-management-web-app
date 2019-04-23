@@ -33,7 +33,7 @@ class RegistrationRequestController extends Controller
      */
     public function list()
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect()->route('login');
 
         //$this->authorize('list', RegistrationRequest::class);
 

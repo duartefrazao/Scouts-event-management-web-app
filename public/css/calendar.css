@@ -141,7 +141,7 @@ time.icon .event-card-week-day {
 
 .day .day-value {
   font-weight: 500;
-  font-size: large;
+  font-size: 20px;
 }
 
 .week-day {
@@ -190,6 +190,12 @@ time.icon .event-card-week-day {
 
 .calendar-mobile {
   display: none;
+}
+
+
+.calendar-event{
+  background-color: rgba(18, 85, 18, 0.767);
+  border-radius: 0.25rem;
 }
 
 @media(max-width:770px) {

@@ -217,7 +217,7 @@ CREATE TABLE comment(
                         id SERIAL PRIMARY KEY,
                         participant INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE SET NULL,
                         event INTEGER NOT NULL REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
-                        date DATE NOT NULL DEFAULT CURRENT_DATE,
+                        date TIMESTAMP NOT NULL DEFAULT NOW(),
                         "text" text NOT NULL
 );
 
@@ -861,7 +861,7 @@ INSERT INTO event (id,title,description,price,start_date,final_date,location)
 VALUES (5,'ACAVER','Acampamento de verao',2,'2019-09-12 04:40','2019-09-21 07:21',1);
 INSERT INTO event (id,title,description,price,start_date,final_date,location)
 VALUES (6,'Quo Vadis','É um acampamento para caminheiros na região de viseu',
-        11,'2019-05-20 10:40','2019-05-21 06:23',4);
+        11,null,null,4);
 INSERT INTO event (id,title,description,price,start_date,final_date,location)
 VALUES (7,'Pedra Angular','Acampamento para integração dos noviços na secção dos Caminheros',
         11,'2019-05-20 10:40','2019-05-21 06:23',2);
@@ -894,12 +894,13 @@ INSERT INTO event_organizer (organizer, event)
 VALUES(23, 5);
 INSERT INTO event_organizer (organizer, event)
 VALUES(17, 5);
+INSERT INTO event_organizer (organizer, event)
+VALUES(1, 5);
 --User created
 INSERT INTO event_organizer (organizer, event)
 VALUES(15, 6);
 
-INSERT INTO event_organizer (organizer, event)
-VALUES(1, 5);
+
 
 
 
@@ -929,10 +930,16 @@ INSERT INTO event_participant (participant, event)
 VALUES(13, 5);
 INSERT INTO event_participant (participant, event)
 VALUES(15, 5);
-INSERT INTO event_participant(participant, event)
-VALUES(1, 6);
-INSERT INTO event_participant(participant, event)
-VALUES(9, 6);
+
+INSERT INTO event_participant(participant, event, state)
+VALUES(1, 6, 'Going');
+INSERT INTO event_participant(participant, event, state)
+VALUES(1, 7, 'Pending');
+INSERT INTO event_participant(participant, event, state)
+VALUES(1, 9, 'Pending');
+
+INSERT INTO event_participant(participant, event, state)
+VALUES(9, 6, 'Going');
 
 
 --User Created
@@ -948,9 +955,26 @@ VALUES(20, 4, 'Vamos!');
 INSERT INTO comment (participant, event, "text")
 VALUES(12, 2, 'Gosto de ser Escuteiro!');
 
+INSERT INTO comment (participant, event, "text")
+VALUES(13, 6, 'Este evento vai ser mesmo fixe!');
+
+INSERT INTO comment (participant, event, "text")
+VALUES(20, 6, 'Vamos!');
+
+INSERT INTO comment (participant, event, "text")
+VALUES(12, 6, 'Gosto de ser Escuteiro!');
+
+INSERT INTO comment (participant, event, "text")
+VALUES(13, 5, 'Este evento vai ser mesmo fixe!');
+
+INSERT INTO comment (participant, event, "text")
+VALUES(20, 5, 'Vamos!');
+
 -- FILES
 
-
+INSERT INTO file(event, title, contents) VALUES(6, 'Atividades.pdf', '');
+INSERT INTO file(event, title, contents) VALUES(6, 'Mantimentos.pdf', '');
+INSERT INTO file(event, title, contents) VALUES(5, 'Horário.pdf', '');
 
 
 -- GROUPS
@@ -990,7 +1014,8 @@ VALUES(25, 5);
 
 -- GROUP MEMBER
 --Lobitos
-
+INSERT INTO group_member(member, "group")
+VALUES(1, 3);
 INSERT INTO group_member(member, "group")
 VALUES(4, 1);
 INSERT INTO group_member(member, "group")
@@ -1117,6 +1142,8 @@ INSERT INTO poll (id, event, begin_date, end_date)
 VALUES(3, 3, '2019-05-20', '2019-07-20');
 INSERT INTO poll (id, event, begin_date, end_date)
 VALUES(4, 4, '2019-05-20', '2019-07-20');
+INSERT INTO poll (id, event, begin_date, end_date)
+VALUES(5, 6, '2019-05-20', '2019-07-20');
 
 -- OPTIONS
 INSERT INTO option(id, date, poll)
@@ -1136,6 +1163,13 @@ INSERT INTO option(id, date, poll)
 VALUES(7, '2019-05-25 9:30', 3);
 INSERT INTO option(id, date, poll)
 VALUES(8, '2019-05-30 11:40', 3);
+
+INSERT INTO option(id, date, poll)
+VALUES(9, '2019-05-30 11:40', 5);
+INSERT INTO option(id, date, poll)
+VALUES(10, '2019-05-30 11:40', 5);
+INSERT INTO option(id, date, poll)
+VALUES(11, '2019-05-30 11:40', 5);
 
 
 -- VOTES
@@ -1160,6 +1194,17 @@ INSERT INTO vote(voter, option)
 VALUES (15, 6);
 INSERT INTO vote(voter, option)
 VALUES (16, 6);
+
+INSERT INTO vote(voter, option)
+VALUES (9, 10);
+INSERT INTO vote(voter, option)
+VALUES (9, 11);
+INSERT INTO vote(voter, option)
+VALUES (9, 9);
+INSERT INTO vote(voter, option)
+VALUES (13, 10);
+
+
 
 
 -- ADMIN
@@ -1229,3 +1274,5 @@ INSERT INTO items VALUES (DEFAULT, 1, 'Walk the dog', true);
 INSERT INTO cards VALUES (DEFAULT, 'Things not to do', 1);
 INSERT INTO items VALUES (DEFAULT, 2, 'Break a leg');
 INSERT INTO items VALUES (DEFAULT, 2, 'Crash the car');
+
+

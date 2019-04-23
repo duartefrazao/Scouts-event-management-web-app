@@ -47,11 +47,11 @@ class User extends Authenticatable
     }
 
     public function member(){
-         return $this->belongsToMany('App\Group', 'group_member');
+        return $this->belongsToMany('App\Group', 'group_member', 'member', 'group');
     }
 
     public function moderator(){
-        return $this->belongsToMany('App\Group', 'group_moderator');
+        return $this->belongsToMany('App\Group', 'group_moderator', 'moderator', 'group');
     }
 
     public function comments(){
@@ -62,11 +62,5 @@ class User extends Authenticatable
         return $this->hasMany('App\Vote');
     }
 
-    /**
-     * The cards this user owns.
-     */
-    public function cards() {
-        return $this->hasMany('App\Card');
-    }
 
 }

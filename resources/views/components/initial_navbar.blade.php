@@ -2,7 +2,7 @@
     <a class="hiddenanchor" id="toregister"></a>
     <a class="hiddenanchor" id="tologin"></a>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="initial-navbar">
-        <a class="navbar-brand" href="{{route('login')}}" id="website-name">
+        <a class="navbar-brand" href="{{route('/')}}" id="website-name">
             <img src="../icons/favicon.png" width="50px" height="50px" class="d-inline-block align-top" alt="">
             Agrupa
         </a>
