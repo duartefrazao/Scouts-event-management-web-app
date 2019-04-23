@@ -155,7 +155,7 @@
             @foreach($event->comments as $comment)
             <div class="row col-11">
                 <div class="col-12 event-comment ">
-                    <span class="comment-author">{{$comment->name}}</span>
+                    <span class="comment-author">{{$comment->name}} | {{date("m-d-Y H:i", strtotime($comment->date))}}</span>
                     <span class="comment-body">{{$comment->text}}</span>
                 </div>
             </div>

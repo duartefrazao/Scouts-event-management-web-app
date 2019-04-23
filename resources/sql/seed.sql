@@ -217,7 +217,7 @@ CREATE TABLE comment(
                         id SERIAL PRIMARY KEY,
                         participant INTEGER REFERENCES "user" (id) ON UPDATE CASCADE ON DELETE SET NULL,
                         event INTEGER NOT NULL REFERENCES event (id) ON UPDATE CASCADE ON DELETE CASCADE,
-                        date DATE NOT NULL DEFAULT CURRENT_DATE,
+                        date TIMESTAMP NOT NULL DEFAULT NOW(),
                         "text" text NOT NULL
 );
 

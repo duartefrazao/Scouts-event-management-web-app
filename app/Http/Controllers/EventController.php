@@ -68,7 +68,7 @@ class EventController extends Controller
 
         $event['organizers'] = EventOrganizer::where('event', $event->id)->join('user', 'user.id', '=', 'event_organizer.organizer')->pluck('name')->toArray();
 
-        $event['comments'] = Comment::where('event', $event->id)->join('user', 'user.id', '=', 'comment.participant')->get();
+        $event['comments'] = Comment::where('event', $event->id)->join('user', 'user.id', '=', 'comment.participant')->orderBy('comment.id', 'DESC')->get();
     }
 
     public function getEventFullInfo($event){
