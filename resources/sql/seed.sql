@@ -1011,6 +1011,8 @@ INSERT INTO group_member(member, "group")
 VALUES(11, 2);
 INSERT INTO group_member(member, "group")
 VALUES(12, 2);
+INSERT INTO group_member(member,"group")
+Values(1,2);
 
 --Exploradores
 INSERT INTO group_member(member, "group")
@@ -1033,6 +1035,8 @@ INSERT INTO group_member(member, "group")
 VALUES(20, 4);
 INSERT INTO group_member(member, "group")
 VALUES(21, 4);
+INSERT INTO group_member(member,"group")
+Values(1,4);
 
 
 -- EVENT GROUP

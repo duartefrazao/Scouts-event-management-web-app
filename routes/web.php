@@ -32,7 +32,7 @@ Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 
 //Profile
-Route::get('profile/{id}', 'CardController@list')->name('profile')->where('id','[0-9]+');
+Route::get('profile/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
 
 
 // Authentication
