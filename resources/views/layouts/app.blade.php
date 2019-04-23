@@ -110,13 +110,7 @@
 
     </head>
 <body>
-    <main>
-        <header>
-            @yield('navbar')
-        </header>
-        <section id="content">
-            @yield('content')
-        </section>
-    </main>
+        @yield('navbar')
+        @yield('content')
 </body>
 </html>
