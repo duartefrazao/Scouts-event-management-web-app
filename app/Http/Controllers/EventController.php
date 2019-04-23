@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Event;
+use App\Location;
+use App\Group;
 
 class EventController extends Controller
 {
@@ -15,7 +18,7 @@ class EventController extends Controller
     /**
      * Shows the event for a given id.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -24,7 +27,24 @@ class EventController extends Controller
 
         $this->authorize('show', $event);
 
+        $this->getEventInformation($event);
+
+
         return view('pages.event', ['event' => $event]);
+    }
+
+    public function getEventInformation($event)
+    {
+
+        $event['loc_name'] = Location::find($event->location)->name;
+
+        //TODO CHANGE THIS
+        $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
+
+        $event['going'] = $event->participants()->where('state', 'Going')->get();
+
+        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+
     }
 
     /**
@@ -41,9 +61,15 @@ class EventController extends Controller
 
         $events_part = Auth::user()->participant()->orderBy('id')->get();
 
+
         $events_org = Auth::user()->organizer()->orderBy('id')->get();
 
         $events = $events_part->merge($events_org);
+
+
+        foreach ($events as $event) {
+            $this->getEventInformation($event);
+        }
 
         return view('pages.events', ['events' => $events]);
     }
@@ -51,8 +77,8 @@ class EventController extends Controller
     /**
      * Creates a new item.
      *
-     * @param  int  $event_id
-     * @param  Request request containing the description
+     * @param int $event_id
+     * @param Request request containing the description
      * @return Response
      */
     public function create(Request $request)
@@ -74,8 +100,8 @@ class EventController extends Controller
     /**
      * Updates the state of an individual event.
      *
-     * @param  int  $id
-     * @param  Request request containing the new state
+     * @param int $id
+     * @param Request request containing the new state
      * @return Response
      */
     public function update(Request $request, $id)
@@ -93,7 +119,7 @@ class EventController extends Controller
     /**
      * Deletes an individual event.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function delete(Request $request, $id)

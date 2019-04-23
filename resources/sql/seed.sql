@@ -181,8 +181,8 @@ CREATE TABLE event(
                       title text NOT NULL,
                       description text,
                       price REAL NOT NULL DEFAULT 0,
-                      start_date DATE,
-                      final_date DATE,
+                      start_date TIMESTAMP,
+                      final_date TIMESTAMP,
                       location INTEGER REFERENCES location (id) ON UPDATE CASCADE,
                       vector tsvector,
                       CONSTRAINT start_date_limit CHECK (start_date < CURRENT_DATE + interval '1 year')
@@ -900,8 +900,7 @@ VALUES(15, 6);
 
 INSERT INTO event_organizer (organizer, event)
 VALUES(1, 5);
-INSERT INTO event_participant(participant, event)
-VALUES(1, 6);
+
 
 
 -- EVENT PARTICIPANTS
@@ -930,6 +929,12 @@ INSERT INTO event_participant (participant, event)
 VALUES(13, 5);
 INSERT INTO event_participant (participant, event)
 VALUES(15, 5);
+INSERT INTO event_participant(participant, event)
+VALUES(1, 6);
+INSERT INTO event_participant(participant, event)
+VALUES(9, 6);
+
+
 --User Created
 
 
@@ -1040,6 +1045,13 @@ INSERT INTO event_group(event, "group")
 VALUES(3, 3);
 INSERT INTO event_group(event, "group")
 VALUES(4, 4);
+INSERT INTO event_group(event, "group")
+VALUES(5, 3);
+INSERT INTO event_group(event, "group")
+VALUES(5, 4);
+INSERT INTO event_group(event, "group")
+VALUES(6, 3);
+
 
 
 -- CODE
