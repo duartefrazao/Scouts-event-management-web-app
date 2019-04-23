@@ -13,36 +13,28 @@
 
 Route::get('/', function () {
     if (!Auth::check())
-        return redirect(route('start'));
+        return redirect(route('login'));
     else
         return redirect(route('home'));
 })->name('/');
-
 
 // Events
 Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 
-
 // Groups
-Route::get('groups', 'EventController@list')->name('groups');
 Route::get('groups/{id}', 'GroupController@show');
-
-
-// API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
 
 //Profile
 Route::get('profile/{id}', 'CardController@list')->name('profile')->where('id', '[0-9]+');
 
 
+// API
+Route::post('api/events/{id}/presence/', 'UserController@participation');
+
 // Authentication
 
-Route::get('start', 'Auth\LoginController@showLoginForm')->name('start');
+Route::get('start', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('start', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');

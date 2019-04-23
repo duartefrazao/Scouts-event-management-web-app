@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Option' => 'App\Policies\OptionPolicy',
         'App\Vote' => 'App\Policies\VotePolicy',
         'App\Poll' => 'App\Policies\PollPolicy',
+        'App\User' => 'App\Policies\UserPolicy',
         'App\GuardianExchange' => 'App\Policies\GuardianExchangePolicy',
         'App\RegistrationRequest' => 'App\Policies\RegistrationRequestPolicy'
     ];

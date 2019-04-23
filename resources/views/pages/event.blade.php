@@ -9,7 +9,6 @@
 @section('content')
 
 <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-6">
-
     <div class="modal-body">
 
         <h5 class="event-title" data-id="{{$event->id}}">{{$event->title}}</h5>
@@ -76,7 +75,7 @@
 
             <div class="member-container">
                 @foreach($event->going as $part)
-                <div class="member-wrap">
+                <div class="member-wrap" data-id="{{$part->id}}">
                     <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
                     <label>{{$part->name}}</label>
                 </div>

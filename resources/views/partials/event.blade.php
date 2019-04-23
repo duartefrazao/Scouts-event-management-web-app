@@ -3,6 +3,7 @@
     @php
         $date = new Datetime($event->start_date)
     @endphp
+    
     <div class="card">
         <div class="card-block">
             <div class="event-info">
@@ -61,11 +62,18 @@
                         </div>
 
                         <div class="card-body group-members">
+                            
                             @foreach($event['invited'] as $inv)
                             <div class="member-wrap">
                                 <a href="#" class="group-member-name text-muted">{{$inv}}</a>
                             </div>
+
                             @endforeach
+                            @if ($event['invited'] = 4)
+                            <div class="member-wrap">
+                                <a href="#" class="group-member-name text-muted">...</a>
+                            </div>
+                            @endif
                             
                         </div>
                     </div>

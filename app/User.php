@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
 
     public function moderator(){
-        return $this->belongsToMany('App\Group', 'group_moderator');
+        return $this->belongsToMany('App\Group', 'group_moderator', 'moderator', 'group');
     }
 
     public function comments(){

@@ -1,4 +1,5 @@
 <div class="group-wrap">
+
 <a class="card-wrap group-card-wrap" href="/groups/{{ $group->id }}">
             <div class="group-top-side"> 
                 <img class="group-image" src="https://agrupamento45caxias.weebly.com/uploads/3/7/5/7/37572967/4292110_8.jpg">

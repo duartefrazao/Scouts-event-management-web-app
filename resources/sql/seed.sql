@@ -930,8 +930,14 @@ INSERT INTO event_participant (participant, event)
 VALUES(13, 5);
 INSERT INTO event_participant (participant, event)
 VALUES(15, 5);
+
 INSERT INTO event_participant(participant, event, state)
 VALUES(1, 6, 'Going');
+INSERT INTO event_participant(participant, event, state)
+VALUES(1, 7, 'Pending');
+INSERT INTO event_participant(participant, event, state)
+VALUES(1, 9, 'Pending');
+
 INSERT INTO event_participant(participant, event, state)
 VALUES(9, 6, 'Going');
 

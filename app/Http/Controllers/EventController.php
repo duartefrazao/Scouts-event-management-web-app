@@ -49,9 +49,9 @@ class EventController extends Controller
         //TODO CHANGE THIS
         $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
 
-        $event['going'] = $event->participants()->where('state', 'Going')->get()->toArray();
+        $event['going'] = $event->participants()->where('state', 'Going')->get();
 
-        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(4)->pluck('user.name');
         
         
     }
@@ -106,8 +106,10 @@ class EventController extends Controller
             $this->getEventKeyInfo($event);
         }
 
-        $groups = [];
-        $groups = Auth::user()->member()->get();
+        $groups_mem = Auth::user()->member()->get();
+        $groups_mod = Auth::user()->moderator()->get();
+
+        $groups = $groups_mem->merge($groups_mod);
 
         return view('pages.events', ['events' => $events], ['groups' => $groups]);
     }

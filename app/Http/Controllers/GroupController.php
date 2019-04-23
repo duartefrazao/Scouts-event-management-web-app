@@ -79,9 +79,9 @@ class GroupController extends Controller
             //TODO CHANGE THIS
             $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
 
-            $event['going'] = $event->participants()->where('state', 'Going')->get()->toArray();
+            $event['going'] = $event->participants()->where('state', 'Going')->get();
 
-            $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+            $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(4)->pluck('user.name');
         }  
 
         $group['moderators'] = $group->moderators()->get();

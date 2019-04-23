@@ -95,7 +95,9 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
             defer></script>
 
-
+    <script>
+        var user = {!! json_encode(Auth::id()) !!};
+    </script>
     <script src="//maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript" defer></script>
     <script src="../js/map.js" type="text/javascript" defer></script>
     <script src="../js/home.js" type="text/javascript" defer></script>
