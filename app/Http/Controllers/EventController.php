@@ -18,7 +18,7 @@ class EventController extends Controller
     /**
      * Shows the event for a given id.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -26,12 +26,25 @@ class EventController extends Controller
         $event = Event::find($id);
 
         $this->authorize('show', $event);
-        $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
-        $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
-        $event['going'] = DB::table('event_participant')->where('event', $event->id)->where('state', 'Going')->get()->toArray();
-        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+
+        $this->getEventInformation($event);
+
 
         return view('pages.event', ['event' => $event]);
+    }
+
+    public function getEventInformation($event)
+    {
+
+        $event['loc_name'] = Location::find($event->location)->name;
+
+        //TODO CHANGE THIS
+        $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
+
+        $event['going'] = $event->participants()->where('state', 'Going')->get();
+
+        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+
     }
 
     /**
@@ -53,22 +66,19 @@ class EventController extends Controller
 
         $events = $events_part->merge($events_org);
 
-        
-        foreach ($events as $event){
-            $event['loc_name'] =  DB::table('location')->where('id', $event->location)->pluck('name')[0];
-            $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
-            $event['going'] = DB::table('event_participant')->where('event', $event->id)->where('state', 'Going')->get()->toArray();
-            $event['invited'] = DB::table('event_participant')->where('event', $event->id)->whereNotIn('participant', DB::table('event_group')->join('group_member', 'event_group.group', '=', 'group_member.group')->pluck('group_member.member'))->join('user', 'user.id', '=', 'participant')->pluck('user.name');
+
+        foreach ($events as $event) {
+            $this->getEventInformation($event);
         }
-            
+
         return view('pages.events', ['events' => $events]);
     }
 
     /**
      * Creates a new item.
      *
-     * @param  int  $event_id
-     * @param  Request request containing the description
+     * @param int $event_id
+     * @param Request request containing the description
      * @return Response
      */
     public function create(Request $request)
@@ -90,8 +100,8 @@ class EventController extends Controller
     /**
      * Updates the state of an individual event.
      *
-     * @param  int  $id
-     * @param  Request request containing the new state
+     * @param int $id
+     * @param Request request containing the new state
      * @return Response
      */
     public function update(Request $request, $id)
@@ -109,7 +119,7 @@ class EventController extends Controller
     /**
      * Deletes an individual event.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function delete(Request $request, $id)
