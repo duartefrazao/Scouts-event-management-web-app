@@ -1,6 +1,6 @@
 
 <div class="container initial-page-container">
-    <form class="p-4" id="login" method="POST" action="{{ route('start') }}">
+    <form class="p-4" id="login" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="email">Endereço de email</label>

@@ -10,25 +10,41 @@ loadMembers(10, member_container[2]);
 loadMembers(3, member_container[3]);*/
 
 
-function addEventListeners(){
+let confirm_button = document.querySelector(".confirm-presence");
+let remove_button = document.querySelector(".deny-presence");
 
-    let confirm_button = document.querySelector(".confirm-presence");
-    confirm_button.addEventListener('click', newConfirmation);
+
+function addEventListeners() {
+
+    confirm_button.addEventListener('click', function (event) {
+        newConfirmation(true, confirm_button.classList.contains('active'));
+    });
+
+    remove_button.addEventListener('click', function (event) {
+        newConfirmation(false, remove_button.classList.contains('active'));
+    });
+
+
 }
 
 
-function newConfirmation(){
+function newConfirmation(status, previousSelected) {
+
+    if (previousSelected) return;
 
     let event_id = document.querySelector('.event-title').getAttribute('data-id');
 
-    sendAjaxRequest('put', '/event/' + event_id + '/presence', confirmationHandler);
+    sendAjaxRequest('post', '/api/events/' + event_id + '/presence', {presence: status}, confirmationHandler);
 
 }
 
-function confirmationHandler(){
+function confirmationHandler() {
+
+    console.log(this.responseText);
+
     let response = JSON.parse(this.responseText);
 
-    console.log(response);
+    //console.log(response);
 }
 
 initializeGMap(41.1780, -8.5980, mapDOM);
@@ -52,14 +68,14 @@ function autosize() {
 }
 
 
-let input_file_btn = document.querySelector('.input-file-btn');
+/*let input_file_btn = document.querySelector('.input-file-btn');
 let input_file_hidden = document.querySelector('.input-file-hidden');
-input_file_btn.addEventListener('click', () => input_file_hidden.click());
+input_file_btn.addEventListener('click', () => input_file_hidden.click());*/
 
 
 function encodeForAjax(data) {
     if (data == null) return null;
-    return Object.keys(data).map(function(k){
+    return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
 }
@@ -75,3 +91,5 @@ function sendAjaxRequest(method, url, data, handler) {
     request.send(encodeForAjax(data));
 }
 
+
+addEventListeners();

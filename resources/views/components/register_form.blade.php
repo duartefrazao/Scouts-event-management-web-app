@@ -60,7 +60,7 @@
       
       
         <button id="login-submit-button" type="submit" class="btn btn-primary">Registar</button>
-        <a href="{{ route('start') }}" class="register-btn">Já tem conta? Autentique-se</a>
+        <a href="{{ route('login') }}" class="register-btn">Já tem conta? Autentique-se</a>
       </form>
 </div>
 </div>
