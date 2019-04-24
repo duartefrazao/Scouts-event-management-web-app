@@ -43,13 +43,14 @@ class UserController extends Controller
     }
 
     public function profileUpdate(Request $request){
+
+        
         $name = $request->input('name');
         $description= $request->input('description');
         $email = $request->input('email');
 
         $user = Auth::user();
 
-        print_r($user);
 
         $user->name=$name;
         $user->description=$description;

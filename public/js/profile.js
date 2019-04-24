@@ -46,7 +46,7 @@ profileUpdate.addEventListener("click", function(event) {
         let email = document.querySelector("#profile_email").value;
 
 
-        sendAjaxRequest('post', '/api/profile/edit', {name: name,description:description,email:email}, function () {
+        sendAjaxRequest('post', '/api/users', {name: name,description:description,email:email}, function () {
             let response = JSON.parse(this.responseText);
             console.log(this.responseText);
         });
