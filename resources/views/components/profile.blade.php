@@ -23,18 +23,18 @@
         <fieldset class="profile-information" disabled="disabled">
             <div class="form-group profile-form-group">
                 <label>Nome</label>
-                <input type="name" class="form-control" placeholder="O teu nome" value="{{$user->name}}">
+                <input type="name" class="form-control" placeholder="O teu nome" value="{{$user->name}}" id="profile_name">
             </div>
 
             <div class="form-group profile-form-group">
                 <label>Descrição</label>
                 <textarea class="form-control profile-description" draggable="false"
-                          rows="3">{{$user->description}}</textarea>
+                          rows="3" id="profile_description">{{$user->description}}</textarea>
             </div>
 
             <div class="form-group profile-form-group">
                 <label>Endereço de email</label>
-                    <input type="email" class="form-control" placeholder="O teu email" value="{{$user->email}}">
+                    <input type="email" id="profile_email" class="form-control" placeholder="O teu email" value="{{$user->email}}" >
             </div>
         </fieldset>
 

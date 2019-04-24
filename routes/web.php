@@ -31,6 +31,7 @@ Route::get('profile/{id}', 'ProfileController@show')->name('profile')->where('id
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
+Route::post('api/profile/edit/','UserContoller@profileUpdate');
 
 // Authentication
 

@@ -39,6 +39,17 @@ profileUpdate.addEventListener("click", function(event) {
         $("#profile-page .profile-alert").remove();
         $('#profile-page').append("<div class='alert alert-success alert-dismissable profile-alert'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A tua informação foi atualizada!</div>");
         activeProfileEdit = false;
+
+
+        let name = document.querySelector("#profile_name").value;
+        let description = document.querySelector("#profile_description").value;
+        let email = document.querySelector("#profile_email").value;
+
+
+        sendAjaxRequest('post', '/api/profile/edit', {name: name,description:description,email:email}, function () {
+            let response = JSON.parse(this.responseText);
+            console.log(this.responseText);
+        });
     }
 });
 
