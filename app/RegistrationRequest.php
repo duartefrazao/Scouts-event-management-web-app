@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class RegistrationRequest extends Model
 {
 
+
+
     /**
      * The table associated with the model.
      *

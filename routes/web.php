@@ -42,6 +42,7 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 
+
 // Admin Authentication
 Route::prefix('admin')->group(function () {
     Route::get('/dash', 'AdminController@list')->name('admin.dashboard');

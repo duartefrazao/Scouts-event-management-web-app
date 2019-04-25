@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\RegistrationRequest;
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -23,11 +25,38 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+
+        $request->request->add([
+            'is_responsible' => 'true',
+            'is_guardian' => 'false',
+            'description' => 'Ola',
+            'deactivated' => 'false']);
+
+        $this->validator($request->all())->validate();
+
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        sleep(5);
+
+       // return $this->registered($request, $user) ?: redirect($this->redirectPath());
+    }
+
+    /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/start';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -42,32 +71,38 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'birthdate' => 'required|date|date_format:Y-m-d'
+            'email' => 'required|string|email|max:255|unique:user',
+            'password' => 'required|string|confirmed',
+            'birthdate' => 'required|date',
+            'is_responsible' => 'required|boolean',
+            'is_guardian' => 'required|boolean',
+            'description' => 'required|string',
+            'deactivated' => 'required|boolean',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
     {
-        return RegistrationRequest::create([
-            'name' => $data['name'],
+        return User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'name' => $data['name'],
             'birthdate' => $data['birthdate'],
+            'is_responsible' => $data['is_responsible'],
+            'is_guardian' => $data['is_guardian'],
             'description' => $data['description']
         ]);
     }
