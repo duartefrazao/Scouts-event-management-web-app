@@ -25,21 +25,21 @@ Route::get('events/{id}', 'EventController@show');
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
 
-//Profile
-Route::get('profile/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
-
+// User
+Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
-Route::post('api/users/','UserContoller@profileUpdate');
+Route::put('api/users/{id}','ProfileController@edit');
 
 // Authentication
 
 Route::get('start', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('start', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+
+Route::get('register', 'Auth\RegisterController@show');
+Route::post('register', 'Auth\RegisterController@store');
 
 
 // Admin Authentication

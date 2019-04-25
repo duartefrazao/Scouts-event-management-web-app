@@ -83,6 +83,7 @@
 .profile-edit {
     margin-top: 2em;
     display: flex;
+    justify-content: space-between;
 }
 
 .profile-edit .account-manage{
@@ -108,12 +109,11 @@
 
 
 .profile-form-btns {
-    float: right;
-    margin-right: 1em;
+
     display: none;
 }
 
-.profile-form-btns button {
+.profile-form-btns  button:first-child{
     margin-right: 1em;
 }
 

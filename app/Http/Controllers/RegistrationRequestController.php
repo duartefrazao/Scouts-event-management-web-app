@@ -55,12 +55,18 @@ class RegistrationRequestController extends Controller
 
         //$this->authorize('create', $reg_request);
 
+        if($request['password'] != $request['password_confirmation']){
+            return null;
+        }
+
         $reg_request->name = $request->input('name');
         $reg_request->email = $request->input('email');
         $reg_request->password = $request->input('password');
         $reg_request->birthdate = $request->input('birthdate');
         $reg_request->state = $request->input('state');
         $reg_request->description = $request->input('description');
+
+        $reg_request.save();
 
         return $reg_request;
     }

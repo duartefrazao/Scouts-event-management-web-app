@@ -55,20 +55,36 @@ class RegisterController extends Controller
         ]);
     }
 
+
+
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function store()
     {
-        return RegistrationRequest::create([
+
+
+        $data=request();
+
+
+
+        $result=RegistrationRequest::create([
             'name' => $data['name'],
+            'birthdate' =>$data['birthdate'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'birthdate' => $data['birthdate'],
-            'description' => $data['description']
-        ]);
+            'description' => $data['description'],
+            'password' => bcrypt($data['password'])]);
+
+
+
+
+    }
+
+    protected function show()
+    {
+        dd(request()->all());
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class RegistrationRequest extends Model
 {
+
+    protected $fillable = ['id','name', 'email','birthdate', 'password','description'];
 
     /**
      * The table associated with the model.
