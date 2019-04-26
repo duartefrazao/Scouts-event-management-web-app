@@ -1,4 +1,5 @@
 <div class="container initial-page-container">
+
     <form class="p-4" id="login" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
         <div class="form-group">
@@ -36,11 +37,14 @@
         {{ csrf_field() }}
 
         <div class="btn-group btn-group-toggle user-type" data-toggle="buttons">
+
+            {{--Used for sending always information--}}
+            <input type="hidden" name="options" value="scout">
             <label class="btn btn-secondary active">
-                <input type="radio" name="options" id="radio-scout" autocomplete="off"> Escuteiro
+                <input  type="radio" name="options" id="Escuteiro" autocomplete="off" value="scout"> Escuteiro
             </label>
             <label class="btn btn-secondary">
-                <input type="radio" name="options" id="radio-guardian" autocomplete="off"> Encarregado
+                <input  type="radio" name="options" id="Encarregado" autocomplete="off" value="guardian"> Encarregado
             </label>
         </div>
 
