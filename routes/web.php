@@ -39,7 +39,7 @@ Route::post('start', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('register', 'Auth\RegisterController@show');
-Route::post('register', 'RegistrationRequestController@store');
+Route::post('register', 'RegistrationRequestController@create');
 
 
 

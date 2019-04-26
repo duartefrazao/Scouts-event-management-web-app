@@ -43,7 +43,7 @@ class RegistrationRequestController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $reg_request = new RegistrationRequest();
 
