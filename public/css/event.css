@@ -2,7 +2,7 @@
 
 html * {
     font-family: 'Questrial', sans-serif;
-       
+
 }
 
 .events-flex {
@@ -86,7 +86,7 @@ a.card-wrap:hover {
 .event-wrap .card {
     border: 0px;
     background-color: rgba(255, 255, 255, 0);
-    
+
 }
 
 .event-comment{
@@ -105,7 +105,7 @@ a.card-wrap:hover {
 
 .event-comment .comment-body{
     text-indent: 2em;
-    
+
 }
 
 .event-page .confirm{
@@ -186,7 +186,7 @@ a.card-wrap:hover {
 
     .event-basic-info{
         flex-direction: column;
-        padding:0 !important;    
+        padding:0 !important;
     }
 
     .card-block{
@@ -201,7 +201,7 @@ a.card-wrap:hover {
         font-size: var(--font-size-regular) !important;
     }
 
-    
+
 
     .event-wrap time .event-card-month{
         order:3;
@@ -211,7 +211,7 @@ a.card-wrap:hover {
     .event-wrap time .event-card-week-day{
         order:1;
         font-size:large;
-        
+
     }
 
     .event-wrap time .event-card-week-day::after{
@@ -223,7 +223,7 @@ a.card-wrap:hover {
         width: 100% !important;
         justify-content: center;
     }
-    
+
 
     .events-flex{
         padding: 0;
@@ -260,7 +260,7 @@ a.card-wrap:hover {
 }
 
 #pac-input{
-    
+
 }
 
 .input-location{
@@ -268,7 +268,7 @@ a.card-wrap:hover {
     border-radius: 15px;
     border:none;
     padding: 0.2em 1em;
-  
+
 }
 
 .input-location i,
@@ -440,7 +440,7 @@ a.card-wrap:hover {
     height:2em;
     margin-top:0.1em;
 }
-/* 
+/*
 .event-wrap:hover{
     background: url("http://www.viseu.cne-escutismo.pt/photos/news/68/682rvuoth9.jpg") no-repeat;
 } */
@@ -477,6 +477,11 @@ a.card-wrap:hover {
       margin-bottom:0 !important;
       margin:0.5em auto 0.5em 0em;
       font-size:var(--font-size-regular);
+  }
+
+  .event-basic-info .card-number-participants{
+      margin-left: auto;
+      margin-right: 2em;
   }
 
   .bottom-card{

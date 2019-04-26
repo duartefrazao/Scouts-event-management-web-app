@@ -34,7 +34,7 @@
                             @else 
                             Local Indefinido
                             @endif </div>
-                            <div class="text-muted card-number-participants justify-content-center">
+                            <div class="text-muted card-number-participants justify-content-end">
                             @if ($event->going)
                             {{count($event->going)}}
                             @else
