@@ -1,10 +1,9 @@
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="admin.php" id="website-name">
+    <a class="navbar-brand" href={{ route('admin.dashboard') }} id="website-name">
         <img src="../icons/favicon.png" width="30" height="30" class="d-inline-block align-top" alt=""> Admin
     </a>
     <button class="navbar-toggler admin-toggle navbar-dark" type="button" data-toggle="collapse"
-            data-target="#admin-tab"
-            aria-controls="admin-tab" aria-expanded="false" aria-label="Toggle navigation">
+            data-target="#admin-tab" aria-controls="admin-tab" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
