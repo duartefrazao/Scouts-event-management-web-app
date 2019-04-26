@@ -1214,29 +1214,29 @@ VALUES (1, 'agrupa-admin@agrupa.com','$2y$12$S7AhzhobTdNsi1bLGKd1A.1Bu7yVlrib9P1
 
 -- REGISTRATION
 
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (1,'Lee George','magna.nec.quam@euodio.ca','AON60VAC6DU','2001-10-16','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Lee George','magna.nec.quam@euodio.ca','AON60VAC6DU','2001-10-16','Pending',
         'Cras sed leo. Cras');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (2,'Leo Rogers','Sed.eu.nibh@neceuismod.ca','ALA87SFW4HP','2008-07-15','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Leo Rogers','Sed.eu.nibh@neceuismod.ca','ALA87SFW4HP','2008-07-15','Pending',
         'In tincidunt congue turpis. In condimentum.');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (3,'Thor Lee','arcu@urnaNunc.ca','CNO80QJB5CX','2004-03-15','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Thor Lee','arcu@urnaNunc.ca','CNO80QJB5CX','2004-03-15','Pending',
         'consectetuer adipiscing elit. Etiam laoreet,');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (4,'Thor Castaneda','erat@commodoatlibero.org','HMM34FTE4VQ','2013-04-10','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Thor Castaneda','erat@commodoatlibero.org','HMM34FTE4VQ','2013-04-10','Pending',
         'diam. Sed diam lorem,');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (5,'Cedric Dickson','fermentum.vel.mauris@mattisvelitjusto.co.uk','HZJ37OJC4XV','1996-04-13','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Cedric Dickson','fermentum.vel.mauris@mattisvelitjusto.co.uk','HZJ37OJC4XV','1996-04-13','Pending',
         'feugiat placerat velit. Quisque');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (6,'Kasimir Hancock','malesuada.malesuada@turpis.co.uk','WWI42NGW2NV','1997-09-28','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Kasimir Hancock','malesuada.malesuada@turpis.co.uk','WWI42NGW2NV','1997-09-28','Pending',
         'nibh. Aliquam ornare, libero at');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (7,'Herman Tyson','mus.Donec.dignissim@ipsumcursusvestibulum.net','ZTJ80LED4CI','1996-04-06','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Herman Tyson','mus.Donec.dignissim@ipsumcursusvestibulum.net','ZTJ80LED4CI','1996-04-06','Pending',
         'mauris erat eget ipsum. Suspendisse sagittis.');
-INSERT INTO registration_request (id,name,email,password,birthdate,state,description)
-VALUES (8,'Victor Booth','at.fringilla@auctorvitae.org','HFG73YTJ5OX','2005-10-21','Pending',
+INSERT INTO registration_request (name,email,password,birthdate,state,description)
+VALUES ('Victor Booth','at.fringilla@auctorvitae.org','HFG73YTJ5OX','2005-10-21','Pending',
         'imperdiet ornare. In faucibus.');
 
 -- REGISTRATION WITH GUARDIAN

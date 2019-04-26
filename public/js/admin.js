@@ -20,15 +20,28 @@ document.querySelectorAll("#admin-content .member-face").forEach(member => { loa
 let registrationRequests = document.querySelectorAll(".registration_name");
 
 registrationRequests.forEach(function(register){
-
     let id = register.querySelector("input").value;
+
     register.addEventListener('click',function (){
-        console.log(id)
-
-
-        sendAjaxRequest('post', '/admin/registers/' + id, {},confirmationHandler);
+        sendAjaxRequest('post', '/admin/registers/' + id, {},acceptedHandler);
     });
 });
+
+
+function acceptedHandler(){
+    let response = this.responseText;
+    console.log(response)
+    if(this.status == 200)
+    {
+        elem = document.querySelector('[data-id="' + response + '"]');
+        //TO-DO cena a dizer que foi bem sucedido
+        elem.parentNode.removeChild(elem);
+    }else{
+        elem = document.querySelector('[data-id="' + response[0] + '"]');
+        let div = 'Can\'t make registrations that include childs';
+        elem.append(div);
+    }
+}
 
 let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
 let pending_danger = document.querySelectorAll('#pending-content .list-group-item .btn-danger');

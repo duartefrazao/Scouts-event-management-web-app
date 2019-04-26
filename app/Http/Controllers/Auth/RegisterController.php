@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -24,39 +23,10 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
+
+    public function register($request)
     {
 
-        $data = $request->request->all();
-
-        //TO-DO adicionar maneira de ser responsável ou não
-        if($data['options'] == 'guardian') {
-            $request->request->add([
-                'is_guardian' => true,
-                'is_responsible' =>true
-                ]);
-        }else{
-            $request->request->add([
-                'is_guardian' => false,
-                'is_responsible' =>true
-            ]);
-        }
-
-
-
-//Z        $this->validator(request()->all())->validate();
-
-        $this->store(request()->all());
-
-
-
-        return redirect($this->redirectTo);
 
     }
 
@@ -110,16 +80,15 @@ class RegisterController extends Controller
 
         $data=request();
 
-        RegistrationRequest::create([
-            'name' => $data['name'],
-            'birthdate' =>$data['birthdate'],
+        return User::create([
             'email' => $data['email'],
-            'description' => $data['description'],
             'password' => bcrypt($data['password']),
-            ]);
-
-
-        return redirect($this->redirectTo);
+            'name' => $data['name'],
+            'birthdate' => $data['birthdate'],
+            'is_responsible' => $data['is_responsible'],
+            'is_guardian' => $data['is_guardian'],
+            'description' => $data['description']
+        ]);
 
     }
 
