@@ -51,7 +51,7 @@ class EventController extends Controller
 
         $event['going'] = $event->participants()->where('state', 'Going')->get();
 
-        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(4)->pluck('user.name');
+        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(3)->pluck('user.name');
         
         
     }

@@ -468,7 +468,11 @@ a.card-wrap:hover {
   }
 
   .event-info .group-members{
-      justify-content: baseline;
+      white-space: nowrap !important;
+      text-overflow: ellipsis !important;
+      max-width: 90%;
+      width: 90%;
+      flex-wrap: nowrap;
       padding-bottom: 0.5em;
       margin-bottom:0 !important;
       margin:0.5em auto 0.5em 0em;
