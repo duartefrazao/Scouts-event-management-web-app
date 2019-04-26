@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\RegistrationRequest;
 use Illuminate\Support\Facades\Auth;
+
 
 class AdminController extends Controller
 {
@@ -13,11 +15,14 @@ class AdminController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function list(){
+    public function list()
+    {
 
         if (!Auth::check()) return redirect('admin/login');
 
-        return view('pages.admindash');
+        $users = RegistrationRequest::all();
+
+        return view('pages.admindash', ['users' => $users]);
     }
 
 }
