@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\RegistrationRequest;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -29,7 +31,10 @@ class AdminController extends Controller
 
         $reg_request = RegistrationRequest::find($id);
 
-        return response(json_encode(), 200);
+        RegisterController::register($reg_request);
+
+        $name =  RegistrationRequest::find($id)->name;
+        return response(json_encode("Handling request for $name"), 200);
     }
 
 }

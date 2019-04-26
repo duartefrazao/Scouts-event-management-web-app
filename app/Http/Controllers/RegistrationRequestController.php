@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\RegistrationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class RegistrationRequestController extends Controller
@@ -24,6 +25,27 @@ class RegistrationRequestController extends Controller
         //$this->authorize('show', $reg_request);
 
         return view('pages.reg_request', ['reg_request' => $reg_request]);
+    }
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:user',
+            'password' => 'required|string|confirmed',
+            'birthdate' => 'required|date',
+            'description' => 'required|string',/*,
+            'is_responsible' => 'required|boolean',
+            'is_guardian' => 'required|boolean',
+            'deactivated' => 'required|boolean',*/
+        ]);
     }
 
     /**
@@ -45,7 +67,6 @@ class RegistrationRequestController extends Controller
 
     public function create(Request $request)
     {
-        $reg_request = new RegistrationRequest();
 
         //$this->authorize('create', $reg_request);
 
@@ -53,16 +74,21 @@ class RegistrationRequestController extends Controller
             return null;
         }
 
-        $reg_request->name = $request->input('name');
-        $reg_request->email = $request->input('email');
-        $reg_request->password = $request->input('password');
-        $reg_request->birthdate = $request->input('birthdate');
-        $reg_request->state = $request->input('state');
-        $reg_request->description = $request->input('description');
+        $data= request()->all();
 
-        $reg_request.save();
+        $this->validator($data)->validate();
 
-        return $reg_request;
+
+        RegistrationRequest::create([
+            'name' => $data['name'],
+            'birthdate' =>$data['birthdate'],
+            'email' => $data['email'],
+            'description' => $data['description'],
+            'password' => bcrypt($data['password']),
+        ]);
+
+
+        return  redirect()->route('/');
     }
 
     /**

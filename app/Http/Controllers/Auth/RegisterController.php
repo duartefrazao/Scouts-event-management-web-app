@@ -36,7 +36,7 @@ class RegisterController extends Controller
         $data = $request->request->all();
 
         //TO-DO adicionar maneira de ser responsável ou não
-/*        if($data['options'] == 'guardian') {
+        if($data['options'] == 'guardian') {
             $request->request->add([
                 'is_guardian' => true,
                 'is_responsible' =>true
@@ -46,18 +46,11 @@ class RegisterController extends Controller
                 'is_guardian' => false,
                 'is_responsible' =>true
             ]);
-        }*/
+        }
 
 
 
-        //TO-DO Descrição
-
-        $request->request->add([
-            'description' => 'Descrição predefinida' /*,
-            'deactivated' => false*/]);
-
-
-        $this->validator(request()->all())->validate();
+//Z        $this->validator(request()->all())->validate();
 
         $this->store(request()->all());
 
@@ -114,8 +107,8 @@ class RegisterController extends Controller
      */
     protected function store()
     {
-        dd("gtfo");
-       /* $data=request();
+
+        $data=request();
 
         RegistrationRequest::create([
             'name' => $data['name'],
@@ -126,7 +119,7 @@ class RegisterController extends Controller
             ]);
 
 
-        return redirect($this->redirectTo);*/
+        return redirect($this->redirectTo);
 
     }
 
