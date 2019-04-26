@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function profileUpdate(Request $request){
 
-        
+
         $name = $request->input('name');
         $description= $request->input('description');
         $email = $request->input('email');
@@ -59,6 +59,19 @@ class UserController extends Controller
 
 
         return response(json_encode("Success in changing profile"), 200);
+
+    }
+
+    public function create($reg_request){
+        return User::create([
+            'email' => $reg_request['email'],
+            'password' => bcrypt($reg_request['password']),
+            'name' => $reg_request['name'],
+            'birthdate' => $reg_request['birthdate'],
+            'is_responsible' => $reg_request['is_responsible'],
+            'is_guardian' => $reg_request['is_guardian'],
+            'description' => $reg_request['description']
+        ]);
 
     }
 
