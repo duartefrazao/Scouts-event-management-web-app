@@ -172,6 +172,11 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 0 2em 1em 2em;
+
+}
+
+.user-type input{
+    display:none;
 }
 
 .initial-page-container .user-type .btn {

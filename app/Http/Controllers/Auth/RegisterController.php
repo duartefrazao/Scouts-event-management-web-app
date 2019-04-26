@@ -33,22 +33,39 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
+
+
+        $data = $request->request->all();
+
+        //TO-DO adicionar maneira de ser responsável ou não
+        if($data['options'] == 'guardian') {
+            $request->request->add([
+                'is_guardian' => true,
+                'is_responsible' =>true
+                ]);
+        }else{
+            $request->request->add([
+                'is_guardian' => false,
+                'is_responsible' =>true
+            ]);
+        }
+
+        //TO-DO Descrição
+
         $request->request->add([
-            'is_responsible' => 'true',
-            'is_guardian' => 'false',
-            'description' => 'Ola',
-            'deactivated' => 'false']);
-
-        $this->validator($request->all())->validate();
+            'description' => 'Descrição predefinida',
+            'deactivated' => false]);
 
 
-        event(new Registered($user = $this->create($request->all())));
+        $this->validator(request()->all())->validate();
 
-        $this->guard()->login($user);
+        $user = $this->create(request()->all());
 
-        sleep(5);
+        auth()->login($user);
 
-       // return $this->registered($request, $user) ?: redirect($this->redirectPath());
+
+        return redirect($this->redirectTo);
+
     }
 
     /**
