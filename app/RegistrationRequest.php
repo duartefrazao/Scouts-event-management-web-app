@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class RegistrationRequest extends Model
 {
 
+    protected $fillable = ['id','name', 'email','birthdate', 'password','description'];
+
     /**
      * The table associated with the model.
      *

@@ -3,7 +3,7 @@ let fieldset = document.querySelector(".profile-information");
 let actionButtons = document.querySelector("#profile-page .profile-form-btns");
 let profileUpdate = document.querySelector("#profile-page .profile-update-btn");
 let undoAction = document.querySelector("#profile-page #undo-action");
-
+let form= document.querySelector("#profile-page > form");
 
 let activeProfileEdit = false;
 
@@ -17,8 +17,10 @@ undoAction.addEventListener("click", function() {
     if(!activeProfileEdit)
         return;
     else{
+
         editProfile.style.display = "block";
         actionButtons.style.display ="none";
+        removeFields();
         fieldset.setAttribute('disabled', 'disabled');
         $('body .profile-alert').remove();
         $('body').append("<div class='alert alert-primary alert-dismissable profile-alert'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A tua informação não foi atualizada!</div>");
@@ -35,21 +37,15 @@ profileUpdate.addEventListener("click", function(event) {
     else{
         editProfile.style.display = "block";
         actionButtons.style.display ="none";
-        fieldset.setAttribute('disabled', 'disabled');
         $("#profile-page .profile-alert").remove();
         $('#profile-page').append("<div class='alert alert-success alert-dismissable profile-alert'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A tua informação foi atualizada!</div>");
         activeProfileEdit = false;
 
 
-        let name = document.querySelector("#profile_name").value;
-        let description = document.querySelector("#profile_description").value;
-        let email = document.querySelector("#profile_email").value;
+        form.submit();
 
+        fieldset.setAttribute('disabled', 'disabled');
 
-        sendAjaxRequest('post', '/api/users', {name: name,description:description,email:email}, function () {
-            let response = JSON.parse(this.responseText);
-            console.log(this.responseText);
-        });
     }
 });
 
@@ -62,18 +58,21 @@ function enableEditable() {
     editProfile.style.display = "none";
 
     actionButtons.style.display = "block";
+
+    addFields();
+
 }
 
 
 function addFields() {
-    const form = document.querySelector("form");
-    const divs = document.querySelectorAll("form div");
-    let lastInput = divs[divs.length - 1];
+    const form = document.querySelector("form fieldset");
+    const divs = document.querySelectorAll("form fieldset div");
+    let lastInput = divs[divs.length ];
 
     const inners = [
-        '<label>Palavra passe antiga</label> <input type="password" class="form-control">',
-        '<label>Palavra passe nova</label><input type="password" class="form-control" >',
-        '<label>Confirmar palavra passe nova</label><input type="password" class="form-control" > </input>'
+        '<label>Palavra passe antiga</label> <input name="old_password" type="password" class="form-control">',
+        '<label>Palavra passe nova</label><input name="new_password" type="password" class="form-control" >',
+        '<label>Confirmar palavra passe nova</label><input name="new_password_confirmation" type="password" class="form-control" >'
     ]
 
     inners.forEach(function (inner) {
@@ -86,23 +85,19 @@ function addFields() {
 
     activePassBtn = true;
 
-    changePassBtn.classList.remove("btn-warning");
-    changePassBtn.classList.add("btn-secondary");
-    changePassBtn.innerHTML = "Cancelar";
+    edit
 }
 
 function removeFields() {
-    const form = document.querySelector("form");
+    const fieldset = document.querySelector("fieldset");
     const divs = document.querySelectorAll("form .profile-password-fields");
 
-    console.log(divs);
+
     divs.forEach(function (element) {
-        form.removeChild(element);
+        fieldset.removeChild(element);
     })
 
-    changePassBtn.classList.remove("btn-secondary");
-    changePassBtn.classList.add("btn-warning");
-    changePassBtn.innerHTML = "Mudar palavra passe";
+
 
     activePassBtn = false;
 }

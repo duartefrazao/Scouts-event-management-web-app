@@ -39,6 +39,16 @@
               </span>
             @endif
         </div>
+
+        <div class="form-group">
+            <label for="description">Descrição</label>
+            <input type="password" class="form-control" id="description" placeholder="Descrição de ti" required>
+            @if ($errors->has('description'))
+                <span class="error">
+                      {{ $errors->first('description') }}
+                  </span>
+            @endif
+        </div>
         <div class="form-group">
             <label for="password">Palavra-passe</label>
             <input type="password" class="form-control" id="password" placeholder="Palavra-passe" required>

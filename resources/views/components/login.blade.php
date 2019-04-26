@@ -33,7 +33,8 @@
         <a class="register-btn" href="#toregister">Não tem conta? Registe-se</a>
     </form>
 
-    <form method="POST" class="p-4" action="{{ route('register') }}" id="register">
+
+    <form method="POST" class="p-4" action="\register" id="register">
         {{ csrf_field() }}
 
         <div class="btn-group btn-group-toggle user-type" data-toggle="buttons">
@@ -52,6 +53,7 @@
             <label for="name">Nome</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="Nome" value="{{ old('name') }}" required
                    autofocus>
+
             @if ($errors->has('name'))
                 <span class="error">
                   {{ $errors->first('name') }}
@@ -77,6 +79,7 @@
                   {{ $errors->first('email') }}
               </span>
             @endif
+
         </div>
         <div class="form-group">
             <label for="password">Palavra-passe</label>
@@ -86,15 +89,26 @@
                   {{ $errors->first('password') }}
               </span>
             @endif
+
         </div>
+
         <div class="form-group">
             <label for="password-confirmation">Confirmar palavra-passe</label>
-            <input type="password" class="form-control" id="password-confirmation"  name="password_confirmation" placeholder="Palavra-passe" required
-                   autocomplete>
+            <input name="password_confirmation" type="password" class="form-control" id="password-confirmation" placeholder="Palavra-passe" required>
             @if ($errors->has('password-confirmation'))
                 <span class="error">
                   {{ $errors->first('password-confirmation') }}
               </span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descrição</label>
+            <input name="description" type="text" class="form-control" id="description" placeholder="Descrição de ti" required>
+            @if ($errors->has('description'))
+                <span class="error">
+                      {{ $errors->first('description') }}
+                  </span>
             @endif
         </div>
 
@@ -112,6 +126,7 @@
         <button type="submit" class="btn btn-primary">Registar</button>
 
         <a href="#login" class="register-btn">Já tem conta? Autentique-se</a>
+
 
     </form>
 

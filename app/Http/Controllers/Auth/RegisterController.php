@@ -36,7 +36,7 @@ class RegisterController extends Controller
         $data = $request->request->all();
 
         //TO-DO adicionar maneira de ser responsável ou não
-        if($data['options'] == 'guardian') {
+/*        if($data['options'] == 'guardian') {
             $request->request->add([
                 'is_guardian' => true,
                 'is_responsible' =>true
@@ -46,20 +46,21 @@ class RegisterController extends Controller
                 'is_guardian' => false,
                 'is_responsible' =>true
             ]);
-        }
+        }*/
+
+
 
         //TO-DO Descrição
 
         $request->request->add([
-            'description' => 'Descrição predefinida',
-            'deactivated' => false]);
+            'description' => 'Descrição predefinida' /*,
+            'deactivated' => false*/]);
 
 
         $this->validator(request()->all())->validate();
 
-        $user = $this->create(request()->all());
+        $this->store(request()->all());
 
-        auth()->login($user);
 
 
         return redirect($this->redirectTo);
@@ -95,13 +96,15 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:user',
             'password' => 'required|string|confirmed',
-            'birthdate' => 'required|date',
+            'birthdate' => 'required|date'/*,
             'is_responsible' => 'required|boolean',
             'is_guardian' => 'required|boolean',
             'description' => 'required|string',
-            'deactivated' => 'required|boolean',
+            'deactivated' => 'required|boolean',*/
         ]);
     }
+
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -109,16 +112,26 @@ class RegisterController extends Controller
      * @param array $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function store()
     {
-        return User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        dd("gtfo");
+       /* $data=request();
+
+        RegistrationRequest::create([
             'name' => $data['name'],
-            'birthdate' => $data['birthdate'],
-            'is_responsible' => $data['is_responsible'],
-            'is_guardian' => $data['is_guardian'],
-            'description' => $data['description']
-        ]);
+            'birthdate' =>$data['birthdate'],
+            'email' => $data['email'],
+            'description' => $data['description'],
+            'password' => bcrypt($data['password']),
+            ]);
+
+
+        return redirect($this->redirectTo);*/
+
+    }
+
+    protected function show()
+    {
+        dd(request()->all());
     }
 }

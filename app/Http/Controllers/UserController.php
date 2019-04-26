@@ -61,7 +61,6 @@ class UserController extends Controller
         return response(json_encode("Success in changing profile"), 200);
 
     }
-
     public function create($reg_request){
         return User::create([
             'email' => $reg_request['email'],

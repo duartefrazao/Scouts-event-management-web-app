@@ -42,18 +42,16 @@ class RegistrationRequestController extends Controller
         return view('pages.events', ['reg_requests' => $reg_requests]);
     }
 
-    /**
-     * Creates a new RegistrationRequest.
-     *
-     * @param  int  $reg_request_id
-     * @param  Request request containing the description
-     * @return Response
-     */
-    public function create(Request $request)
+
+    public function store(Request $request)
     {
         $reg_request = new RegistrationRequest();
 
         //$this->authorize('create', $reg_request);
+
+        if($request['password'] != $request['password_confirmation']){
+            return null;
+        }
 
         $reg_request->name = $request->input('name');
         $reg_request->email = $request->input('email');
@@ -61,6 +59,8 @@ class RegistrationRequestController extends Controller
         $reg_request->birthdate = $request->input('birthdate');
         $reg_request->state = $request->input('state');
         $reg_request->description = $request->input('description');
+
+        $reg_request.save();
 
         return $reg_request;
     }
