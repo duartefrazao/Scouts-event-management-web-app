@@ -35,22 +35,22 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="all-users" role="tabpanel" aria-labelledby="all-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['all'], 'user')
         </div>
         <div class="tab-pane" id="lobitos-users" role="tabpanel" aria-labelledby="lobitos-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['lobitos'], 'user')
         </div>
         <div class="tab-pane" id="pioneiros-users" role="tabpanel" aria-labelledby="pioneiros-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['pioneiros'], 'user')
         </div>
         <div class="tab-pane" id="exploradores-users" role="tabpanel" aria-labelledby="exploradores-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['exploradores'], 'user')
         </div>
         <div class="tab-pane" id="caminheiros-users" role="tabpanel" aria-labelledby="caminheiros-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['caminheiros'], 'user')
         </div>
         <div class="tab-pane" id="encarregados-users" role="tabpanel" aria-labelledby="encarregados-users-tab">
-            @each('partials.admin.common.list_user', $users, 'user')
+            @each('partials.admin.common.list_user', $users['guardians'], 'user')
         </div>
     </div>
 </div>
