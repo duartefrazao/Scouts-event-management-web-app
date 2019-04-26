@@ -33,8 +33,6 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
-
-
         $data = $request->request->all();
 
         //TO-DO adicionar maneira de ser responsável ou não
