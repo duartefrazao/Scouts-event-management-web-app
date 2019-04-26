@@ -6,18 +6,29 @@ $('#admin-tab .nav-tabs a').click(function (e) {
 
 $('#users-choice  a').click(function (e) {
     // No e.preventDefault() here
-    console.log('yo');
     $(this).tab('show');
 });
 
 $('#section-choice  a').click(function (e) {
     // No e.preventDefault() here
-    console.log('yo');
     $(this).tab('show');
 });
 
 
 document.querySelectorAll("#admin-content .member-face").forEach(member => { loadFaceMember(1, member);});
+
+let registrationRequests = document.querySelectorAll(".registration_name");
+
+registrationRequests.forEach(function(register){
+
+    let id = register.querySelector("input").value;
+    register.addEventListener('click',function (){
+        console.log(id)
+
+
+        sendAjaxRequest('post', '/admin/registers/' + id, {},confirmationHandler);
+    });
+});
 
 let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
 let pending_danger = document.querySelectorAll('#pending-content .list-group-item .btn-danger');

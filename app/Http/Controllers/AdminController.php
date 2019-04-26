@@ -25,4 +25,11 @@ class AdminController extends Controller
         return view('pages.admindash', ['users' => $users]);
     }
 
+    public function store($id){
+
+        $reg_request = RegistrationRequest::find($id);
+
+        return response(json_encode(), 200);
+    }
+
 }
