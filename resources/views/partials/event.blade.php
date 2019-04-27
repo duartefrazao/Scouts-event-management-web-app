@@ -34,7 +34,7 @@
                             @else 
                             Local Indefinido
                             @endif </div>
-                            <div class="text-muted card-number-participants justify-content-center">
+                            <div class="text-muted card-number-participants justify-content-end">
                             @if ($event->going)
                             {{count($event->going)}}
                             @else
@@ -62,18 +62,18 @@
                         </div>
 
                         <div class="card-body group-members">
-                            
+
                             @foreach($event['invited'] as $inv)
                             <div class="member-wrap">
                                 <a href="#" class="group-member-name text-muted">{{$inv}}</a>
                             </div>
 
                             @endforeach
-                            @if ($event['invited'] = 4)
+{{--                            @if ($event['invited'] = 4)
                             <div class="member-wrap">
                                 <a href="#" class="group-member-name text-muted">...</a>
                             </div>
-                            @endif
+                            @endif--}}
                             
                         </div>
                     </div>
