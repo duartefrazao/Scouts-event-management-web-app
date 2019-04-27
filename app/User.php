@@ -62,5 +62,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Vote');
     }
 
+    public function guardian(){
+        return $this->belongsTo('App\User');
+    }
+
 
 }

@@ -17,15 +17,28 @@ $('#section-choice  a').click(function (e) {
 
 document.querySelectorAll("#admin-content .member-face").forEach(member => { loadFaceMember(1, member);});
 
-let registrationRequests = document.querySelectorAll(".registration_name");
 
-registrationRequests.forEach(function(register){
-    let id = register.querySelector("input").value;
+let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
+let pending_danger = document.querySelectorAll('#pending-content .list-group-item .btn-danger');
 
-    register.addEventListener('click',function (){
+pending_success.forEach(user => {
+    user.addEventListener('click', function () {
+        let id = user.getAttribute('data-id');
+
         sendAjaxRequest('post', '/admin/registers/' + id, {},acceptedHandler);
-    });
+
+    })
+}); 
+
+
+pending_danger.forEach(user => {
+    user.addEventListener('click', function () {
+        let id = user.getAttribute('data-id');
+
+        sendAjaxRequest('delete', '/admin/registers/' + id, {},rejectedHandler);
+    })
 });
+
 
 
 function acceptedHandler(){
@@ -33,51 +46,49 @@ function acceptedHandler(){
     console.log(response)
     if(this.status == 200)
     {
-        elem = document.querySelector('[data-id="' + response + '"]');
-        //TO-DO cena a dizer que foi bem sucedido
-        elem.parentNode.removeChild(elem);
-    }else{
-        elem = document.querySelector('[data-id="' + response[0] + '"]');
-        let div = 'Can\'t make registrations that include childs';
-        elem.append(div);
-    }
-}
-
-let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
-let pending_danger = document.querySelectorAll('#pending-content .list-group-item .btn-danger');
-
-pending_success.forEach(user => {
-    user.addEventListener('click', function () {
+        let user= document.querySelector('[data-id="' + response + '"]');
         let li = user.parentNode.parentNode;
         let parent = li.parentNode;
         li.classList.add('animate');
         $("body .alert-pending-user").remove();
         $('body').append("<div class='alert alert-success alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> O utilizador foi aceite!</div>");
-        
+
         setTimeout(function(){
             li.style.display = "none";
             parent.removeChild(li);
 
         }, 500);
-    })
-}); 
+    }else{
+        elem = document.querySelector('[data-id="' + response[0] + '"]').parentNode.parentNode;
+        let div = 'Can\'t make registrations that include childs';
+        elem.append(div);
+    }
+}
 
 
-pending_danger.forEach(user => {
-    user.addEventListener('click', function () {
+
+function rejectedHandler(){
+    let response = this.responseText;
+    if(this.status == 200)
+    {
+        let user= document.querySelector('[data-id="' + response + '"]');
         let li = user.parentNode.parentNode;
         let parent = li.parentNode;
         li.classList.add('animate');
         $("body .alert-pending-user").remove();
         $('body').append("<div class='alert alert-primary alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> O utilizador não foi aceite!</div>");
-        
+
         setTimeout(function(){
             li.style.display = "none";
             parent.removeChild(li);
 
         }, 500);
-    })
-}); 
+    }else{
+        elem = document.querySelector('[data-id="' + response[0] + '"]').parentNode.parentNode;
+        let div = 'Can\'t remove registrations that include childs';
+        elem.append(div);
+    }
+}
 
 
 let guardians_accept = document.querySelectorAll('#guardians-content .list-group-item .btn-success');

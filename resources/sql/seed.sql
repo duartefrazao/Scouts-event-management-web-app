@@ -1256,7 +1256,7 @@ VALUES (8, 3);
 -- GUARDIAN EXCHANGE
 --Request to make User 2 the new guardian of the User 1 (previous guardian -> 1)
 INSERT INTO guardian_exchange(id, minor, new_guardian)
-VALUES(1, 1, 2);
+VALUES(1, 4, 2);
 
 
 

@@ -13,19 +13,17 @@
     <div class="container-fluid" id="admin-content">
         <div class="tab-content">
             <div class="tab-pane active" id="pending-users" role="tabpanel" aria-labelledby="pending-tab">
-
-                <div class="container col-lg-6 col-xs-10 col-md-10 col-sm-10" id="pending-content">
-                    <div class="admin-section-title"> Registos</div>
-                    @each('partials.admin.list_user', $users, 'user')
-                </div>
-
+                @include('partials.admin.pending_requests', ['requests' => $requests])
             </div>
             <div class="tab-pane " id="users" role="tabpanel" aria-labelledby="users-tab">
+                @include('partials.admin.users', ['users' => $users])
             </div>
-            <div class="tab-pane " id="guardians" role="tabpanel"
-                 aria-labelledby="guardians-tab"></div>
-            <div class="tab-pane " id="managers" role="tabpanel"
-                 aria-labelledby="managers-tab"></div>
+            <div class="tab-pane " id="guardians" role="tabpanel" aria-labelledby="guardians-tab">
+                @include('partials.admin.exchanges', ['exchanges' => $exchanges])
+            </div>
+            <div class="tab-pane " id="managers" role="tabpanel" aria-labelledby="managers-tab">
+                @include('partials.admin.moderators', ['moderators' => $moderators])
+            </div>
         </div>
     </div>
 

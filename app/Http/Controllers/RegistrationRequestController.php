@@ -40,11 +40,7 @@ class RegistrationRequestController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:user',
             'password' => 'required|string|confirmed',
-            'birthdate' => 'required|date',
-            'description' => 'required|string',/*,
-            'is_responsible' => 'required|boolean',
-            'is_guardian' => 'required|boolean',
-            'deactivated' => 'required|boolean',*/
+            'birthdate' => 'required|date'
         ]);
     }
 
@@ -75,6 +71,7 @@ class RegistrationRequestController extends Controller
         }
 
         $data= request()->all();
+
 
         $this->validator($data)->validate();
 

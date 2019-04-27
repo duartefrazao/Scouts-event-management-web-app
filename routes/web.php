@@ -50,4 +50,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', 'Auth\AdminLoginController@login');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
     Route::post('/registers/{id}', 'AdminController@store');
+    Route::delete('/registers/{id}','AdminController@destroy');
 });
