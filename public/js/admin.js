@@ -20,12 +20,15 @@ document.querySelectorAll("#admin-content .member-face").forEach(member => { loa
 
 let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
 let pending_danger = document.querySelectorAll('#pending-content .list-group-item .btn-danger');
+let csrf = $('meta[name="csrf-token"]').attr('content');
+
+
 
 pending_success.forEach(user => {
     user.addEventListener('click', function () {
         let id = user.getAttribute('data-id');
 
-        sendAjaxRequest('post', '/admin/registers/' + id, {},acceptedHandler);
+        sendAjaxRequest('post', '/admin/registers/' + id, {'_token' :csrf},acceptedHandler);
 
     })
 }); 
@@ -35,7 +38,7 @@ pending_danger.forEach(user => {
     user.addEventListener('click', function () {
         let id = user.getAttribute('data-id');
 
-        sendAjaxRequest('delete', '/admin/registers/' + id, {},rejectedHandler);
+        sendAjaxRequest('delete', '/admin/registers/' + id, {'_token' :csrf},rejectedHandler);
     })
 });
 

@@ -26,6 +26,7 @@ class AdminController extends Controller
     public function list()
     {
 
+
         if (!Auth::check()) return redirect('admin/login');
 
         $requests = $this->createRequestsArray();
@@ -43,6 +44,11 @@ class AdminController extends Controller
  
 
     public function store($id){
+
+        //TO-DO confirmar se não existe outra forma de usar ajax e confirmar o csrf
+        if(csrf_token() != request()['_token']){
+            return response(json_encode(request()->all()), 401);
+        }
 
 
         $reg_request = DB::table('registration_request')->leftJoin('guardian_added_minors','guardian_added_minors.request','=','registration_request.id')->where('registration_request.id','=',$id)->first();
@@ -88,6 +94,12 @@ class AdminController extends Controller
     }
 
     public function destroy($id){
+
+        //TO-DO confirmar se não existe outra forma de usar ajax e confirmar o csrf
+        if(csrf_token() != request()['_token']){
+            return response(json_encode(request()->all()), 401);
+        }
+
         $request= DB::table('registration_request')->leftJoin('guardian_added_minors','guardian_added_minors.request','=','registration_request.id')->where('registration_request.id','=',$id)->first();
 
         if($request == [])
