@@ -166,3 +166,23 @@ footer{
         width: auto;
     }
 }
+
+
+/* NOTIFICATIONS */
+
+.notification{
+    background-color: whitesmoke;
+    border-radius: 4px;
+    padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+    position: relative;
+}
+.notification ul{
+    margin:0;
+    list-style:none;
+    padding:0;
+}
+
+.is-danger{
+    background-color: rgba(0, 7, 36, 0.137);
+    color: black;
+}

@@ -7,9 +7,17 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class ProfileController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -51,7 +59,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user()->find($id);
 
-        // $this->authorize('show', $member);
 
         $this->getInfo($user);
 
@@ -87,6 +94,21 @@ class ProfileController extends Controller
     }
 
 
+    /**
+     * Get a validator for an incoming profile.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required:string',
+            'description' => 'required:string',
+            'email' => 'required:string',
+            'old_password' => 'required:string',
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -97,14 +119,30 @@ class ProfileController extends Controller
     public function edit($id)
     {
 
+
+        $request= request()->all();
+
+        if(isset($request['new_password'])){
+            request()->validate([
+                'new_password' => 'required:string:confirmed',
+            ]);
+        }
+
+        $validator = $this->validator($request);
+        $validator->validate();
+
         $user = User::find($id);
+
+        if(!Hash::check($request['old_password'],$user->password)){
+            $validator->getMessageBag()->add('old_password', 'Wrong current password');
+            return redirect("/user/{$id}")->withErrors($validator);
+        }
 
         $user->name= request('name');
         $user->email= request('email');
         $user->description= request('description');
 
         $user->save();
-        //TO-DO password
 
         return redirect("/user/{$id}");
 
@@ -133,4 +171,6 @@ class ProfileController extends Controller
     {
         //
     }
+
+
 }

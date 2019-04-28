@@ -8,6 +8,8 @@ let form= document.querySelector("#profile-page > form");
 let activeProfileEdit = false;
 
 editProfile.addEventListener("click", function () {
+    
+    removeNotificationErrors();
     activeProfileEdit = true;
     enableEditable();
 });
@@ -100,4 +102,11 @@ function removeFields() {
 
 
     activePassBtn = false;
+}
+
+function removeNotificationErrors(){
+    let errors = document.querySelector(".notification");
+    if(errors != null){
+        errors.parentElement.removeChild(errors);
+    }
 }

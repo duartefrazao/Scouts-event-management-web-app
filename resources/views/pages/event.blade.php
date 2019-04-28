@@ -152,6 +152,7 @@
             <h3 class="common-page-subtitle"> Comentários </h3>
 
             <div class="row col-11">
+                
                 <textarea class="input-description input-transparent w-100 input-border" wrap="hard"
                     placeholder="Adicione um comentário.."></textarea>
             </div>

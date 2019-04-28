@@ -90,7 +90,6 @@ class EventController extends Controller
      */
     public function list()
     {
-        if (!Auth::check()) return redirect('/login');
 
         //TODO IS THIS NEEDED?
         //$this->authorize('list', Event::class);

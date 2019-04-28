@@ -17,11 +17,11 @@
             <label for="password_login">Palavra-passe</label>
             <input id="password_login" class="form-control" type="password" name="password" required autocomplete>
             <a href="#forgot-pass" class="forgot-pass">Esqueceste-te da palavra-passe?</a>
-            {{-- @if ($errors->has('password'))
+            @if ($errors->has('password'))
                 <span class="error">
                     {{ $errors->first('password') }}
                 </span>
-            @endif --}}
+            @endif
         </div>
         <label>
             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Lembrar
