@@ -26,44 +26,22 @@
             <div class="form-group profile-form-group">
                 <label>Nome</label>
                 <input name="name" type="text" class="form-control" placeholder="O teu nome" value="{{$user->name}}" id="profile_name" required>
-                {{-- @if ($errors->has('name'))
-                    <span class="error">
-                        {{ $errors->first('name') }}
-                    </span>
-                @endif --}}
+            
             </div>
 
             <div class="form-group profile-form-group">
                 <label>Descrição</label>
                 <textarea name="description" class="form-control profile-description" draggable="false"
                           rows="3" id="profile_description">{{$user->description}} </textarea>
-                {{-- @if ($errors->has('description'))
-                    <span class="error">
-                        {{ $errors->first('description') }}
-                    </span>
-                @endif --}}
+               
             </div>
 
             <div class="form-group profile-form-group">
                 <label>Endereço de email</label>
                     <input name="email" type="email" id="profile_email" class="form-control" placeholder="O teu email" value="{{$user->email}}" >
-                    {{-- @if ($errors->has('email'))
-                        <span class="error">
-                            {{ $errors->first('email') }}
-                        </span>
-                    @endif --}}
+                   
             </div>
 
-                {{-- @if ($errors->has('new_password'))
-                    <span class="error">
-                        {{ $errors->first('new_password') }}
-                    </span>
-                @endif --}}
-               {{--  @if ($errors->has('old_password'))
-                    <span class="error">
-                        {{ $errors->first('old_password') }}
-                    </span>
-                @endif --}}
         </fieldset>
         @include('components.errors')
 

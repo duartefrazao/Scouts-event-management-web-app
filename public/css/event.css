@@ -501,3 +501,19 @@ a.card-wrap:hover {
       font-size:var(--font-size-regular);
   }
 
+
+  .confirm-presence, .deny-presence{
+      min-width: 10em;
+      margin-right:1em;
+      max-width:10em;
+  }
+
+  .event-page .member-wrap img{
+    margin:0.3em auto;
+
+  }
+
+  .presence{
+      margin-left:auto;
+  }
+
