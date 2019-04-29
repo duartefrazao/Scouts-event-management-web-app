@@ -7,6 +7,7 @@ use App\Event;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EventPolicy
 {
@@ -25,13 +26,27 @@ class EventPolicy
 
     public function create(User $user)
     {
+        return true;
         // Any user can create a new card
         return Auth::check() && $user->is_responsible;
+    }
+
+    public function store(User $user, Event $event){
+        
+        return true;
     }
 
     public function delete(User $user, Event $event)
     {
         // Only a card owner can delete it
         return $event->organizers->contains($user->id);
+    }
+
+
+    public function comment(User $user,Event $event){
+        $participant = DB::table('event_participant')->where('participant','=',$user->id)->where('event','=',$event->id)->get()->first();
+        $organizer = DB::table('event_organizer')->where('organizer','=',$user->id)->where('event','=',$event->id)->get()->first();
+
+        return isset($participant) || isset($organizer);
     }
 }

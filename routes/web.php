@@ -21,6 +21,7 @@ Route::get('/', function () {
 // Events
 Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
+Route::post('events/{event}/comments','CommentController@store');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');

@@ -517,3 +517,10 @@ a.card-wrap:hover {
       margin-left:auto;
   }
 
+  .comment-box,.comment-box:focus{
+    background-color: rgba(175, 175, 175, 0.178);
+    border-radius: 4px;
+    padding: 0.25rem 1.5rem 0.25rem 1rem;
+    position: relative;
+  }
+

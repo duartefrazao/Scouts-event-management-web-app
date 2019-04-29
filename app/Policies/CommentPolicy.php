@@ -8,18 +8,22 @@ use App\Event;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentPolicy
 {
+
     use HandlesAuthorization;
 
-    public function create(User $user, $event_id)
+    public function create(Comment $user, Event $event)
     {
-        // The person that creates the comment must belong to the event
 
-        $event = Event::find($event_id);
+        return true;
+        
+    }
 
-        return Auth::check() && ($event->participants->contains($user->id) || $event->organizers->contains($user->id));
+    public function store(User $user,$event){
+        return true;
     }
 
     public function delete(User $user, Comment $comment)
@@ -27,4 +31,6 @@ class CommentPolicy
         // Only a card owner can delete it
         return $user->id == $comment->user_id;
     }
+
+    
 }

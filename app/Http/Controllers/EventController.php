@@ -179,4 +179,5 @@ class EventController extends Controller
         $event->participants()->attach(Auth::id());
     }*/
 
+
 }

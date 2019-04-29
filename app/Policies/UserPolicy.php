@@ -10,10 +10,16 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user, $event_id)
+    public function create(User $user, $event)
     {
         return true;
         //can only say yes/no if he is responsible and was already invited
        // return $user->is_responsible && Event::find($event_id)->participants->contains($event_id);
     }
+
+    public function store(User $user,$event){
+        return true;
+    }
+
+    
 }

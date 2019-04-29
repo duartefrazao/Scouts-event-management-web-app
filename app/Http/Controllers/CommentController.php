@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Comment;
+use App\Event;
 
 class CommentController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     /**
      * Creates a new comment.
@@ -47,6 +53,15 @@ class CommentController extends Controller
         $comment->delete();
 
         return $comment;
+    }
+
+    public function store(Event $event){
+
+        $this->authorize('comment', Comment::class);
+
+        $result= $event->addComment(request('text'));
+
+        return response(json_encode($result), 200);
     }
 
 }

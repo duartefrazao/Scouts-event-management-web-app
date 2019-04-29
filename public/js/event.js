@@ -13,6 +13,7 @@ loadMembers(3, member_container[3]);*/
 let confirm_button = document.querySelector(".confirm-presence");
 let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
+let event_id = document.querySelector('.event-title').getAttribute('data-id');
 
 function addEventListeners() {
 
@@ -30,8 +31,6 @@ function addEventListeners() {
 function newConfirmation(status, previousSelected) {
 
     if (previousSelected) return;
-
-    let event_id = document.querySelector('.event-title').getAttribute('data-id');
 
     sendAjaxRequest('post', '/api/events/' + event_id + '/presence', {presence: status}, confirmationHandler);
 
@@ -57,13 +56,26 @@ var textarea = document.querySelector('.input-description');
 
 textarea.addEventListener('keydown', autosize);
 
-function autosize() {
+function autosize(e) {
+    if(e.keyCode ===13){
+        storeComment();
+        return ;
+    } 
     var el = this;
     setTimeout(function () {
         el.style.cssText = 'height:auto; padding:0';
         el.style.cssText = 'box-sizing:content-box';
         el.style.cssText = 'height:' + el.scrollHeight + 'px';
     }, 0);
+}
+
+function storeComment(){
+
+    if(textarea.value.length=== 0){
+        return;
+    }
+
+    sendAjaxRequest('post', '/events/' + event_id + '/comments', {text: textarea.value}, confirmationHandler);
 }
 
 

@@ -2,10 +2,13 @@
 
 namespace App;
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+
 
     /**
      * The table associated with the model.
@@ -17,9 +20,7 @@ class Event extends Model
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
-    /**
-     * The card this item belongs to.
-     */
+ 
     public function participants() {
         return $this->belongsToMany('App\User', 'event_participant', 'event', 'participant');
     }
@@ -34,10 +35,23 @@ class Event extends Model
     }
 
     public function comments(){
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function poll(){
         return $this->hasOne('App\Poll');
+    }
+
+    public function addComment($text){
+
+        $event = $this->id;
+        $user = auth()->id();
+    
+
+        return Comment::create([
+            'participant'=>$user,
+            'event' => $event,
+            'text'=>$text,
+            ]);   
     }
 }
