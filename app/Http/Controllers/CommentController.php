@@ -57,11 +57,17 @@ class CommentController extends Controller
 
     public function store(Event $event){
 
-        $this->authorize('comment', Comment::class);
+        $this->authorize('comment', $event);
 
         $result= $event->addComment(request('text'));
 
-        return response(json_encode($result), 200);
+        $comment = Comment::find($result->id);
+
+        $info['comment'] = $comment;
+        $info['comment']['date'] = date("m-d-Y H:i", strtotime($comment->date));
+        $info['name'] = auth()->user()->name;
+        
+        return response(json_encode($info), 200);
     }
 
 }

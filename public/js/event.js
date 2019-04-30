@@ -75,9 +75,30 @@ function storeComment(){
         return;
     }
 
-    sendAjaxRequest('post', '/events/' + event_id + '/comments', {text: textarea.value}, confirmationHandler);
+    sendAjaxRequest('post', '/events/' + event_id + '/comments', {text: textarea.value}, commentReceiver);
 }
 
+
+function commentReceiver(){
+    if(this.status === 200){
+        let commentSection = document.querySelector('.event-comments');
+        
+        let response = JSON.parse(this.responseText);
+        console.log(response);
+        //TO-DO update comments that might be done simultaneously, neccessary?
+ 
+        let newComment= document.createElement('div')
+        newComment.classList.add('row');
+        newComment.classList.add('col-11');
+
+        newComment.innerHTML = 
+        '<div class="col-12 event-comment "> <span class="comment-author">' + response.name + " | " +  response.comment.date +'</span><span class="comment-body">'+ response.comment.text +  '</span></div>';
+
+        commentSection.insertBefore(newComment,commentSection.childNodes[4]);
+
+        textarea.value="";
+    }
+}
 
 /*let input_file_btn = document.querySelector('.input-file-btn');
 let input_file_hidden = document.querySelector('.input-file-hidden');
