@@ -53,3 +53,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/registers/{id}', 'AdminController@store');
     Route::delete('/registers/{id}','AdminController@destroy');
 });
+
+
+// Notifications
+Route::get('notifications',function(){
+    return view('pages/notifications');
+});
