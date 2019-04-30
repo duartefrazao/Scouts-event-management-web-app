@@ -122,20 +122,26 @@ class ProfileController extends Controller
 
         $request= request()->all();
 
-        if(isset($request['new_password'])){
-            request()->validate([
-                'new_password' => 'required:string:confirmed',
-            ]);
-        }
-
         $validator = $this->validator($request);
         $validator->validate();
+        
 
         $user = User::find($id);
 
         if(!Hash::check($request['old_password'],$user->password)){
             $validator->getMessageBag()->add('old_password', 'Wrong current password');
             return redirect("/user/{$id}")->withErrors($validator);
+        }
+
+        if(isset($request['new_password'])){
+            request()->validate([
+                'new_password' => 'required:string:confirmed',
+            ]);
+
+            if($request['new_password'] !== $request['new_password_confirmation']){
+                $validator->getMessageBag()->add('new_password', 'New passwords mismatch');
+               return redirect("/user/{$id}")->withErrors($validator);
+            }
         }
 
         $user->name= request('name');
