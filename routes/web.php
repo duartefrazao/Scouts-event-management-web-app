@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 Route::post('events/{event}/comments','CommentController@store');
+Route::get('event/create','EventController@create');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
@@ -59,3 +60,4 @@ Route::prefix('admin')->group(function () {
 Route::get('notifications',function(){
     return view('pages/notifications');
 });
+
