@@ -6,6 +6,8 @@ use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use DB;
+
 class UserController extends Controller
 {
 
@@ -42,7 +44,21 @@ class UserController extends Controller
 
     }
 
-    public function create($reg_request){
+    public function searchUsers(Request $request)
+    {
+
+        $users = DB::select('Select id, name, is_responsible,ts_rank(vector,keywords,2) AS rank
+                                FROM "user", plainto_tsquery(\'Portuguese\',?) keywords
+                                WHERE vector @@ keywords
+                                ORDER BY rank DESC LIMIT 10;', array($request->input('name')));
+
+        return response(json_encode($users), 200);
+
+
+    }
+
+    public function create($reg_request)
+    {
         return User::create([
             'email' => $reg_request['email'],
             'password' => bcrypt($reg_request['password']),

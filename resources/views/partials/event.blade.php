@@ -12,7 +12,7 @@
                         @php
                         $date = new Datetime($event->start_date)
                         @endphp
-                    <time datetime="2019-03-03" class="icon calendar">
+                    <time datetime="{{ $date->format('Y:M:d') }}" class="icon calendar">
                         <span class="event-card-month ">{{$date->format('M')}}</span>
                         <span class="event-card-day"> {{$date->format('d')}} </span>
                         <span class="event-card-week-day">{{$date->format('l')}}</span>
@@ -65,7 +65,7 @@
 
                             @foreach($event['invited'] as $inv)
                             <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">{{$inv}}</a>
+                                <a href="#" class="group-member-name text-muted" data-id="{{$inv->id}}">{{$inv->name}}</a>
                             </div>
 
                             @endforeach

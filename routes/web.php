@@ -23,12 +23,16 @@ Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 Route::post('events/{event}/comments','CommentController@store');
 Route::get('event/create','EventController@create');
+Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
 
 // User
 Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
+
+// Pesquisa
+Route::post('search/users', 'UserController@searchUsers');
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');

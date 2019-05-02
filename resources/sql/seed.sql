@@ -725,9 +725,9 @@ CREATE INDEX search_user ON "user" USING GIN (vector);
 
 --  USER
 
--- 2006 - 2019 -> Caminheiros
--- 2005 - 2008 -> Caminheiros
--- 2001 - 2004 -> Caminheiros
+-- 2009 - 2019 -> Lobitos
+-- 2005 - 2008 -> Pioneiros
+-- 2001 - 2004 -> Exploradores
 -- 1997 - 2000 -> Caminheiros
 
 -- Guardians
@@ -1060,6 +1060,7 @@ INSERT INTO group_member(member, "group")
 VALUES(20, 4);
 INSERT INTO group_member(member, "group")
 VALUES(21, 4);
+
 INSERT INTO group_member(member,"group")
 Values(1,4);
 
