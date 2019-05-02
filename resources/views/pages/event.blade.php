@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-6">
+<div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8">
     <div class="modal-body">
 
         <h5 class="event-title" data-id="{{$event->id}}">{{$event->title}}</h5>
@@ -18,7 +18,7 @@
             @php
                 $date = new Datetime($event->start_date)
             @endphp
-            <time datetime="2019-03-03" class="icon calendar">
+            <time datetime="{{$date->format('Y:M:d')}}" class="icon calendar">
                 <span class="event-card-month ">{{$date->format('M')}}</span>
                 <span class="event-card-day"> {{$date->format('d')}} </span>
                 <span class="event-card-week-day">{{$date->format('l')}}</span>
