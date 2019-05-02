@@ -23,12 +23,16 @@ Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 Route::post('events/{event}/comments','CommentController@store');
 Route::get('event/create','EventController@create');
+Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
 
 // User
 Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
+
+// Pesquisa
+Route::post('search/users', 'UserController@searchUsers');
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
@@ -64,5 +68,12 @@ Route::prefix('admin')->group(function () {
 // Notifications
 Route::get('notifications',function(){
     return view('pages/notifications');
+});
+
+Route::group(['middleware' => ['web']], function() {
+    Route::get('password/reset', ['as' => 'password.reset', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
+    Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+    Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+    Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
 });
 

@@ -138,9 +138,9 @@
 
             <div class="member-container">
                 @foreach($event->organizers as $organizer)
-                <div class="member-wrap">
+                <div class="member-wrap" data-id="{{$organizer->id}}">
                     <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
-                    <label>{{$organizer}}</label>
+                    <label>{{$organizer->name}}</label>
                 </div>
                 @endforeach
             </div>
