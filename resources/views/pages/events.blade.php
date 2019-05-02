@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div>
-                <a href="../pages/create_event_page.php">
+                <a href="event/create">
                     <img data-toggle="tooltip" data-placement="top" title="Criar evento"
                          src="../icons/plus-icon-white.png" class="add-icon"/>
                 </a>

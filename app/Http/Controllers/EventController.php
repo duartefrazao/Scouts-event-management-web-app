@@ -122,7 +122,7 @@ class EventController extends Controller
      */
     public function create(Request $request)
     {
-        $event = new Event();
+  /*       $event = new Event();
 
         $this->authorize('create', $event);
 
@@ -133,7 +133,11 @@ class EventController extends Controller
         $event->final_date = $request->input('final_date');
         $event->location = $request->input('location');
 
-        return $event;
+        return $event; */
+
+        return view('pages/create_event');
+        
+
     }
 
     /**
