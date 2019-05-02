@@ -65,7 +65,7 @@
 
                             @foreach($event['invited'] as $inv)
                             <div class="member-wrap">
-                                <a href="#" class="group-member-name text-muted">{{$inv}}</a>
+                                <a href="#" class="group-member-name text-muted" data-id="{{$inv->id}}">{{$inv->name}}</a>
                             </div>
 
                             @endforeach

@@ -51,12 +51,13 @@ class EventController extends Controller
 
         $event['going'] = $event->participants()->where('state', 'Going')->get();
 
-        $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(3)->pluck('user.name');
-        
-        
+        //$event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(3)->pluck('user.name');
+
+        $event['invited'] = $event->participants()->limit(3)->get();
     }
 
-    public function getEventFullInfo($event){
+    public function getEventFullInfo($event)
+    {
         $this->getEventKeyInfo($event);
 
         $event['files'] = File::where('event', $event->id)->get();
@@ -67,19 +68,22 @@ class EventController extends Controller
         else $event['options'] = [];
 
         $total = 0;
-        foreach ($event['options'] as $option){
+        foreach ($event['options'] as $option) {
             $option['num_votes'] = $option->votes()->get()->count();
             $total += $option['num_votes'];
         }
 
         $event['total_votes'] = $total;
 
-        $event['organizers'] = EventOrganizer::where('event', $event->id)->join('user', 'user.id', '=', 'event_organizer.organizer')->pluck('name')->toArray();
+        $event['organizers'] = $event->organizers;
+
+        // $event['organizers'] = EventOrganizer::where('event', $event->id)->join('user', 'user.id', '=', 'event_organizer.organizer')->pluck('name')->toArray();
 
         $event['comments'] = Comment::where('event', $event->id)->join('user', 'user.id', '=', 'comment.participant')->orderBy('comment.id', 'DESC')->get();
     }
 
-    public function getGroupInfo($group){
+    public function getGroupInfo($group)
+    {
 
     }
 
@@ -96,10 +100,12 @@ class EventController extends Controller
 
         $events_part = Auth::user()->participant()->orderBy('id')->get();
 
-
         $events_org = Auth::user()->organizer()->orderBy('id')->get();
 
+       // dd($events_org, $events_part);
+
         $events = $events_part->merge($events_org);
+
 
         foreach ($events as $event) {
             $this->getEventKeyInfo($event);
@@ -122,21 +128,23 @@ class EventController extends Controller
      */
     public function create(Request $request)
     {
-  /*       $event = new Event();
+        /*       $event = new Event();
 
-        $this->authorize('create', $event);
+              $this->authorize('create', $event);
 
-        $event->title = $request->input('title');
-        $event->description = $request->input('description');
-        $event->price = $request->input('price');
-        $event->start_date = $request->input('start_date');
-        $event->final_date = $request->input('final_date');
-        $event->location = $request->input('location');
+              $event->title = $request->input('title');
+              $event->description = $request->input('description');
+              $event->price = $request->input('price');
+              $event->start_date = $request->input('start_date');
+              $event->final_date = $request->input('final_date');
+              $event->location = $request->input('location');
 
-        return $event; */
+              return $event; */
 
-        return view('pages/create_event');
-        
+        $locations = Location::all();
+
+        return view('pages/create_event', ['locations' => $locations]);
+
 
     }
 
@@ -175,13 +183,14 @@ class EventController extends Controller
         return $event;
     }
 
-/*    public function addParticipant($id){
+    public function addParticipant(Request $request, Event $event)
+    {
+        foreach ($request->input('new-members') as $member) {
+            $event->participants()->attach($member);
+        }
 
-
-        $event = Event::find($id);
-
-        $event->participants()->attach(Auth::id());
-    }*/
+        return response(json_encode('Sucess in adding members'), 200);
+    }
 
 
 }

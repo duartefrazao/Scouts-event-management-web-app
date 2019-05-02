@@ -1060,6 +1060,7 @@ INSERT INTO group_member(member, "group")
 VALUES(20, 4);
 INSERT INTO group_member(member, "group")
 VALUES(21, 4);
+
 INSERT INTO group_member(member,"group")
 Values(1,4);
 
