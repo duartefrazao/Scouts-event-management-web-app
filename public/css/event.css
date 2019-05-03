@@ -537,48 +537,52 @@ a.card-wrap:hover {
 
 
   /* create page */
-.new-member{
+#createEvent .new-member{
     display: flex;
     justify-content: space-between;
 }
 
-.new-member .action{
+#createEvent .new-member .action{
     cursor: pointer;
 }
 
-.added-members{display: flex;
+#createEvent .added-members{display: flex;
 flex-direction: column;}
 
-.date-selection{
+#createEvent .date-selection{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.date-selection *{
+#createEvent .date-selection *{
     width: auto;
 }
 
-.date-selection label{
+#createEvent .date-selection label{
     margin: 0;
 }
 
-.add-member-container, .add-organizer-container{
+#createEvent .add-member-container, .add-organizer-container{
     display: flex;
     align-items: baseline;
     margin-bottom: 2em;
 }
 
-.add-member-container h3, .add-organizer-container h3{
+#createEvent .add-member-container h3, .add-organizer-container h3{
     margin: auto 1em;
     margin-left: 0;
     vertical-align: middle;
 }
 
-.add-member-container a{
+#createEvent .add-member-container a{
     align-self: baseline;
 }
 
-.location-container .custom-select{
+#createEvent .location-container .custom-select{
     width: auto;
+}
+
+#createEvent .price-box{
+    margin-bottom: 2em;
 }

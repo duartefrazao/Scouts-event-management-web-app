@@ -2,14 +2,6 @@ let event_page = document.querySelector('.event-page');
 
 let mapDOM = event_page.querySelector('.map');
 
-/*loadMembers(5, event_page.querySelector(".organizer-container .member-container"));
-let member_container = event_page.querySelectorAll(".member-container");
-loadMembers(10, member_container[0]);
-loadMembers(3, member_container[1]);
-loadMembers(10, member_container[2]);
-loadMembers(3, member_container[3]);*/
-
-
 let confirm_button = document.querySelector(".confirm-presence");
 let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
@@ -21,9 +13,6 @@ let save_moderators = document.querySelector('#organizerModal .save-members');
 let create_event = document.querySelector('#btn-create-event');
 
 let location_select = document.querySelector('.location-container .custom-select');
-
-let members_array = [];
-let moderators_array = [];
 
 function addEventListeners() {
 
@@ -87,7 +76,7 @@ function addEventListeners() {
     }
 
 
-    if (create_event != null) {
+/*    if (create_event != null) {
 
         create_event.addEventListener('click', function (event) {
 
@@ -97,23 +86,49 @@ function addEventListeners() {
 
             let description = document.querySelector('.input-description').value;
 
-            let begin_date = document.querySelector('#begin-date').value;
+            let begin_date = document.querySelector('#start_date').value;
 
-            let end_date = document.querySelector('#end-date').value;
+            let end_date = document.querySelector('#final_date').value;
 
-            console.log(event_title, price, description, begin_date, end_date, members_array, moderators_array);
+            let location_id = location_select.value;
+
+            let members = document.querySelectorAll('input[name="participant[]"]');
+
+            let members_array = [];
+
+            members.forEach(m => {
+                members_array.push(m.value);
+            });
+
+            console.log(event_title, price, description, begin_date, end_date, location_id, members_array);
+
+            /!*            sendAjaxRequest('post', '/event/create', {
+                            title: event_title,
+                            price: price,
+                            description: description,
+                            start_date: begin_date,
+                            final_date: end_date,
+                            location: location_id,
+                            participants: JSON.stringify(members_array)
+                        }, handler);*!/
+
         });
-    }
+    }*/
 
-    if(location_select != null){
-        location_select.addEventListener('input', function(event){
+    if (location_select != null) {
+        location_select.addEventListener('input', function (event) {
             console.log(this.value);
 
-            if(this.value == -1){
+            if (this.value == -1) {
                 $('#locationModal').modal('show');
             }
         })
     }
+
+}
+
+function handler() {
+    console.log(this.responseText);
 
 }
 
@@ -122,24 +137,47 @@ function saveNewMembers() {
 
     let addedMembers = Array.from(document.querySelector('#memberModal .added-members div').children);
 
+    let container = document.querySelector('.add-member-container');
+
     addedMembers.forEach(new_member => {
-        members_array.push(new_member.getAttribute('data-id'))
+
+        container.appendChild(createNewMemberInput(new_member.getAttribute('data-id')));
+
     });
 
 
     $('#memberModal').modal('hide');
 }
 
+function createNewMemberInput(id) {
+    let input = document.createElement('input');
+    input.setAttribute('type', 'number');
+    input.setAttribute('name', 'participant[]');
+    input.setAttribute('value', id);
 
-function saveNewModerators(){
+    return input;
+}
+
+
+function saveNewModerators() {
     let addedMembers = Array.from(document.querySelector('#organizerModal .added-members div').children);
 
-    addedMembers.forEach(new_member => {
-        moderators_array.push(new_member.getAttribute('data-id'))
+    let container = document.querySelector('.add-organizer-container');
+
+    addedMembers.forEach(new_organizer => {
+        container.appendChild(createNewOrganizerInput(new_organizer.getAttribute('data-id')));
     });
 
-
     $('#organizerModal').modal('hide');
+}
+
+function createNewOrganizerInput(id) {
+    let input = document.createElement('input');
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('name', 'organizer[]');
+    input.setAttribute('value', id);
+
+    return input;
 }
 
 function deleteChildren(element) {

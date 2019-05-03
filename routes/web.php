@@ -23,6 +23,7 @@ Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
 Route::post('events/{event}/comments','CommentController@store');
 Route::get('event/create','EventController@create');
+Route::post('event/create', 'EventController@store')->name('createEvent');
 Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
 // Groups

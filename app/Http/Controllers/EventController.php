@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -9,11 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 use App\Event;
 use App\Location;
-use App\Group;
 use App\File;
 use App\Poll;
-use App\EventOrganizer;
 use App\Comment;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -102,8 +102,6 @@ class EventController extends Controller
 
         $events_org = Auth::user()->organizer()->orderBy('id')->get();
 
-       // dd($events_org, $events_part);
-
         $events = $events_part->merge($events_org);
 
 
@@ -126,25 +124,63 @@ class EventController extends Controller
      * @param Request request containing the description
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        /*       $event = new Event();
-
-              $this->authorize('create', $event);
-
-              $event->title = $request->input('title');
-              $event->description = $request->input('description');
-              $event->price = $request->input('price');
-              $event->start_date = $request->input('start_date');
-              $event->final_date = $request->input('final_date');
-              $event->location = $request->input('location');
-
-              return $event; */
-
         $locations = Location::all();
 
         return view('pages/create_event', ['locations' => $locations]);
+    }
 
+    /**
+     * Get a validator for an incoming event request.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => 'string|required',
+            'description' => 'string|required',
+            'location' => 'required',
+            'price' => 'required'
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+
+
+        $data = $request->validate([
+            'title' => 'string|required',
+            'description' => 'string|required',
+            'price' => 'required',
+            'start_date' => 'nullable|date',
+            'final_date' => 'nullable|date',
+            'location' => 'required',
+            'participants' => 'nullable'
+        ]);
+
+
+        $event = new Event();
+
+        $this->authorize('store', Event::class);
+
+        $event->title = $data['title'];
+        $event->description = $data['description'];
+        $event->price = $data['price'];
+        $event->start_date = $data['start_date'];
+        $event->final_date = $data['final_date'];
+        $event->location = $data['location'];
+        $event->save();
+
+        if (isset($data['participants']))
+            foreach ($data['participants'] as $new_participant)
+                $event->participants()->attach($new_participant);
+
+        $event->organizers()->attach(Auth::id());
+
+        return redirect('events/' . $event->id);
 
     }
 
