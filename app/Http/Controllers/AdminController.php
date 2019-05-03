@@ -91,7 +91,7 @@ class AdminController extends Controller
 
         RegistrationRequest::destroy($request->id);
 
-        Mail::to($user->email)->send(new RegistrationAccepted($user));
+        Mail::to($user->email)->queue(new RegistrationAccepted($user));
 
         return response(json_encode($request->id), 200);
 

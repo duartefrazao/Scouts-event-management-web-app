@@ -84,8 +84,9 @@ class RegistrationRequestController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
+        session()->flash('message','O teu registo foi efetuado com sucesso, receberás um email com o resultado da revisão feita pelo administrador');
 
-        return  redirect()->route('/');
+        return  redirect()->route('login');
     }
 
     /**

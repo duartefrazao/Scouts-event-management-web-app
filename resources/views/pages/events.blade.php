@@ -54,7 +54,7 @@
         </div>
     </div>
 
-
+    @include('components.session_message')
 @endsection
 
 

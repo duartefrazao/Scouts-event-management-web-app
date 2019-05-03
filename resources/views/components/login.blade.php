@@ -111,7 +111,6 @@
                   </span>
             @endif
         </div>
-
         <!--  Error handle -->
         @if($errors->any())
             <div class="row collapse">
@@ -129,6 +128,8 @@
 
 
     </form>
+   
 
 </div>
+@include('components.session_message')
 </div>
