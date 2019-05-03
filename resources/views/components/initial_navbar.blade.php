@@ -21,13 +21,13 @@
                     <a class="nav-link" href="#toregister">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/faq.php">FAQ</a>
+                    <a class="nav-link" href="/faq">FAQ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#footer-information">Contacts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/about.php">About</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
             </ul>
         </div>

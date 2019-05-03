@@ -7,8 +7,10 @@ use App\Group;
 use App\GuardianExchange;
 use App\RegistrationRequest;
 use App\User;
+use App\Mail\RegistrationAccepted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 
 class AdminController extends Controller
@@ -82,12 +84,16 @@ class AdminController extends Controller
         $user =  $this->createUser($request);
 
 
-        if($user != null){
-            RegistrationRequest::destroy($request->id);
-            return response(json_encode($request->id), 200);
-        }else{
+        if($user === null){
             return response(json_encode($request->id), 500);
         }
+
+
+        RegistrationRequest::destroy($request->id);
+
+        Mail::to($user->email)->queue(new RegistrationAccepted($user));
+
+        return response(json_encode($request->id), 200);
 
 
 

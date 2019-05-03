@@ -48,6 +48,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@show');
 Route::post('register', 'RegistrationRequestController@create');
 
+//FAQ
+Route::get('/faq', function () {return view('pages.faq');});
+
+//About
+Route::get('/about', function () {return view('pages.about');});
 
 
 // Admin Authentication
@@ -66,3 +71,4 @@ Route::get('notifications',function(){
     return view('pages/notifications');
 });
 
+Auth::routes();
