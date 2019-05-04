@@ -18,11 +18,14 @@ Route::get('/', function () {
         return redirect(route('home'));
 })->name('/');
 
+
+//HomePage
+Route::get('home', 'HomeController@list')->name('home');
+
 // Events
-Route::get('home', 'EventController@list')->name('home');
 Route::get('events/{id}', 'EventController@show');
-Route::post('events/{event}/comments','CommentController@store');
-Route::get('event/create','EventController@create');
+Route::post('events/{event}/comments', 'CommentController@store');
+Route::get('event/create', 'EventController@create');
 Route::post('event/create', 'EventController@store')->name('createEvent');
 Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
@@ -30,14 +33,14 @@ Route::post('events/{event}/invitations', 'EventController@addParticipant');
 Route::get('groups/{id}', 'GroupController@show');
 
 // User
-Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id','[0-9]+');
+Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id', '[0-9]+');
 
 // Pesquisa
 Route::post('search/users', 'UserController@searchUsers');
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
-Route::put('api/users/{id}','ProfileController@edit');
+Route::put('api/users/{id}', 'ProfileController@edit');
 
 // Authentication
 
@@ -49,10 +52,14 @@ Route::get('register', 'Auth\RegisterController@show');
 Route::post('register', 'RegistrationRequestController@create');
 
 //FAQ
-Route::get('/faq', function () {return view('pages.faq');});
+Route::get('/faq', function () {
+    return view('pages.faq');
+});
 
 //About
-Route::get('/about', function () {return view('pages.about');});
+Route::get('/about', function () {
+    return view('pages.about');
+});
 
 
 // Admin Authentication
@@ -62,12 +69,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', 'Auth\AdminLoginController@login');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
     Route::post('/registers/{id}', 'AdminController@store');
-    Route::delete('/registers/{id}','AdminController@destroy');
+    Route::delete('/registers/{id}', 'AdminController@destroy');
 });
 
 
 // Notifications
-Route::get('notifications',function(){
+Route::get('notifications', function () {
     return view('pages/notifications');
 });
 

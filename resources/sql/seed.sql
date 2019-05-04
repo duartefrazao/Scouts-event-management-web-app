@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS vote CASCADE;
 DROP TABLE IF EXISTS option CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 
-DROP TABLE IF EXISTS notification_group CASCADE;
+/*DROP TABLE IF EXISTS notification_group CASCADE;
 DROP TABLE IF EXISTS notification_guardian CASCADE;
 DROP TABLE IF EXISTS notification_event CASCADE;
 DROP TABLE IF EXISTS notification CASCADE;
-
+*/
 DROP TABLE IF EXISTS event_group CASCADE;
 
 DROP TABLE IF EXISTS event_organizer CASCADE;
@@ -285,7 +285,7 @@ CREATE TABLE code(
                      description TEXT NOT NULL
 );
 
-CREATE TABLE notification(
+/*CREATE TABLE notification(
                              id SERIAL PRIMARY KEY,
                              code INTEGER REFERENCES code NOT NULL,
                              "user" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
@@ -307,6 +307,7 @@ CREATE TABLE notification_group(
                                    notification INTEGER PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
                                    "group" INTEGER NOT NULL REFERENCES "group" ON DELETE CASCADE
 );
+*/
 
 CREATE TABLE admin(
                       id SERIAL PRIMARY KEY ,
@@ -426,7 +427,7 @@ CREATE TRIGGER verify_participation
 EXECUTE PROCEDURE verify_part_procedure();
 
 
---Notification triggers
+/*--Notification triggers
 
 CREATE FUNCTION notification_event_procedure() RETURNS trigger AS $BODY$
 BEGIN
@@ -498,7 +499,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER notification_group_trigger
     BEFORE INSERT ON notification_group
     FOR EACH ROW
-EXECUTE PROCEDURE notification_group_procedure();
+EXECUTE PROCEDURE notification_group_procedure();*/
 
 -- Nome dos grupos
 
@@ -697,8 +698,8 @@ EXECUTE PROCEDURE manage_user_tsvector();
 
 
 -- Indexes
-
-CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'
+/*
+CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'*/
 
 --pesquisa de eventos por data inicial
 CREATE INDEX search_event_date_begin ON event USING btree (start_date);
@@ -1097,7 +1098,7 @@ VALUES (4, 'Foste promovido para');
 INSERT INTO code (code, description)
 VALUES (5, 'recebeu');
 
--- NOTIFICATIONS
+/*-- NOTIFICATIONS
 
 INSERT INTO notification (id, code, "user", date)
 VALUES (1, 1, 10, '2019-04-01');
@@ -1130,7 +1131,7 @@ INSERT INTO notification_group(notification, "group")
 VALUES(5, 1);
 
 INSERT INTO notification_group(notification, "group")
-VALUES(6, 3);
+VALUES(6, 3);*/
 
 
 -- POLLS

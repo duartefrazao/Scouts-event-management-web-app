@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\EventInvitation;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,8 +97,29 @@ class EventController extends Controller
     public function list()
     {
 
-        //TODO IS THIS NEEDED?
-        //$this->authorize('list', Event::class);
+        $events_part = Auth::user()->participant()->orderBy('id')->get();
+
+        $events_org = Auth::user()->organizer()->orderBy('id')->get();
+
+        $events = $events_part->merge($events_org);
+
+
+        foreach ($events as $event) {
+            $this->getEventKeyInfo($event);
+        }
+
+        /*        $groups_mem = Auth::user()->member()->get();
+                $groups_mod = Auth::user()->moderator()->get();
+
+                $groups = $groups_mem->merge($groups_mod);
+
+                return view('pages.events', ['events' => $events], ['groups' => $groups]);*/
+
+        return $events;
+    }
+
+    public function getEvents()
+    {
 
         $events_part = Auth::user()->participant()->orderBy('id')->get();
 
@@ -110,12 +132,8 @@ class EventController extends Controller
             $this->getEventKeyInfo($event);
         }
 
-        $groups_mem = Auth::user()->member()->get();
-        $groups_mod = Auth::user()->moderator()->get();
 
-        $groups = $groups_mem->merge($groups_mod);
-
-        return view('pages.events', ['events' => $events], ['groups' => $groups]);
+        return $events;
     }
 
     /**
@@ -180,8 +198,11 @@ class EventController extends Controller
 
 
         if (isset($data['participant']))
-            foreach ($data['participant'] as $new_participant)
+            foreach ($data['participant'] as $new_participant) {
                 $event->participants()->attach($new_participant);
+                $user = User::find($new_participant);
+                $user->notify(new EventInvitation($user, $event));
+            }
 
         if (isset($data['organizer']))
             foreach ($data['organizer'] as $new_organizer)

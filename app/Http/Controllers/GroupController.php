@@ -60,7 +60,8 @@ class GroupController extends Controller
             $this->getGroupKeyInfo($groups[$index]);
         }
 
-        return view('pages.groups', ['groups' => $groups]);
+       // return view('pages.groups', ['groups' => $groups]);
+        return $groups;
     }
 
     public function getGroupKeyInfo(&$group){
@@ -82,9 +83,19 @@ class GroupController extends Controller
             $event['going'] = $event->participants()->where('state', 'Going')->get();
 
             $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(4)->pluck('user.name');
-        }  
+        }
 
         $group['moderators'] = $group->moderators()->get();
+    }
+
+    public function getGroups(){
+
+        $groups_mem = Auth::user()->member()->get();
+        $groups_mod = Auth::user()->moderator()->get();
+
+        $groups = $groups_mem->merge($groups_mod);
+
+        return $groups;
     }
 
     /**

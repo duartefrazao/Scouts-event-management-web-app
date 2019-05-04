@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Event;
+use App\Observers\EventObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
