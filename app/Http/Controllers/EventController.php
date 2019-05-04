@@ -12,6 +12,7 @@ use App\Event;
 use App\Location;
 use App\File;
 use App\Poll;
+use App\User;
 use App\Comment;
 use Illuminate\Support\Facades\Validator;
 
@@ -131,35 +132,38 @@ class EventController extends Controller
         return view('pages/create_event', ['locations' => $locations]);
     }
 
-    /**
-     * Get a validator for an incoming event request.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'title' => 'string|required',
-            'description' => 'string|required',
-            'location' => 'required',
-            'price' => 'required'
-        ]);
-    }
 
     public function store(Request $request)
     {
 
+        $data = $request->all();
 
-        $data = $request->validate([
+        $validator = Validator::make($data, [
             'title' => 'string|required',
             'description' => 'string|required',
             'price' => 'required',
             'start_date' => 'nullable|date',
             'final_date' => 'nullable|date',
             'location' => 'required',
-            'participants' => 'nullable'
+            'participant' => 'nullable',
+            'organizer' => 'nullable'
         ]);
+
+        $validator->after(function ($validator) use ($data) {
+            if (isset($data['organizer']))
+                foreach ($data['organizer'] as $new_organizer) {
+                    if (!User::find($new_organizer)->is_responsible) {
+                        $validator->errors()->add('organizer', 'Os organizadores têm de ser utilizadores responsáveis!');
+                        break;
+                    }
+                }
+        });
+
+        if ($validator->fails()) {
+            return redirect('event/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
 
         $event = new Event();
@@ -174,9 +178,14 @@ class EventController extends Controller
         $event->location = $data['location'];
         $event->save();
 
-        if (isset($data['participants']))
-            foreach ($data['participants'] as $new_participant)
+
+        if (isset($data['participant']))
+            foreach ($data['participant'] as $new_participant)
                 $event->participants()->attach($new_participant);
+
+        if (isset($data['organizer']))
+            foreach ($data['organizer'] as $new_organizer)
+                $event->organizers()->attach($new_organizer);
 
         $event->organizers()->attach(Auth::id());
 

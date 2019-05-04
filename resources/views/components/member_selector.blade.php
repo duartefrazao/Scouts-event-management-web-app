@@ -18,7 +18,7 @@
                     <header>
                         <h4>Membros adicionados</h4>
                     </header>
-                    <div>
+                    <div class="list-members">
 
                     </div>
                 </div>

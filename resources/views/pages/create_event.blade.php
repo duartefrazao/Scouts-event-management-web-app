@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8">
+    <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8 pb-4">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -23,7 +23,7 @@
         <form method="POST" action="{{ route('createEvent') }}" id="createEvent">
             {{ csrf_field() }}
             <input type="text" class="event-title input-transparent w-100 input-border"
-                   value="{{old('title')}}" name="title" placeholder="Title"
+                   value="{{old('title')}}" name="title" placeholder="Título"
                    required>
 
 
@@ -52,36 +52,33 @@
                     <h3 class="common-page-subtitle">Localização</h3>
                 </header>
                 <span>
-                <select name="location" class="custom-select">
+                    <select name="location" class="custom-select">
                     @foreach($locations as $location)
-                        <option value="{{$location->id}}"> {{$location->name}} </option>
-                    @endforeach
+                            <option value="{{$location->id}}"> {{$location->name}} </option>
+                        @endforeach
                     <option value="-1"> <a data-toggle="modal" data-target="#organizerModal" href=""> Criar uma localização nova </a></option>
-                </select>
-            </span>
-
+                    </select>
+                </span>
                 @include('components.location_create')
             </div>
 
-            <div class="date-container event-container mt-4">
+            <div class="date-container event-container mt-4 ">
                 <header>
                     <h3>Datas</h3>
                 </header>
 
-                <div class="date-selection">
+                <div class="date-selection d-flex flex-sm-column flex-md-row flex-column">
                     <label for="start_date">Data inicial:</label>
-                    <input type="date" class="form-control" name="start_date" id="start_date"
+                    <input type="datetime-local" class="form-control" name="start_date" id="start_date"
                            value="{{ old('start_date') }}">
 
 
                     <label for="final_date">Data final:</label>
-                    <input type="date" class="form-control" id="final_date" name="final_date"
+                    <input type="datetime-local" class="form-control" id="final_date" name="final_date"
                            value="{{ old('final_date') }}">
 
                 </div>
             </div>
-
-            <hr>
 
 
             <div class="add-member-container event-container">
@@ -94,8 +91,8 @@
                          src="../icons/plus-icon-white.png"
                          class="plus-icon"/>
                 </a>
-
-
+                <hr>
+                <span class="members-name"></span>
                 @include('components.member_selector',['id'=>"memberModal"])
 
             </div>
@@ -111,10 +108,12 @@
                          src="../icons/plus-icon-white.png"
                          class="plus-icon"/>
                 </a>
+                <hr>
+                <span class="organizers-name">
+                </span>
                 @include('components.member_selector',['id'=>"organizerModal"])
             </div>
 
-            <hr>
 
             <div class="file-container event-container">
                 <header>
@@ -129,8 +128,9 @@
 
 
             <div class="event-controls">
-                <input type="submit" id="btn-create-event" class="btn btn-primary btn-circle">
-                {{--<i class="fa fa-check"></i>--}}
+                <button type="submit" id="btn-create-event" class="btn btn-primary btn-circle">
+                    <i class="fa fa-check"> </i>
+                </button>
             </div>
         </form>
     </div>
