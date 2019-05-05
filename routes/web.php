@@ -11,12 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    if (!Auth::check())
-        return redirect(route('login'));
-    else
-        return redirect(route('home'));
-})->name('/');
+Route::get('/', 'HomeController@list')->name('/');
 
 
 //HomePage
@@ -57,14 +52,10 @@ Route::get('register', 'Auth\RegisterController@show');
 Route::post('register', 'RegistrationRequestController@create');
 
 //FAQ
-Route::get('/faq', function () {
-    return view('pages.faq');
-});
+Route::view('/faq','pages.faq');
 
 //About
-Route::get('/about', function () {
-    return view('pages.about');
-});
+Route::view('/about', 'pages.about');
 
 
 // Admin Authentication
@@ -79,8 +70,6 @@ Route::prefix('admin')->group(function () {
 
 
 // Notifications
-Route::get('notifications', function () {
-    return view('pages/notifications');
-});
+Route::view('notifications','pages/notifications');
 
 Auth::routes();

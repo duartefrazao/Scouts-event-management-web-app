@@ -29,6 +29,10 @@ class HomeController extends Controller
     public function list()
     {
 
+        if (!Auth::check()) {
+            return redirect(route('login'));
+        }
+
         $event_controller = new EventController();
 
         $group_controller = new GroupController();
