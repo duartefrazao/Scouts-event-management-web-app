@@ -153,19 +153,19 @@
 
             <h3 class="common-page-subtitle"> Comentários </h3>
 
-            <div class="row col-11">
+            <div class="row">
                 <textarea name="comment" class="input-description input-transparent w-100 input-border comment-box" wrap="hard"
                         placeholder="Adicione um comentário.."></textarea>
             </div>
 
-            @foreach($event->comments as $comment)
+{{--            @foreach($event->comments as $comment)
             <div class="row col-11">
                 <div class="col-12 event-comment ">
                     <span class="comment-author">{{$comment->name}} | {{date("m-d-Y H:i", strtotime($comment->date))}}</span>
                     <span class="comment-body">{{$comment->text}}</span>
                 </div>
             </div>
-            @endforeach
+            @endforeach--}}
         </div>
 
     </div>

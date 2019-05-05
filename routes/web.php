@@ -24,7 +24,12 @@ Route::get('home', 'HomeController@list')->name('home');
 
 // Events
 Route::get('events/{id}', 'EventController@show');
+
+
 Route::post('events/{event}/comments', 'CommentController@store');
+Route::get('events/{event}/comments', 'CommentController@getAllComments');
+Route::delete('api/comments/{id}', 'CommentController@delete');
+
 Route::get('event/create', 'EventController@create');
 Route::post('event/create', 'EventController@store')->name('createEvent');
 Route::post('events/{event}/invitations', 'EventController@addParticipant');

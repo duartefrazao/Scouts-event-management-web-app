@@ -2,6 +2,9 @@ let event_page = document.querySelector('.event-page');
 
 let mapDOM = event_page.querySelector('.map');
 
+
+let textarea = document.querySelector('.input-description.comment-box');
+
 let confirm_button = document.querySelector(".confirm-presence");
 let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
@@ -33,11 +36,11 @@ function addEventListeners() {
 
         google.maps.event.trigger(map, "resize");
         map.setCenter(myLatlng);
-
-        let textarea = document.querySelector('.input-description');
-
-        textarea.addEventListener('keydown', autosize);
     }
+
+
+    textarea.addEventListener('keydown', autosize);
+
 
     if (members != null) {
         members.forEach(member => {
@@ -305,11 +308,12 @@ function confirmationHandler() {
 
 
 function autosize(e) {
+
     if (e.keyCode === 13) {
         storeComment();
         return;
     }
-    var el = this;
+    let el = this;
     setTimeout(function () {
         el.style.cssText = 'height:auto; padding:0';
         el.style.cssText = 'box-sizing:content-box';
@@ -335,16 +339,75 @@ function commentReceiver() {
         console.log(response);
         //TO-DO update comments that might be done simultaneously, neccessary?
 
-        let newComment = document.createElement('div')
-        newComment.classList.add('row');
-        newComment.classList.add('col-11');
-
-        newComment.innerHTML =
-            '<div class="col-12 event-comment "> <span class="comment-author">' + response.name + " | " + response.comment.date + '</span><span class="comment-body">' + response.comment.text + '</span></div>';
+        let newComment = createComment(response);
 
         commentSection.insertBefore(newComment, commentSection.childNodes[4]);
 
         textarea.value = "";
+    }
+}
+
+function createComment(response) {
+
+    let newComment = document.createElement('div');
+    newComment.classList.add('row', 'comment-wrap');
+    newComment.setAttribute('data-id', response.id);
+
+    let deleteButton = document.createElement('button');
+    deleteButton.type = "button";
+    deleteButton.classList.add('close');
+    let icon = document.createElement('span');
+    icon.innerHTML = "&times;";
+    deleteButton.appendChild(icon);
+
+    let holder = document.createElement('div');
+    holder.classList.add('col-12', 'event-comment');
+
+    let commentHeader = document.createElement('div');
+
+    let commentAuthor = document.createElement('span');
+    commentAuthor.classList.add('comment-author');
+    commentAuthor.setAttribute('data-id', response.participant);
+    commentAuthor.textContent = response.name + "|" + response.date;
+
+    let commentBody = document.createElement('span');
+    commentBody.classList.add('comment-body');
+    commentBody.textContent = response.text;
+
+    commentHeader.appendChild(commentAuthor);
+
+    if (user == response.participant) {
+
+        deleteButton.addEventListener('click', function () {
+
+            sendAjaxRequest('delete', '/api/comments/' + response.id, null, removeComment);
+
+        });
+
+        commentHeader.appendChild(deleteButton);
+
+    }
+
+
+    holder.appendChild(commentHeader);
+    holder.appendChild(commentBody);
+
+    newComment.appendChild(holder);
+
+    return newComment;
+}
+
+function removeComment() {
+    if (this.status === 200) {
+
+        let response = JSON.parse(this.responseText);
+
+        let commentSection = document.querySelector('.event-comments');
+
+        let comment = document.querySelector('.comment-wrap[data-id="' + response + '"]');
+
+        commentSection.removeChild(comment);
+
     }
 }
 
@@ -369,6 +432,31 @@ function sendAjaxRequest(method, url, data, handler) {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.addEventListener('load', handler);
     request.send(encodeForAjax(data));
+}
+
+
+window.onload = function (event) {
+
+    console.log(event_id);
+
+    sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
+};
+
+
+function commentsReceiver() {
+    if (this.status === 200) {
+        let commentSection = document.querySelector('.event-comments');
+
+        let response = JSON.parse(this.responseText);
+
+        response.forEach(comment => {
+
+            let newComment = createComment(comment);
+
+            commentSection.appendChild(newComment);
+        });
+us
+    }
 }
 
 
