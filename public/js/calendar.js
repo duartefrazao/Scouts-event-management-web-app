@@ -9,7 +9,7 @@ function calcDate() {
     let meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     let month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     let month = d.getMonth(); //0-11
-    let year = d.getFullYear(); //2014
+    let year = d.getFullYear(); //2019
     let curr_day = d.getDate();
     console.log(curr_day);
     let first_date = month_name[month] + " " + 1 + " " + year;
@@ -22,13 +22,36 @@ function calcDate() {
     let days = new Date(year, month + 1, 0).getDate(); //30
     //Tue Sep 30 2014 ...
 
-
     calendar.querySelector('.month-name').textContent = meses[month];
 
     setFirstDay(day_no, days);
 
     highlightCurrentDay(curr_day);
 
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    sendAjaxRequest('post', 'events', {
+        start_date: firstDay.getTime() / 1000,
+        final_date: lastDay.getTime() / 1000
+    }, fillEvents);
+
+}
+
+function fillEvents() {
+
+    let response = JSON.parse(this.responseText);
+
+    response.forEach(event => {
+
+        let week = calendar.querySelector('.week[data-id="week-' + (event.weekNo - 1) + '"]');
+
+        let day = week.querySelector('.day[data-id="day-' + (event.dayNo - 1) + '"]');
+
+        day.querySelector('.day-value').classList.add('current-day');
+
+    })
 }
 
 function highlightCurrentDay(day) {
@@ -73,4 +96,22 @@ function updateDay(element, day) {
     element.querySelector('h6 span').textContent = day + 1;
     element.querySelector('h6').setAttribute('data-id', day + 1);
 
+}
+
+function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+}
+
+
+function sendAjaxRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.addEventListener('load', handler);
+    request.send(encodeForAjax(data));
 }

@@ -19,6 +19,8 @@ Route::get('home', 'HomeController@list')->name('home');
 
 // Events
 Route::get('events/{id}', 'EventController@show');
+Route::post('events', 'EventController@getEvents');
+
 
 
 Route::post('events/{event}/comments', 'CommentController@store');

@@ -8,7 +8,7 @@ let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
 let invite_member_button = document.querySelector("#memberModal #invite-members");
 let invite_moderators_button = document.querySelector('#organizerModal #invite-members');
-let event_id = document.querySelector('.event-title').getAttribute('data-id');
+let event_id = document.querySelector('.event-title') != null ? document.querySelector('.event-title').getAttribute('data-id') : null;
 let save_members = document.querySelector('#memberModal .save-members');
 let save_moderators = document.querySelector('#organizerModal .save-members');
 

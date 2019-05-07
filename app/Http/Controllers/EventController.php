@@ -108,22 +108,38 @@ class EventController extends Controller
         return $events;
     }
 
-    public function getEvents()
+    public function getEvents(Request $request)
     {
 
-        $events_part = Auth::user()->participant()->orderBy('id')->get();
+        $start_date = date("Y-m-d H:i:s", $request->input('start_date'));
 
-        $events_org = Auth::user()->organizer()->orderBy('id')->get();
+        $final_date = date("Y-m-d H:i:s", $request->input('final_date'));
+
+        $events_part = Auth::user()->participant()->where('start_date', '>=', $start_date)->where('final_date', '<=', $final_date)->get();
+
+        $events_org = Auth::user()->organizer()->where('start_date', '>=', $start_date)->where('final_date', '<=', $final_date)->get();
+
 
         $events = $events_part->merge($events_org);
 
 
+        $events_final = array();
+
+
         foreach ($events as $event) {
             $this->getEventKeyInfo($event);
+            array_push($events_final, ['event' => $event, 'weekNo' => $this->weekOfMonth(strtotime($event->start_date)), 'dayNo' => intval(date('N', strtotime($event->start_date)))]);
         }
 
+        return response(json_encode($events_final), 200);
+    }
 
-        return $events;
+    public function weekOfMonth($date)
+    {
+        //Get the first day of the month.
+        $firstOfMonth = strtotime(date("Y-m-01", $date));
+        //Apply above formula.
+        return intval(date("W", $date)) - intval(date("W", $firstOfMonth)) + 1;
     }
 
     /**
