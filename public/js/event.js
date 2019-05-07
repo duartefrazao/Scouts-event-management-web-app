@@ -1,7 +1,5 @@
 let event_page = document.querySelector('.event-page');
 
-let mapDOM = event_page.querySelector('.map');
-
 
 let textarea = document.querySelector('.input-description.comment-box');
 
@@ -29,13 +27,16 @@ function addEventListeners() {
         });
 
 
-    if (mapDOM != null) {
-        initializeGMap(41.1780, -8.5980, mapDOM);
-        $("#location-map").css("width", "100%");
-        $("#map_canvas").css("width", "100%");
+    if (event_page != null) {
+        let mapDOM = event_page.querySelector('.map');
+        if (mapDOM != null) {
+            initializeGMap(41.1780, -8.5980, mapDOM);
+            $("#location-map").css("width", "100%");
+            $("#map_canvas").css("width", "100%");
 
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(myLatlng);
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(myLatlng);
+        }
     }
 
 
@@ -457,7 +458,6 @@ function commentsReceiver() {
 
             commentSection.appendChild(newComment);
         });
-        us
     }
 }
 
