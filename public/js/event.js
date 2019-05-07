@@ -39,7 +39,8 @@ function addEventListeners() {
     }
 
 
-    textarea.addEventListener('keydown', autosize);
+    if (textarea != null)
+        textarea.addEventListener('keydown', autosize);
 
 
     if (members != null) {
@@ -439,7 +440,8 @@ window.onload = function (event) {
 
     console.log(event_id);
 
-    sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
+    if (event_id != null)
+        sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
 };
 
 
@@ -455,7 +457,7 @@ function commentsReceiver() {
 
             commentSection.appendChild(newComment);
         });
-us
+        us
     }
 }
 
