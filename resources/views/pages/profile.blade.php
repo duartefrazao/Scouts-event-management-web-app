@@ -4,7 +4,7 @@
 
 
 @section('navbar')
-    @include('components.user_navbar')
+    @include('navbars.user_navbar')
 @endsection
 
 

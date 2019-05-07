@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\EventInvitation;
+use App\Notifications\EventOrganizerInvitation;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,13 +105,6 @@ class EventController extends Controller
             $this->getEventKeyInfo($event);
         }
 
-        /*        $groups_mem = Auth::user()->member()->get();
-                $groups_mod = Auth::user()->moderator()->get();
-
-                $groups = $groups_mem->merge($groups_mod);
-
-                return view('pages.events', ['events' => $events], ['groups' => $groups]);*/
-
         return $events;
     }
 
@@ -197,14 +191,22 @@ class EventController extends Controller
             foreach ($data['participant'] as $new_participant) {
                 $event->participants()->attach($new_participant);
                 $user = User::find($new_participant);
-                $user->notify(new EventInvitation($user, $event));
+                $user->notify(new EventInvitation(Auth::user(), $user, $event));
             }
 
         if (isset($data['organizer']))
-            foreach ($data['organizer'] as $new_organizer)
+            foreach ($data['organizer'] as $new_organizer) {
+
+                if ($new_organizer->id === Auth::id())
+                    continue;
+
                 $event->organizers()->attach($new_organizer);
+                $user = User::find($new_organizer);
+                $user->notify(new EventOrganizerInvitation(Auth::user(), $user, $event));
+            }
 
         $event->organizers()->attach(Auth::id());
+        Auth::user()->notify(new EventOrganizerInvitation(Auth::user(), Auth::user(), $event));
 
         return redirect('events/' . $event->id);
 

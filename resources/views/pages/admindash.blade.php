@@ -3,7 +3,7 @@
 @section('title', 'Admin Board')
 
 @section('navbar')
-    @include('components.admin_navbar')
+    @include('navbars.admin_navbar')
 @endsection
 
 

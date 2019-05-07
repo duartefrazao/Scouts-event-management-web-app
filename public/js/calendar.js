@@ -5,24 +5,23 @@ let calendar = document.querySelector("#calendar");
 // let previousMonth = document.querySelector()
 
 function calcDate() {
-    var d = new Date();
+    let d = new Date();
     let meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    var month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var month = d.getMonth(); //0-11
-    var year = d.getFullYear(); //2014
-    var curr_day = d.getDate();
+    let month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let month = d.getMonth(); //0-11
+    let year = d.getFullYear(); //2014
+    let curr_day = d.getDate();
     console.log(curr_day);
-    var first_date = month_name[month] + " " + 1 + " " + year;
+    let first_date = month_name[month] + " " + 1 + " " + year;
     //September 1 2014
-    var tmp = new Date(first_date).toDateString();
+    let tmp = new Date(first_date).toDateString();
     //Mon Sep 01 2014 ...
-    var first_day = tmp.substring(0, 3); //Mon
-    var day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    var day_no = day_name.indexOf(first_day); //1
-    var days = new Date(year, month + 1, 0).getDate(); //30
+    let first_day = tmp.substring(0, 3); //Mon
+    let day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    let day_no = day_name.indexOf(first_day); //1
+    let days = new Date(year, month + 1, 0).getDate(); //30
     //Tue Sep 30 2014 ...
 
-    console.log(days);
 
     calendar.querySelector('.month-name').textContent = meses[month];
 

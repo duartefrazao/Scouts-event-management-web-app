@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navbar')
-    @include('components.initial_navbar')
+    @include('navbars.initial_navbar')
 @endsection
 
 @section('content')
