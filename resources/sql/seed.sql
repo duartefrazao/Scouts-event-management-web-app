@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS vote CASCADE;
 DROP TABLE IF EXISTS option CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 
-/*DROP TABLE IF EXISTS notification_group CASCADE;
+DROP TABLE IF EXISTS notification_group CASCADE;
 DROP TABLE IF EXISTS notification_guardian CASCADE;
 DROP TABLE IF EXISTS notification_event CASCADE;
 DROP TABLE IF EXISTS notification CASCADE;
-*/
+
 DROP TABLE IF EXISTS event_group CASCADE;
 
 DROP TABLE IF EXISTS event_organizer CASCADE;
@@ -125,37 +125,6 @@ CREATE TABLE "user" (
                         remember_token VARCHAR
 );
 
-
-
-/*
-
-
-    TODO REMOVE THIS
-
-
- */
-
-CREATE TABLE cards (
-                       id SERIAL PRIMARY KEY,
-                       name VARCHAR NOT NULL,
-                       user_id INTEGER REFERENCES "user" NOT NULL
-);
-
-CREATE TABLE items (
-                       id SERIAL PRIMARY KEY,
-                       card_id INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-                       description VARCHAR NOT NULL,
-                       done BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-
-/*
-
-
-
-
-
- */
 
 
 CREATE TABLE registration_request(
@@ -1259,22 +1228,5 @@ VALUES (8, 3);
 --Request to make User 2 the new guardian of the User 1 (previous guardian -> 1)
 INSERT INTO guardian_exchange(id, minor, new_guardian)
 VALUES(1, 4, 2);
-
-
-
-/*
-
-
-    TODO REMOVE THIS
-
-
- */
-INSERT INTO cards VALUES (DEFAULT, 'Things to do', 1);
-INSERT INTO items VALUES (DEFAULT, 1, 'Buy milk');
-INSERT INTO items VALUES (DEFAULT, 1, 'Walk the dog', true);
-
-INSERT INTO cards VALUES (DEFAULT, 'Things not to do', 1);
-INSERT INTO items VALUES (DEFAULT, 2, 'Break a leg');
-INSERT INTO items VALUES (DEFAULT, 2, 'Crash the car');
 
 
