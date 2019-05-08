@@ -327,6 +327,28 @@ a.card-wrap:hover {
     padding-left: 1em;
 }
 
+.files{
+    display: flex;
+    margin-bottom:1em;
+    flex-wrap: wrap;
+}
+
+.files .file-btn{
+    max-height:2em;
+    min-width: 10em;
+
+    margin:0.2em 1em 0.2em 0em;
+    background-color: rgba(0, 7, 36, 0.096);
+    color:black;
+    padding:0.2em 0.4em 0.2em 0.4em;
+    border-radius: .25rem;
+    border-width: 0.05em;
+    border-style:solid;
+    border-color: rgba(0, 7, 36, 0.109);
+
+    transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 .input-file-hidden {
     display: none;
 }

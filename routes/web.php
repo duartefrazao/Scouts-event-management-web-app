@@ -29,6 +29,8 @@ Route::get('event/create', 'EventController@create');
 Route::post('event/create', 'EventController@store')->name('createEvent');
 Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
+Route::post('events/{event}/file','EventController@getFile');
+
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
 

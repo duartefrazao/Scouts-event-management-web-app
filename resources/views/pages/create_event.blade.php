@@ -20,11 +20,11 @@
         @endif
 
 
-        <form method="POST" action="{{ route('createEvent') }}" id="createEvent">
+        <form method="POST" action="{{ route('createEvent') }}" enctype="multipart/form-data" id="createEvent">
             {{ csrf_field() }}
             <input type="text" class="event-title input-transparent w-100 input-border"
                    value="{{old('title')}}" name="title" placeholder="Título"
-                   required>
+                   >
 
 
             <div class="description-container event-container">
@@ -34,7 +34,7 @@
 
                 <textarea class="input-description input-transparent w-100 input-border" name="description"
                           placeholder="Escreva a descrição do evento..."
-                          required>@if(old('description', null) != null){{old('description')}}@endif</textarea>
+                          >@if(old('description', null) != null){{old('description')}}@endif</textarea>
 
 
                 <div class="price-box mt-3">
@@ -119,11 +119,14 @@
                 <header>
                     <h3 class="common-page-subtitle">Ficheiros</h3>
                 </header>
-                <span>
-                    <button type="button" class="input-file-btn btn btn-primary"><i class="far fa-plus"></i>
-                        Adicionar</button>
-                    <input type="file" class="input-file-hidden" name="file">
-                </span>
+                <div class="form-group">
+                        <div class="files">
+                               
+                        </div>
+                        <label for="file" class="input-file-btn btn btn-primary"><i class="far fa-plus"></i>
+                            Adicionar</label>
+                        <input name="files[]" type="file"  class="input-file-hidden  form-control-file" id="file" multiple>
+                </div>
             </div>
 
 

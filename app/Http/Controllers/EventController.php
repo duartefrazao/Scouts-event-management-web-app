@@ -7,6 +7,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Facades\Storage;
 
 
 use App\Event;
@@ -78,6 +79,19 @@ class EventController extends Controller
         $event['total_votes'] = $total;
 
         $event['organizers'] = $event->organizers;
+
+        /* foreach(Storage::allFiles('files/' . $event->id) as $filename){
+            $event['files']->push(Storage::get($filename));
+        } */
+
+        $files = Storage::allFiles('files/' . $event->id);
+       /*  array_map(function($file){
+            return Storage::get($file)->getClientOriginalName();
+        },$files,$files); */
+
+        $event['files'] = $this->removePath($files);
+
+       // $event['files'] = Storage::allFiles('files/' . $event->id);
     }
 
     public function getGroupInfo($group)
@@ -146,10 +160,9 @@ class EventController extends Controller
         return view('pages/create_event', ['locations' => $locations]);
     }
 
-
+    
     public function store(Request $request)
     {
-
         $data = $request->all();
 
         $validator = Validator::make($data, [
@@ -206,8 +219,23 @@ class EventController extends Controller
 
         $event->organizers()->attach(Auth::id());
 
+        $this->saveFiles($request->file('files'), $event->id);
+
         return redirect('events/' . $event->id);
 
+    }
+
+
+    public function removePath($files){
+        $new_arr = collect();
+        
+        foreach($files as $file)
+        {
+            $info = explode('/',$file);
+            $end = end($info);
+            $new_arr->push($end);
+        }
+        return $new_arr;
     }
 
     /**
@@ -254,5 +282,23 @@ class EventController extends Controller
         return response(json_encode('Sucess in adding members'), 200);
     }
 
+    public function saveFiles($files, $event_id){
+
+        $paths = [];
+
+        foreach ($files as $file) {
+            $extension = $file->getClientOriginalExtension();
+            $filename  = $file->getClientOriginalName();
+            $paths[]   = $file->storeAs('files/'. $event_id, $filename);
+        }
+
+    }
+
+    public function getFile(Event $event){
+
+        $filename = request()->all()['file'];
+
+        return Storage::download('files/'. $event->id . '/' . $filename ); 
+    }
 
 }

@@ -119,10 +119,15 @@
             <header>
                 <h3 class="common-page-subtitle">Ficheiros</h3>
             </header>
-            <span>
+            <div class="files">
                 @foreach ($event->files as $file)
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                {{$file->title}}</button>
+                <form action= "/events/{{$event->id}}/file" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="file" value="{{$file}}">
+                    
+                <button type="submit" class="btn btn-secondary file-btn download-file-btn"><i class="far fa-arrow-alt-circle-down"></i>
+                {{$file}}</button>
+                </form>
                 @endforeach
                 
             </span>
