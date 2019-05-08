@@ -1,26 +1,27 @@
-window.onload = calcDate;
+let meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+let month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+window.onload = function () {
+    calcDate(0);
+}
 
 let calendar = document.querySelector("#calendar");
 
-// let previousMonth = document.querySelector()
 
-function calcDate() {
-    let d = new Date();
-    let meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    let month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let month = d.getMonth(); //0-11
-    let year = d.getFullYear(); //2019
+function calcDate(month_offset) {
+    let now = new Date();
+    let d = new Date(now.getFullYear(), (now.getMonth() + month_offset), now.getDate());
+    let month = d.getMonth();
+    let year = d.getFullYear();
     let curr_day = d.getDate();
-    console.log(curr_day);
     let first_date = month_name[month] + " " + 1 + " " + year;
-    //September 1 2014
+
     let tmp = new Date(first_date).toDateString();
-    //Mon Sep 01 2014 ...
+
     let first_day = tmp.substring(0, 3); //Mon
-    let day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     let day_no = day_name.indexOf(first_day); //1
     let days = new Date(year, month + 1, 0).getDate(); //30
-    //Tue Sep 30 2014 ...
 
     calendar.querySelector('.month-name').textContent = meses[month];
 
@@ -28,9 +29,9 @@ function calcDate() {
 
     highlightCurrentDay(curr_day);
 
-    var date = new Date();
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    let date = new Date();
+    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
     sendAjaxRequest('post', 'events', {
         start_date: firstDay.getTime() / 1000,
@@ -49,9 +50,36 @@ function fillEvents() {
 
         let day = week.querySelector('.day[data-id="day-' + (event.dayNo - 1) + '"]');
 
-        day.querySelector('.day-value').classList.add('current-day');
+        addEventBox(day, event);
 
     })
+}
+
+
+function addEventBox(day, event) {
+
+    let event_desktop_div = document.createElement('a');
+
+    event_desktop_div.setAttribute('href', '/events/' + event.event.id);
+
+    event_desktop_div.classList.add('container', 'calendar-event', 'calendar-desktop');
+
+
+    let event_mobile_div = document.createElement('a');
+
+    event_mobile_div.classList.add('container', 'calendar-event', 'calendar-mobile');
+
+    event_mobile_div.setAttribute('href', '/events/' + event.event.id);
+
+    event_desktop_div.textContent = event.event.title;
+
+    event_mobile_div.textContent = event.event.title.substring(0, 2);
+
+
+    day.appendChild(event_desktop_div);
+
+    day.appendChild(event_mobile_div);
+
 }
 
 function highlightCurrentDay(day) {

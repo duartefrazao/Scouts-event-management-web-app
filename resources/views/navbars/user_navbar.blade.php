@@ -21,22 +21,8 @@
     </div>
 @endif
 
-<div id="notifications-toggle-content" class="hidden">
-    <ul class="unstyled">
-        @foreach(Auth::user()->notifications as $notification)
-            @switch($notification->type)
-                @case('App\Notifications\EventInvitation')
-                @include('notifications.event_invitation', ['notification' => $notification])
-                @break
-                @case('App\Notifications\EventOrganizerInvitation')
-                @include('notifications.event_organizer_invitiation', ['notification' => $notification])
-                @break
-                @default
-                @break
-            @endswitch
-        @endforeach
-    </ul>
-</div>
+
+@include('notifications.notification_list')
 
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light ">
