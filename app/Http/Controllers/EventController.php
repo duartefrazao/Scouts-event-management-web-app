@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\EventInvitation;
+use App\Notifications\EventOrganizerInvitation;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,32 +119,41 @@ class EventController extends Controller
             $this->getEventKeyInfo($event);
         }
 
-        /*        $groups_mem = Auth::user()->member()->get();
-                $groups_mod = Auth::user()->moderator()->get();
-
-                $groups = $groups_mem->merge($groups_mod);
-
-                return view('pages.events', ['events' => $events], ['groups' => $groups]);*/
-
         return $events;
     }
 
-    public function getEvents()
+    public function getEvents(Request $request)
     {
 
-        $events_part = Auth::user()->participant()->orderBy('id')->get();
+        $start_date = date("Y-m-d H:i:s", $request->input('start_date'));
 
-        $events_org = Auth::user()->organizer()->orderBy('id')->get();
+        $final_date = date("Y-m-d H:i:s", $request->input('final_date'));
+
+        $events_part = Auth::user()->participant()->where('start_date', '>=', $start_date)->where('final_date', '<=', $final_date)->get();
+
+        $events_org = Auth::user()->organizer()->where('start_date', '>=', $start_date)->where('final_date', '<=', $final_date)->get();
+
 
         $events = $events_part->merge($events_org);
 
 
+        $events_final = array();
+
+
         foreach ($events as $event) {
             $this->getEventKeyInfo($event);
+            array_push($events_final, ['event' => $event, 'weekNo' => $this->weekOfMonth(strtotime($event->start_date)), 'dayNo' => intval(date('N', strtotime($event->start_date)))]);
         }
 
+        return response(json_encode($events_final), 200);
+    }
 
-        return $events;
+    public function weekOfMonth($date)
+    {
+        //Get the first day of the month.
+        $firstOfMonth = strtotime(date("Y-m-01", $date));
+        //Apply above formula.
+        return intval(date("W", $date)) - intval(date("W", $firstOfMonth)) + 1;
     }
 
     /**
@@ -210,14 +220,22 @@ class EventController extends Controller
             foreach ($data['participant'] as $new_participant) {
                 $event->participants()->attach($new_participant);
                 $user = User::find($new_participant);
-                $user->notify(new EventInvitation($user, $event));
+                $user->notify(new EventInvitation(Auth::user(), $user, $event));
             }
 
         if (isset($data['organizer']))
-            foreach ($data['organizer'] as $new_organizer)
+            foreach ($data['organizer'] as $new_organizer) {
+
+                if ($new_organizer->id === Auth::id())
+                    continue;
+
                 $event->organizers()->attach($new_organizer);
+                $user = User::find($new_organizer);
+                $user->notify(new EventOrganizerInvitation(Auth::user(), $user, $event));
+            }
 
         $event->organizers()->attach(Auth::id());
+        Auth::user()->notify(new EventOrganizerInvitation(Auth::user(), Auth::user(), $event));
 
         $this->saveFiles($request->file('files'), $event->id);
 

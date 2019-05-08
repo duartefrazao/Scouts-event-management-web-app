@@ -111,7 +111,8 @@ time.icon .event-card-week-day {
   height: 100%;
   margin: 0;
   height: 6em;
-  ;
+  display: flex;
+  flex-direction: column;
 }
 
 #calendar .row.week:last-child .col:first-child {
@@ -128,15 +129,15 @@ time.icon .event-card-week-day {
 
 #calendar .col:first-child {
   border-left: solid 1px var(--border-calendar);
-  ;
+
 }
 
 #calendar .col {
 
   border-right: solid 1px var(--border-calendar);
-  ;
+
   border-bottom: solid 1px var(--border-calendar);
-  ;
+
 }
 
 .day .day-value {
@@ -196,6 +197,23 @@ time.icon .event-card-week-day {
 .calendar-event{
   background-color: rgba(18, 85, 18, 0.767);
   border-radius: 0.25rem;
+  width: 100%;
+  min-width: 100%;
+  max-width: 5em;
+  margin: 0 auto;
+  padding: 0.2em 0.3em;
+  overflow: hidden;
+  max-height: 2em;
+}
+
+.calendar-event{
+  color: white;
+  text-align: center;
+}
+
+.calendar-event:hover{
+  cursor: pointer !important;
+  color: white;
 }
 
 @media(max-width:770px) {

@@ -3,7 +3,7 @@
 @section('title', $group->title)
 
 @section('navbar')
-    @include('components.user_navbar')
+    @include('navbars.user_navbar')
 @endsection
 
 @section('content')

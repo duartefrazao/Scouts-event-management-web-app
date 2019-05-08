@@ -24,7 +24,7 @@ class GroupController extends Controller
     /**
      * Shows the group for a given id.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -56,23 +56,25 @@ class GroupController extends Controller
 
         $groups = $group_mem->merge($group_mod);
 
-        foreach($groups as $index => $group) {
+        foreach ($groups as $index => $group) {
             $this->getGroupKeyInfo($groups[$index]);
         }
 
-       // return view('pages.groups', ['groups' => $groups]);
+        // return view('pages.groups', ['groups' => $groups]);
         return $groups;
     }
 
-    public function getGroupKeyInfo(&$group){
+    public function getGroupKeyInfo(&$group)
+    {
         $group['events'] = $group->events()->get();
         $group['members'] = $group->members()->get();
     }
 
-    public function getGroupFullInfo(&$group){
+    public function getGroupFullInfo(&$group)
+    {
         $this->getGroupKeyInfo($group);
 
-        foreach($group['events'] as &$event) {
+        foreach ($group['events'] as &$event) {
             $event['location'] = Location::find($event->location);
             if ($event['location'])
                 $event['loc_name'] = $event->location->name;
@@ -82,13 +84,14 @@ class GroupController extends Controller
 
             $event['going'] = $event->participants()->where('state', 'Going')->get();
 
-            $event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(4)->pluck('user.name');
+            $event['invited'] = $event->participants()->limit(3)->get();
         }
 
         $group['moderators'] = $group->moderators()->get();
     }
 
-    public function getGroups(){
+    public function getGroups()
+    {
 
         $groups_mem = Auth::user()->member()->get();
         $groups_mod = Auth::user()->moderator()->get();
@@ -101,8 +104,8 @@ class GroupController extends Controller
     /**
      * Creates a new group.
      *
-     * @param  int  $event_id
-     * @param  Request request containing the description
+     * @param int $event_id
+     * @param Request request containing the description
      * @return Response
      */
     public function create(Request $request)
@@ -120,8 +123,8 @@ class GroupController extends Controller
     /**
      * Updates the state of an individual group.
      *
-     * @param  int  $id
-     * @param  Request request containing the new state
+     * @param int $id
+     * @param Request request containing the new state
      * @return Response
      */
     public function update(Request $request, $id)
@@ -139,7 +142,7 @@ class GroupController extends Controller
     /**
      * Deletes an individual event.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function delete(Request $request, $id)

@@ -1,7 +1,5 @@
 let event_page = document.querySelector('.event-page');
 
-let mapDOM = event_page.querySelector('.map');
-
 
 let textarea = document.querySelector('.input-description.comment-box');
 
@@ -10,7 +8,7 @@ let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
 let invite_member_button = document.querySelector("#memberModal #invite-members");
 let invite_moderators_button = document.querySelector('#organizerModal #invite-members');
-let event_id = document.querySelector('.event-title').getAttribute('data-id');
+let event_id = document.querySelector('.event-title') != null ? document.querySelector('.event-title').getAttribute('data-id') : null;
 let save_members = document.querySelector('#memberModal .save-members');
 let save_moderators = document.querySelector('#organizerModal .save-members');
 
@@ -30,17 +28,21 @@ function addEventListeners() {
         });
 
 
-    if (mapDOM != null) {
-        initializeGMap(41.1780, -8.5980, mapDOM);
-        $("#location-map").css("width", "100%");
-        $("#map_canvas").css("width", "100%");
+    if (event_page != null) {
+        let mapDOM = event_page.querySelector('.map');
+        if (mapDOM != null) {
+            initializeGMap(41.1780, -8.5980, mapDOM);
+            $("#location-map").css("width", "100%");
+            $("#map_canvas").css("width", "100%");
 
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(myLatlng);
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(myLatlng);
+        }
     }
 
 
-    textarea.addEventListener('keydown', autosize);
+    if (textarea != null)
+        textarea.addEventListener('keydown', autosize);
 
 
     if (members != null) {
@@ -440,7 +442,8 @@ window.onload = function (event) {
 
     console.log(event_id);
 
-    sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
+    if (event_id != null)
+        sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
 };
 
 
@@ -456,7 +459,6 @@ function commentsReceiver() {
 
             commentSection.appendChild(newComment);
         });
-us
     }
 }
 

@@ -21,13 +21,8 @@
     </div>
 @endif
 
-<div id="notifications-toggle-content" class="hidden">
-    <ul class="unstyled">
-        @foreach(Auth::user()->notifications as $notification)
-            <li>{{$notification->data['participant']}}</li>
-        @endforeach
-    </ul>
-</div>
+
+@include('notifications.notification_list')
 
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light ">
