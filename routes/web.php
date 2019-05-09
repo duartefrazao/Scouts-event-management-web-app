@@ -76,6 +76,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/registers/{id}', 'AdminController@store');
     Route::delete('/registers/{id}', 'AdminController@destroy');
 
+
+    Route::delete('/users/{id}', 'AdminController@removeUser');
+
     Route::get('/searchUsers', 'AdminController@searchUsers')->name('admin.searchUsers');
 });
 

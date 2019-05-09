@@ -207,6 +207,21 @@ class AdminController extends Controller
     }
 
 
+    protected function removeUser($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+        } catch (\Illuminate\Database\QueryException $ex) {
+
+            return response(json_encode($ex->getMessage()), 401);
+            
+        }
+
+        return response(json_encode('Success'), 200);
+    }
+
+
     private function createRequestsArray()
     {
 

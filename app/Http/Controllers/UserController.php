@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use DB;
 
 class UserController extends Controller
@@ -13,7 +12,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth, auth:admin');
     }
 
     public function participation(Request $request, $event_id)
@@ -68,6 +67,14 @@ class UserController extends Controller
             'description' => $reg_request['description']
         ]);
 
+    }
+
+    public function destroy(User $user)
+    {
+        return $user->delete();
+
+        if (Request::ajax())
+            return response(json_encode('Success'), 200);
     }
 
 }
