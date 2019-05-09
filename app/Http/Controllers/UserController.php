@@ -54,7 +54,6 @@ class UserController extends Controller
 
         return response(json_encode($users), 200);
 
-
     }
 
     public function create($reg_request)

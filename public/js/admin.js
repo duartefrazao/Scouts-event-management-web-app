@@ -14,8 +14,7 @@ $('#section-choice  a').click(function (e) {
     $(this).tab('show');
 });
 
-
-document.querySelectorAll("#admin-content .member-face").forEach(member => { loadFaceMember(1, member);});
+//document.querySelectorAll("#admin-content .member-face").forEach(member => { loadFaceMember(1, member);});
 
 
 let pending_success = document.querySelectorAll('#pending-content .list-group-item .btn-success');
@@ -31,7 +30,7 @@ pending_success.forEach(user => {
         sendAjaxRequest('post', '/admin/registers/' + id, {'_token' :csrf},acceptedHandler);
 
     })
-}); 
+});
 
 
 pending_danger.forEach(user => {
@@ -104,14 +103,14 @@ guardians_accept.forEach(user => {
         li.classList.add('animate');
         $("body .alert-pending-user").remove();
         $('body').append("<div class='alert alert-success alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A troca foi autorizada!</div>");
-        
+
         setTimeout(function(){
             li.style.display = "none";
             parent.removeChild(li);
 
         }, 500);
     })
-}); 
+});
 
 
 guardians_refuse.forEach(user => {
@@ -121,14 +120,14 @@ guardians_refuse.forEach(user => {
         li.classList.add('animate');
         $("body .alert-pending-user").remove();
         $('body').append("<div class='alert alert-primary alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A troca não foi autorizada!</div>");
-        
+
         setTimeout(function(){
             li.style.display = "none";
             parent.removeChild(li);
 
         }, 500);
     })
-}); 
+});
 
 let manager_delete = document.querySelectorAll('#managers-content .list-group-item .btn-danger');
 
@@ -139,11 +138,14 @@ manager_delete.forEach(user => {
         li.classList.add('animate');
         $("body .alert-pending-user").remove();
         $('body').append("<div class='alert alert-primary alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> O utilizador foi removido do cargo de Moderador!</div>");
-        
+
         setTimeout(function(){
             li.style.display = "none";
             parent.removeChild(li);
 
         }, 500);
     })
-}); 
+});
+
+
+addEventListeners();
