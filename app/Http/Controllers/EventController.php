@@ -174,7 +174,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        
         $validator = Validator::make($data, [
             'title' => 'string|required',
             'description' => 'string|required',
@@ -305,7 +305,6 @@ class EventController extends Controller
         $paths = [];
 
         foreach ($files as $file) {
-            $extension = $file->getClientOriginalExtension();
             $filename  = $file->getClientOriginalName();
             $paths[]   = $file->storeAs('files/'. $event_id, $filename);
         }

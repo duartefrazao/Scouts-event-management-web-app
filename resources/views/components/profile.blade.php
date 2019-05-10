@@ -1,27 +1,25 @@
 
 <div class="container col-lg-6 col-xs-10" id="profile-page">
-    <div class="profile-top">
-        <img src="https://avatars3.githubusercontent.com/u/19807634?s=460&v=4"
-             class="rounded mx-auto d-block profile-image" alt="...">
-
-        <label for="file-input">
-            <i class="fas fa-pen-square fa-2x profile-edit-image "> </i>
-        </label>
-
-        <input id="file-input" type="file" />
-
-
-
-    </div>
-    <h2 class="profile-section-name"> {{$user->section}} </h2>
-    <hr class="profile-line-identified">
-
-
-
-
-    <form method="POST" action="/api/users/{{$user->id}}">
+    <form enctype="multipart/form-data" method="POST" action="/api/users/{{$user->id}}">
         {{csrf_field()}}
         {{method_field("PUT")}}
+
+        <div class="profile-top">
+                <img src="{{asset($user->profile_image) }}"
+                     class="rounded mx-auto d-block profile-image" alt="...">
+        
+                <label for="new-profile-image">
+                    <i class="fas fa-pen-square fa-2x profile-edit-image "> </i>
+                </label>
+        
+                <input name="profile-image" id="new-profile-image" type="file" />
+        
+        
+        
+        </div>
+        <h2 class="profile-section-name"> {{$user->section}} </h2>
+        <hr class="profile-line-identified">
+
         <fieldset class="profile-information" disabled>
             <div class="form-group profile-form-group">
                 <label>Nome</label>

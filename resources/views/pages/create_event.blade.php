@@ -23,8 +23,7 @@
         <form method="POST" action="{{ route('createEvent') }}" enctype="multipart/form-data" id="createEvent">
             {{ csrf_field() }}
             <input type="text" class="event-title input-transparent w-100 input-border"
-                   value="{{old('title')}}" name="title" placeholder="Título"
-                   >
+                   value="{{old('title')}}" name="title" placeholder="Título">
 
 
             <div class="description-container event-container">
