@@ -65,6 +65,14 @@ header h3{
 hr{
     margin: 2em 0;
 }
+/*
+.first-row{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 1em;
+    border-radius: 1em;
+}*/
 
 .first-row{
     display: grid;
@@ -88,7 +96,7 @@ hr{
 }
 
 .member-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 55px);
+    display: flex;
+    align-items: center;
     justify-content: center;
 }

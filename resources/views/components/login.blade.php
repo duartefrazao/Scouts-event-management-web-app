@@ -16,7 +16,7 @@
         <div class="form-group">
             <label for="password_login">Palavra-passe</label>
             <input id="password_login" class="form-control" type="password" name="password" required autocomplete>
-            <a href="#forgot-pass" class="forgot-pass">Esqueceste-te da palavra-passe?</a>
+            <a href="/password/reset" class="forgot-pass">Esqueceste-te da palavra-passe?</a>
             @if ($errors->has('password'))
                 <span class="error">
                     {{ $errors->first('password') }}
@@ -111,7 +111,6 @@
                   </span>
             @endif
         </div>
-
         <!--  Error handle -->
         @if($errors->any())
             <div class="row collapse">
@@ -129,6 +128,8 @@
 
 
     </form>
+   
 
 </div>
+@include('components.session_message')
 </div>

@@ -26,9 +26,6 @@ DROP TABLE IF EXISTS event CASCADE;
 DROP TABLE IF EXISTS group_member CASCADE;
 DROP TABLE IF EXISTS group_moderator CASCADE;
 
-DROP TABLE IF EXISTS items CASCADE;
-DROP TABLE IF EXISTS cards CASCADE;
-
 DROP TABLE IF EXISTS "user" CASCADE;
 
 DROP TABLE IF EXISTS registration_handling CASCADE;
@@ -125,37 +122,6 @@ CREATE TABLE "user" (
                         remember_token VARCHAR
 );
 
-
-
-/*
-
-
-    TODO REMOVE THIS
-
-
- */
-
-CREATE TABLE cards (
-                       id SERIAL PRIMARY KEY,
-                       name VARCHAR NOT NULL,
-                       user_id INTEGER REFERENCES "user" NOT NULL
-);
-
-CREATE TABLE items (
-                       id SERIAL PRIMARY KEY,
-                       card_id INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-                       description VARCHAR NOT NULL,
-                       done BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-
-/*
-
-
-
-
-
- */
 
 
 CREATE TABLE registration_request(
@@ -285,7 +251,7 @@ CREATE TABLE code(
                      description TEXT NOT NULL
 );
 
-CREATE TABLE notification(
+/*CREATE TABLE notification(
                              id SERIAL PRIMARY KEY,
                              code INTEGER REFERENCES code NOT NULL,
                              "user" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
@@ -307,6 +273,7 @@ CREATE TABLE notification_group(
                                    notification INTEGER PRIMARY KEY REFERENCES notification ON DELETE CASCADE,
                                    "group" INTEGER NOT NULL REFERENCES "group" ON DELETE CASCADE
 );
+*/
 
 CREATE TABLE admin(
                       id SERIAL PRIMARY KEY ,
@@ -426,7 +393,7 @@ CREATE TRIGGER verify_participation
 EXECUTE PROCEDURE verify_part_procedure();
 
 
---Notification triggers
+/*--Notification triggers
 
 CREATE FUNCTION notification_event_procedure() RETURNS trigger AS $BODY$
 BEGIN
@@ -498,7 +465,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER notification_group_trigger
     BEFORE INSERT ON notification_group
     FOR EACH ROW
-EXECUTE PROCEDURE notification_group_procedure();
+EXECUTE PROCEDURE notification_group_procedure();*/
 
 -- Nome dos grupos
 
@@ -697,8 +664,8 @@ EXECUTE PROCEDURE manage_user_tsvector();
 
 
 -- Indexes
-
-CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'
+/*
+CREATE INDEX user_notifications ON notification USING hash("user"); -- (?) WHERE state = 'Not Seen'*/
 
 --pesquisa de eventos por data inicial
 CREATE INDEX search_event_date_begin ON event USING btree (start_date);
@@ -725,9 +692,9 @@ CREATE INDEX search_user ON "user" USING GIN (vector);
 
 --  USER
 
--- 2006 - 2019 -> Caminheiros
--- 2005 - 2008 -> Caminheiros
--- 2001 - 2004 -> Caminheiros
+-- 2009 - 2019 -> Lobitos
+-- 2005 - 2008 -> Pioneiros
+-- 2001 - 2004 -> Exploradores
 -- 1997 - 2000 -> Caminheiros
 
 -- Guardians
@@ -847,29 +814,29 @@ INSERT INTO location (name, coordinates, postal_code) VALUES ('Canas de Senhorim
 -- EVENT 5 -> MIXED
 -- EVENT 6 -> USER CREATED EVENT
 
-INSERT INTO event (id,title,description,price,start_date,final_date)
-VALUES (1,'Acampamento Regional dos Pioneiros','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
+INSERT INTO event (title,description,price,start_date,final_date)
+VALUES ('Acampamento Regional dos Pioneiros','tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor',
         10,'2019-10-21 17:00','2019-10-23 19:00');
-INSERT INTO event (id,title,description,price,location)
-VALUES (2,'Atividade de secção','pulvinar',9,1);
-INSERT INTO event (id,title,description,price)
-VALUES (3,'Kimeras','non, cursus non, egestas a',6);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (4,'Acampamento para os noviços','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
+INSERT INTO event (title,description,price,location)
+VALUES ('Atividade de secção','pulvinar',9,1);
+INSERT INTO event (title,description,price)
+VALUES ('Kimeras','non, cursus non, egestas a',6);
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('Acampamento para os noviços','ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum primis',
         5,'2019-07-16 14:04','2020-01-16 22:51',3);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (5,'ACAVER','Acampamento de verao',2,'2019-09-12 04:40','2019-09-21 07:21',1);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (6,'Quo Vadis','É um acampamento para caminheiros na região de viseu',
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('ACAVER','Acampamento de verao',2,'2019-09-12 04:40','2019-09-21 07:21',1);
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('Quo Vadis','É um acampamento para caminheiros na região de viseu',
         11,null,null,4);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (7,'Pedra Angular','Acampamento para integração dos noviços na secção dos Caminheros',
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('Pedra Angular','Acampamento para integração dos noviços na secção dos Caminheros',
         11,'2019-05-20 10:40','2019-05-21 06:23',2);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (8,'ACAREG','Acampamento regional',
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('ACAREG','Acampamento regional',
         11,'2019-05-20 10:40','2019-05-21 06:23',2);
-INSERT INTO event (id,title,description,price,start_date,final_date,location)
-VALUES (9,'Lavagem de carros','Atividade de angariação de fundos dos caminheiros para o ACAVER ',
+INSERT INTO event (title,description,price,start_date,final_date,location)
+VALUES ('Lavagem de carros','Atividade de angariação de fundos dos caminheiros para o ACAVER ',
         11,'2019-05-20 10:40','2019-05-21 06:23',2);
 
 
@@ -1060,6 +1027,7 @@ INSERT INTO group_member(member, "group")
 VALUES(20, 4);
 INSERT INTO group_member(member, "group")
 VALUES(21, 4);
+
 INSERT INTO group_member(member,"group")
 Values(1,4);
 
@@ -1096,7 +1064,7 @@ VALUES (4, 'Foste promovido para');
 INSERT INTO code (code, description)
 VALUES (5, 'recebeu');
 
--- NOTIFICATIONS
+/*-- NOTIFICATIONS
 
 INSERT INTO notification (id, code, "user", date)
 VALUES (1, 1, 10, '2019-04-01');
@@ -1129,7 +1097,7 @@ INSERT INTO notification_group(notification, "group")
 VALUES(5, 1);
 
 INSERT INTO notification_group(notification, "group")
-VALUES(6, 3);
+VALUES(6, 3);*/
 
 
 -- POLLS
@@ -1257,22 +1225,5 @@ VALUES (8, 3);
 --Request to make User 2 the new guardian of the User 1 (previous guardian -> 1)
 INSERT INTO guardian_exchange(id, minor, new_guardian)
 VALUES(1, 4, 2);
-
-
-
-/*
-
-
-    TODO REMOVE THIS
-
-
- */
-INSERT INTO cards VALUES (DEFAULT, 'Things to do', 1);
-INSERT INTO items VALUES (DEFAULT, 1, 'Buy milk');
-INSERT INTO items VALUES (DEFAULT, 1, 'Walk the dog', true);
-
-INSERT INTO cards VALUES (DEFAULT, 'Things not to do', 1);
-INSERT INTO items VALUES (DEFAULT, 2, 'Break a leg');
-INSERT INTO items VALUES (DEFAULT, 2, 'Crash the car');
 
 

@@ -3,12 +3,12 @@
 @section('title', $event->title)
 
 @section('navbar')
-    @include('components.user_navbar')
+    @include('navbars.user_navbar')
 @endsection
 
 @section('content')
 
-<div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-6">
+<div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8">
     <div class="modal-body">
 
         <h5 class="event-title" data-id="{{$event->id}}">{{$event->title}}</h5>
@@ -18,7 +18,7 @@
             @php
                 $date = new Datetime($event->start_date)
             @endphp
-            <time datetime="2019-03-03" class="icon calendar">
+            <time datetime="{{$date->format('Y:M:d')}}" class="icon calendar">
                 <span class="event-card-month ">{{$date->format('M')}}</span>
                 <span class="event-card-day"> {{$date->format('d')}} </span>
                 <span class="event-card-week-day">{{$date->format('l')}}</span>
@@ -119,10 +119,15 @@
             <header>
                 <h3 class="common-page-subtitle">Ficheiros</h3>
             </header>
-            <span>
+            <div class="files">
                 @foreach ($event->files as $file)
-                <button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-down"></i>
-                {{$file->title}}</button>
+                <form action= "/events/{{$event->id}}/file" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="file" value="{{$file}}">
+                    
+                <button type="submit" class="btn btn-secondary file-btn download-file-btn"><i class="far fa-arrow-alt-circle-down"></i>
+                {{$file}}</button>
+                </form>
                 @endforeach
                 
             </span>
@@ -138,9 +143,9 @@
 
             <div class="member-container">
                 @foreach($event->organizers as $organizer)
-                <div class="member-wrap">
+                <div class="member-wrap" data-id="{{$organizer->id}}">
                     <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
-                    <label>{{$organizer}}</label>
+                    <label>{{$organizer->name}}</label>
                 </div>
                 @endforeach
             </div>
@@ -153,19 +158,19 @@
 
             <h3 class="common-page-subtitle"> Comentários </h3>
 
-            <div class="row col-11">
+            <div class="row">
                 <textarea name="comment" class="input-description input-transparent w-100 input-border comment-box" wrap="hard"
                         placeholder="Adicione um comentário.."></textarea>
             </div>
 
-            @foreach($event->comments as $comment)
+{{--            @foreach($event->comments as $comment)
             <div class="row col-11">
                 <div class="col-12 event-comment ">
                     <span class="comment-author">{{$comment->name}} | {{date("m-d-Y H:i", strtotime($comment->date))}}</span>
                     <span class="comment-body">{{$comment->text}}</span>
                 </div>
             </div>
-            @endforeach
+            @endforeach--}}
         </div>
 
     </div>

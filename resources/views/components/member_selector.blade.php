@@ -9,19 +9,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" class="input-transparent input-border" placeholder="Search">
+                <input id="invite-members" type="text" class="input-transparent input-border" placeholder="Search">
 
                 <div class="search-results">
-                    <div class="member-container">
-
-                    </div>
                 </div>
 
                 <div class="added-members">
                     <header>
                         <h4>Membros adicionados</h4>
                     </header>
-                    <div class="member-container">
+                    <div class="list-members">
 
                     </div>
                 </div>
@@ -31,7 +28,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary save-members" data-dismiss="modal">Guardar</button>
             </div>
         </div>
     </div>

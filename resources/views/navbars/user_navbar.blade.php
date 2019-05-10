@@ -21,21 +21,8 @@
     </div>
 @endif
 
-<div id="notifications-toggle-content" class="hidden">
-    <ul class="unstyled">
-        <li data-alert_id="1" class="alert_li">
-            <a href=".." class="alert_message"> <span class="notification-important"> João </span> também comentou no
-                grupo Caminheiros!</a>
-        </li>
-        <li data-alert_id="2" class="alert_li">
-            <a href="#"> Atenção! O teu evento <span class="notification-important"> XPTO </span> é amanhã.</a>
-        </li>
-        <li data-alert_id="3" class="alert_li">
-            <a href="#"> <span class="notification-important"> António </span> e <span class="notification-important">
-                    Diogo </span> também vão a 4 eventos na terça!</a>
-        </li>
-    </ul>
-</div>
+
+@include('notifications.notification_list')
 
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light ">

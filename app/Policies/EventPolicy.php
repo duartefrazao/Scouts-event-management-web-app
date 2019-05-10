@@ -26,14 +26,14 @@ class EventPolicy
 
     public function create(User $user)
     {
-        return true;
         // Any user can create a new card
         return Auth::check() && $user->is_responsible;
     }
 
-    public function store(User $user, Event $event){
-        
-        return true;
+    public function store(User $user)
+    {
+        // Any user can create a new card
+        return Auth::check() && $user->is_responsible;
     }
 
     public function delete(User $user, Event $event)
@@ -43,9 +43,10 @@ class EventPolicy
     }
 
 
-    public function comment(User $user,Event $event){
-        $participant = DB::table('event_participant')->where('participant','=',$user->id)->where('event','=',$event->id)->get()->first();
-        $organizer = DB::table('event_organizer')->where('organizer','=',$user->id)->where('event','=',$event->id)->get()->first();
+    public function comment(User $user, Event $event)
+    {
+        $participant = DB::table('event_participant')->where('participant', '=', $user->id)->where('event', '=', $event->id)->get()->first();
+        $organizer = DB::table('event_organizer')->where('organizer', '=', $user->id)->where('event', '=', $event->id)->get()->first();
 
         return isset($participant) || isset($organizer);
     }

@@ -25,6 +25,8 @@ class GroupPolicy
 
     public function create(User $user)
     {
+
+        return true;
         // Any user can create a new card
         return Auth::check() && $user->is_responsible;
     }

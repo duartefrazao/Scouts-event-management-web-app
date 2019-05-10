@@ -349,3 +349,24 @@ body {
     text-align: center;
     padding: 5em;
 }
+
+
+@keyframes out {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
+
+.message-box{
+    position: absolute;
+    font-size:16pt;
+    right:2%;
+    bottom:3%;
+    z-index: 2;
+    background-color: rgba(149, 149, 149, 0.712);
+    color:rgb(255, 255, 255);
+    border-radius: 2%;
+    max-width:23em;
+    border-radius: 4px;
+    padding: 1.25rem .5rem 1.25rem 1.5rem;
+    animation: out 8s cubic-bezier(.77,.12,.83,.67) 1s forwards 1;
+}

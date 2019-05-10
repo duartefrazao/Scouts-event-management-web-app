@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('components.initial_navbar')
+@component('navbars.initial_navbar')
 @endcomponent
 
 @component('components.register_form')

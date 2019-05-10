@@ -6,6 +6,8 @@
                     {{ $user['name'] }}
         </div>
         <span class="member-face"> </span>
+        <button class="ml-auto btn btn-warning" id="block_user" type="button"> Bloquear </button>
+        <button class="ml-1 btn btn-danger" id="remove_user" type="button"> Remover </button>
     </div>
     <div class="collapse pending pt-1" id="register-serial-{{$user['id'] }}">
         <div class="card card-body">

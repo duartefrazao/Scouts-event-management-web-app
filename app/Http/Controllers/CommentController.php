@@ -14,7 +14,8 @@ use App\Event;
 class CommentController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -49,25 +50,39 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
 
-        $this->authorize('delete', $comment);
-        $comment->delete();
+        //$this->authorize('delete', $comment);
 
-        return $comment;
+        if (Auth::id() == $comment->participant) {
+            $comment->delete();
+            return response(json_encode($comment->id), 200);
+        } else
+            return response(json_encode("Não podes apagar este comentário!"), 403);
+
     }
 
-    public function store(Event $event){
+    public function store(Event $event)
+    {
 
         $this->authorize('comment', $event);
 
-        $result= $event->addComment(request('text'));
+        $result = $event->addComment(request('text'));
 
-        $comment = Comment::find($result->id);
+        $comment = Comment::join('user', 'user.id', '=', 'comment.participant')->select('comment.*', 'user.name')->where('comment.id', '=', $result->id)->first();
 
-        $info['comment'] = $comment;
-        $info['comment']['date'] = date("m-d-Y H:i", strtotime($comment->date));
-        $info['name'] = auth()->user()->name;
-        
-        return response(json_encode($info), 200);
+        $comment->date = date("m-d-Y H:i", strtotime($comment->date));
+
+
+        return response(json_encode($comment), 200);
+    }
+
+
+    public function getAllComments(Event $event)
+    {
+        $comments = Comment::join('user', 'user.id', '=', 'comment.participant')->select('comment.*', 'user.name')->where('comment.event', '=', $event->id)->orderBy('comment.id', 'DESC')->get();
+
+        foreach ($comments as $comment)
+            $comment->date = date("m-d-Y H:i", strtotime($comment->date));
+        return response(json_encode($comments), 200);
     }
 
 }
