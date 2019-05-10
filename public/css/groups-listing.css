@@ -55,10 +55,6 @@ html * {
     flex-direction: row;
 }
 
-.member-container .member-wrap {
-    margin: 0.5em;
-}
-
 
 .group-wrap {
     margin: 1em;
@@ -67,12 +63,6 @@ html * {
 .group-card-wrap {
     margin: 0;
     padding: 1em;
-}
-
-
-.member-wrap {
-    margin: 0 0 !important;
-    display: inline-block;
 }
 
 

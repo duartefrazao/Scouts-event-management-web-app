@@ -6,13 +6,14 @@ use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\User;
 
 class UserController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth, auth:admin');
+        $this->middleware('auth');
     }
 
     public function participation(Request $request, $event_id)
@@ -39,6 +40,19 @@ class UserController extends Controller
             Auth::user()->participant()->updateExistingPivot($event_id, ['state' => $update]);
 
             return response(json_encode("Success in registering the status"), 200);
+        }
+
+    }
+
+
+    public function getWards()
+    {
+
+        if (Auth::user()->is_guardian) {
+            $wards = User::where('guardian', '=', Auth::id())->get();
+            return response(json_encode($wards), 200);
+        } else {
+            return response(json_encode('O utilizador não é guardião'), 403);
         }
 
     }

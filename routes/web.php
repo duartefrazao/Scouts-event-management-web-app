@@ -44,6 +44,7 @@ Route::post('search/users', 'UserController@searchUsers');
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
 Route::put('api/users/{id}', 'ProfileController@edit');
+Route::get('api/users/{id}/wards', 'UserController@getWards');
 
 // Authentication
 
