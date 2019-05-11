@@ -41,6 +41,7 @@ class HomeController extends Controller
 
         $groups = $group_controller->list();
 
+        
         return view('pages.homepage', ['events' => $events, 'groups' => $groups]);
 
     }
