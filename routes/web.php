@@ -22,7 +22,6 @@ Route::get('events/{id}', 'EventController@show');
 Route::post('events', 'EventController@getEvents');
 
 
-
 Route::post('events/{event}/comments', 'CommentController@store');
 Route::get('events/{event}/comments', 'CommentController@getAllComments');
 Route::delete('api/comments/{id}', 'CommentController@delete');
@@ -31,7 +30,7 @@ Route::get('event/create', 'EventController@create');
 Route::post('event/create', 'EventController@store')->name('createEvent');
 Route::post('events/{event}/invitations', 'EventController@addParticipant');
 
-Route::post('events/{event}/file','EventController@getFile');
+Route::post('events/{event}/file', 'EventController@getFile');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
@@ -45,6 +44,7 @@ Route::post('search/users', 'UserController@searchUsers');
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');
 Route::put('api/users/{id}', 'ProfileController@edit');
+Route::get('api/users/{id}/wards', 'UserController@getWards');
 
 // Authentication
 
@@ -56,7 +56,7 @@ Route::get('register', 'Auth\RegisterController@show');
 Route::post('register', 'RegistrationRequestController@create');
 
 //FAQ
-Route::view('/faq','pages.faq');
+Route::view('/faq', 'pages.faq');
 
 //About
 Route::view('/about', 'pages.about');
@@ -64,16 +64,27 @@ Route::view('/about', 'pages.about');
 
 // Admin Authentication
 Route::prefix('admin')->group(function () {
-    Route::get('/dash', 'AdminController@list')->name('admin.dashboard');
+
+    Route::get('/requests', 'AdminController@drawRequests')->name('admin.requests');
+    Route::get('/users', 'AdminController@drawUsers')->name('admin.users');
+    Route::get('/guardians', 'AdminController@drawGuardians')->name('admin.guardians');
+    Route::get('/sections', 'AdminController@drawSections')->name('admin.sections');
+
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
     Route::post('/registers/{id}', 'AdminController@store');
     Route::delete('/registers/{id}', 'AdminController@destroy');
+
+
+    Route::delete('/users/{id}', 'AdminController@removeUser');
+
+    Route::get('/searchUsers', 'AdminController@searchUsers')->name('admin.searchUsers');
 });
 
 
 // Notifications
-Route::view('notifications','pages/notifications');
+Route::view('notifications', 'pages/notifications');
 
 Auth::routes();

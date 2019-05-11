@@ -4,20 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -41,13 +32,32 @@ class AdminLoginController extends Controller
         return Auth::guard('admin');
     }
 
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = 'admin/dash';
+    protected $redirectTo = 'admin/requests';
+
+    protected function redirectTo()
+    {
+        return 'admin/requests';
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect()->route('admin.login');
+    }
 
     /**
      * Create a new controller instance.

@@ -96,7 +96,7 @@ hr{
 }
 
 .member-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 55px);
+    display: flex;
+    align-items: center;
     justify-content: center;
 }

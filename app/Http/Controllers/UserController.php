@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use DB;
+use App\User;
 
 class UserController extends Controller
 {
@@ -44,6 +44,19 @@ class UserController extends Controller
 
     }
 
+
+    public function getWards()
+    {
+
+        if (Auth::user()->is_guardian) {
+            $wards = User::where('guardian', '=', Auth::id())->get();
+            return response(json_encode($wards), 200);
+        } else {
+            return response(json_encode('O utilizador não é guardião'), 403);
+        }
+
+    }
+
     public function searchUsers(Request $request)
     {
 
@@ -53,7 +66,6 @@ class UserController extends Controller
                                 ORDER BY rank DESC LIMIT 10;', array($request->input('name')));
 
         return response(json_encode($users), 200);
-
 
     }
 
@@ -69,6 +81,14 @@ class UserController extends Controller
             'description' => $reg_request['description']
         ]);
 
+    }
+
+    public function destroy(User $user)
+    {
+        return $user->delete();
+
+        if (Request::ajax())
+            return response(json_encode('Success'), 200);
     }
 
 }
