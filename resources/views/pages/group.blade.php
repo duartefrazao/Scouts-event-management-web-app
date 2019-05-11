@@ -30,9 +30,12 @@
 
                     <div class="member-container container">
                         @foreach($group->moderators as $moderator)
+                            
                             <div class="member-wrap">
-                                <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
-                                <a href="#" class="group-member-name">{{$moderator->name}}</a>
+                                <label>
+                                    <img src="{{asset($moderator->profile_image)}}" class="rounded-circle" />
+                                    {{$moderator->name}}
+                                </label>
                             </div>
                         @endforeach
                     </div>
@@ -48,8 +51,10 @@
                     <div class="member-container container"> 
                         @foreach($group->members as $member)
                             <div class="member-wrap">
-                                <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
-                                <a href="#" class="group-member-name">{{$member->name}}</a>
+                                <label>
+                                    <img src="{{asset($member->profile_image)}}" class="rounded-circle" />
+                                    {{$member->name}}
+                                </label>
                             </div>
                         @endforeach
                     </div>

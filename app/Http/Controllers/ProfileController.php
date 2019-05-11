@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Filesystem\Filesystem;
 use Validator;
 
 class ProfileController extends Controller
@@ -66,7 +65,7 @@ class ProfileController extends Controller
 
         $this->filterSection($user);
 
-        $this->getProfileImage($user);
+        $user->getProfileImage();
 
         return view('pages.profile', ['user' => $user]);
 
@@ -98,21 +97,6 @@ class ProfileController extends Controller
 
     }
 
-    public function getProfileImage($user){
-        
-        $files = Storage::files('public/' . $user->id);
-        
-        if(!empty($files))
-            $user['profile_image'] = "storage/" . $user->id . "/" . $this->removePath($files[0]);   
-        else 
-            $user['profile_image'] ="storage/default.png";   
-
-    }
-
-    public function removePath($file){
-        $info = explode('/',$file);
-        return end($info);
-    }
 
     /**
      * Get a validator for an incoming profile.

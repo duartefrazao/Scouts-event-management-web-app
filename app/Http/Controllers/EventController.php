@@ -58,6 +58,8 @@ class EventController extends Controller
         //$event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(3)->pluck('user.name');
 
         $event['invited'] = $event->participants()->limit(3)->get();
+
+        $this->getProfilePictures($event);
     }
 
     public function getEventFullInfo($event)
@@ -81,18 +83,10 @@ class EventController extends Controller
 
         $event['organizers'] = $event->organizers;
 
-        /* foreach(Storage::allFiles('files/' . $event->id) as $filename){
-            $event['files']->push(Storage::get($filename));
-        } */
-
         $files = Storage::allFiles('files/' . $event->id);
-       /*  array_map(function($file){
-            return Storage::get($file)->getClientOriginalName();
-        },$files,$files); */
 
         $event['files'] = $this->removePath($files);
 
-       // $event['files'] = Storage::allFiles('files/' . $event->id);
     }
 
     public function getGroupInfo($group)
@@ -179,8 +173,6 @@ class EventController extends Controller
             'title' => 'string|required',
             'description' => 'string|required',
             'price' => 'required',
-            'start_date' => 'nullable|date',
-            'final_date' => 'nullable|date',
             'location' => 'required',
             'participant' => 'nullable',
             'organizer' => 'nullable'
@@ -210,8 +202,6 @@ class EventController extends Controller
         $event->title = $data['title'];
         $event->description = $data['description'];
         $event->price = $data['price'];
-        $event->start_date = $data['start_date'];
-        $event->final_date = $data['final_date'];
         $event->location = $data['location'];
         $event->save();
 
@@ -237,7 +227,8 @@ class EventController extends Controller
         $event->organizers()->attach(Auth::id());
         Auth::user()->notify(new EventOrganizerInvitation(Auth::user(), Auth::user(), $event));
 
-        $this->saveFiles($request->file('files'), $event->id);
+        if($request->file('files') != NULL)
+            $this->saveFiles($request->file('files'), $event->id);
 
         return redirect('events/' . $event->id);
 
@@ -316,6 +307,20 @@ class EventController extends Controller
         $filename = request()->all()['file'];
 
         return Storage::download('files/'. $event->id . '/' . $filename ); 
+    }
+
+    public function getProfilePictures($event){
+        foreach($event['organizers'] as $org){
+            $org->getProfileImage();
+        }
+
+        foreach($event['invited'] as $inv){
+            $inv->getProfileImage();
+        }
+
+        foreach($event['going'] as $go){
+            $go->getProfileImage();
+        }
     }
 
 }

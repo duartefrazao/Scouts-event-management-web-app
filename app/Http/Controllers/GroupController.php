@@ -68,6 +68,7 @@ class GroupController extends Controller
     {
         $group['events'] = $group->events()->get();
         $group['members'] = $group->members()->get();
+        
     }
 
     public function getGroupFullInfo(&$group)
@@ -88,6 +89,9 @@ class GroupController extends Controller
         }
 
         $group['moderators'] = $group->moderators()->get();
+
+        $this->getProfilePictures($group);
+
     }
 
     public function getGroups()
@@ -153,6 +157,16 @@ class GroupController extends Controller
         $group->delete();
 
         return $group;
+    }
+
+    public function getProfilePictures($group){
+        foreach($group['members'] as $member){
+            $member->getProfileImage();
+        }
+
+        foreach($group['moderators'] as $mod){
+            $mod->getProfileImage();
+        }
     }
 
 }

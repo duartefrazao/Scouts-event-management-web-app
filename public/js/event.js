@@ -16,7 +16,6 @@ let location_select = document.querySelector('.location-container .custom-select
 
 
 function addEventListeners() {
-
     if (confirm_button != null)
         confirm_button.addEventListener('click', function (event) {
             newConfirmation(true, confirm_button.classList.contains('active'));
@@ -440,8 +439,6 @@ function sendAjaxRequest(method, url, data, handler) {
 
 window.onload = function (event) {
 
-    console.log(event_id);
-
     if (event_id != null)
         sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);
 };
@@ -465,24 +462,27 @@ function commentsReceiver() {
 
 //Create event add files
 let fileInput= document.querySelector(".input-file-hidden");
-fileInput.addEventListener('change',function(e){
-    let targetDiv = document.querySelector('.file-container .form-group .files');
-
-    while (targetDiv.firstChild) {
-        targetDiv.removeChild(targetDiv.firstChild);
-    }
-
-    let button = document.querySelector('.input-file-btn');
-
-    let files = e.target.files;
+if(fileInput){
+    fileInput.addEventListener('change',function(e){
     
-    Array.from(files).forEach(file => {
-        let div = document.createElement("div");
-        div.innerHTML = truncateFileName(file.name, 20);
-        div.classList = "btn btn-outline-secondary file-btn";
-        targetDiv.appendChild(div);
-    });
-})
+        let targetDiv = document.querySelector('.file-container .form-group .files');
+    
+        while (targetDiv.firstChild) {
+            targetDiv.removeChild(targetDiv.firstChild);
+        }
+    
+        let button = document.querySelector('.input-file-btn');
+    
+        let files = e.target.files;
+        
+        Array.from(files).forEach(file => {
+            let div = document.createElement("div");
+            div.innerHTML = truncateFileName(file.name, 20);
+            div.classList = "btn btn-outline-secondary file-btn";
+            targetDiv.appendChild(div);
+        });
+    })
+}
 
 function truncateFileName(n,len){
     var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
