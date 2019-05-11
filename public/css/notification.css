@@ -25,6 +25,14 @@
     list-style: none;
 }
 
+#notifications-toggle-content .not-read div{
+    background-color: grey !important;
+}
+
+#notifications-toggle-content .not-read span{
+    background-color: grey !important;
+}
+
 @media(max-width:500px){
     #notifications-toggle::before {
         content: "Notificações";

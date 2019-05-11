@@ -66,7 +66,8 @@ class EventInvitation extends Notification
         return [
             'host' => array($this->host->id, $this->host->name),
             'participant' => array($this->participant->id, $this->participant->name),
-            'event' => array($this->event->id, $this->event->title)
+            'event' => array($this->event->id, $this->event->title),
+            'url' => '/events/' . $this->event->id
         ];
     }
 }
