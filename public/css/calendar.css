@@ -166,7 +166,7 @@ time.icon .event-card-week-day {
   text-align: center;
 }
 
-.month .month-name {
+.month .month-name, .year {
   margin-bottom: 0;
   font-size: xx-large;
   font-weight: normal;
