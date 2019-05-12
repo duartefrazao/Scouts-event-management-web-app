@@ -5,6 +5,7 @@ html * {
 
 }
 
+
 .events-flex {
     display: flex;
     flex-wrap: wrap;
@@ -12,6 +13,9 @@ html * {
     justify-content: center;
 }
 
+.event-wrap:hover{
+    cursor: pointer;
+}
 
 .event-wrap .card {
     width: var(--card-width);
@@ -167,6 +171,13 @@ a.card-wrap:hover {
         margin-bottom: 1em !important;
     }
 
+    .event-wrap{
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+
+
     .event-wrap .card {
         width: auto;
         margin: 0;
@@ -183,6 +194,12 @@ a.card-wrap:hover {
 
     .card-test-invited, .group-members {
         display: none;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .center-container-vertically{
+        max-width: 100%;
     }
 
     .event-basic-info {

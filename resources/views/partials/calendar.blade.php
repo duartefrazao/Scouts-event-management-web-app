@@ -8,8 +8,9 @@
              title="Mês Anterior">
             <
         </div>
-        <div class="col-auto month">
+        <div class="col-auto month d-flex">
             <h3 class="month-name"> January </h3>
+            <h3 class="year ml-1"> 2018 </h3>
         </div>
         <div class="col-auto month-selector next-month" data-toggle="tooltip" data-placement="right"
              title="Mês Seguinte"> >
