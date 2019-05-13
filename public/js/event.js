@@ -18,7 +18,6 @@ let location_select = document.querySelector('.location-container .custom-select
 
 
 function addEventListeners() {
-
     if (confirm_button != null)
         confirm_button.addEventListener('click', function (event) {
             newConfirmation(true, confirm_button.classList.contains('active'));
@@ -91,24 +90,25 @@ function addEventListeners() {
     }
 
     if (fileInput != null) {
-        fileInput.addEventListener('change', function (e) {
+        fileInput.addEventListener('change',function(e){
+    
             let targetDiv = document.querySelector('.file-container .form-group .files');
-
+        
             while (targetDiv.firstChild) {
                 targetDiv.removeChild(targetDiv.firstChild);
             }
-
+        
             let button = document.querySelector('.input-file-btn');
-
+        
             let files = e.target.files;
-
+            
             Array.from(files).forEach(file => {
                 let div = document.createElement("div");
                 div.innerHTML = truncateFileName(file.name, 20);
                 div.classList = "btn btn-outline-secondary file-btn";
                 targetDiv.appendChild(div);
             });
-        });
+        })
     }
 
 }
@@ -605,7 +605,8 @@ function commentsReceiver() {
 }
 
 
-function truncateFileName(n, len) {
+
+function truncateFileName(n,len){
     var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
     var filename = n.replace('.' + ext, '');
     if (filename.length <= len) {

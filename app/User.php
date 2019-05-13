@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements AuthenticatableContract,CanResetPasswordContract
 {
@@ -75,5 +76,20 @@ class User extends Authenticatable implements AuthenticatableContract,CanResetPa
     }
 
 
+    public function getProfileImage(){
+        
+        $files = Storage::files('public/' . $this->id);
+        
+        if(!empty($files))
+            $this['profile_image'] = "storage/" . $this->id . "/" . $this->removePath($files[0]);   
+        else 
+            $this['profile_image'] ="storage/default.png";   
+
+    }
+
+    public function removePath($file){
+        $info = explode('/',$file);
+        return end($info);
+    }
 
 }

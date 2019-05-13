@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class ProfileController extends Controller
@@ -64,6 +65,8 @@ class ProfileController extends Controller
 
         $this->filterSection($user);
 
+        $user->getProfileImage();
+
         return view('pages.profile', ['user' => $user]);
 
     }
@@ -72,6 +75,7 @@ class ProfileController extends Controller
         $user['section'] = DB::table('group_member')->join('group','group.id','=','group_member.group')->join('user','user.id','=','group_member.member')->select('group.name as group')->where('user.id','=',$user->id)->get();
 
     }
+    
 
     public function filterSection($user){
 
@@ -148,6 +152,8 @@ class ProfileController extends Controller
         $user->email= request('email');
         $user->description= request('description');
 
+        $this->updateImage($user,request('profile-image'));
+
         $user->save();
 
         return redirect("/user/{$id}");
@@ -179,4 +185,15 @@ class ProfileController extends Controller
     }
 
 
+    public function updateImage(User $user, $file){
+        $targetDir = 'public/' . $user->id;
+
+        // Delete Files in directory
+        $files =   Storage::allFiles($targetDir);
+        Storage::delete($files);
+
+        $filename  = $file->getClientOriginalName();
+        $path = $file->storeAs($targetDir, $filename);
+
+    }
 }

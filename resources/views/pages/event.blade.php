@@ -77,7 +77,7 @@
                 @foreach($event->going as $part)
                 <div class="member-wrap" data-id="{{$part->id}}">
                     <label>
-                        <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
+                        <img src="{{asset($part->profile_image)}}" class="rounded-circle" />
                         {{$part->name}}
                    </label>
                 </div>
@@ -119,20 +119,23 @@
             <header>
                 <h3 class="common-page-subtitle">Ficheiros</h3>
             </header>
-            <div class="files">
-                @foreach ($event->files as $file)
-                <form action= "/events/{{$event->id}}/file" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="file" value="{{$file}}">
-                    
-                <button type="submit" class="btn btn-secondary file-btn download-file-btn"><i class="far fa-arrow-alt-circle-down"></i>
-                {{$file}}</button>
-                </form>
-                @endforeach
-                
-            </span>
+            <div class="form-group">
+                <div class="files">
+                    @foreach ($event->files as $file)
+                    <form action= "/events/{{$event->id}}/file" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="file" value="{{$file}}">
+                        
+                    <button type="submit" class="btn btn-secondary file-btn download-file-btn"><i class="far fa-arrow-alt-circle-down"></i>
+                    {{$file}}</button>
+                    </form>
+                    @endforeach
+                </div>{{-- 
+                <label for="file" class="input-file-btn btn btn-primary"><i class="far fa-plus"></i>
+                    Adicionar</label>
+                <input name="files[]" type="file"  class="input-file-hidden  form-control-file" id="file" multiple> --}}
+            </div>
         </div>
-
         <hr>
 
 
@@ -144,7 +147,7 @@
             <div class="member-container">
                 @foreach($event->organizers as $organizer)
                 <div class="member-wrap" data-id="{{$organizer->id}}">
-                    <img src="{{asset('images/profile.jpg')}}" class="rounded-circle" />
+                    <img src="{{asset($organizer->profile_image)}}" class="rounded-circle" />
                     <label>{{$organizer->name}}</label>
                 </div>
                 @endforeach
