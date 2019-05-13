@@ -25,6 +25,10 @@ class Event extends Model
         return $this->belongsToMany('App\User', 'event_participant', 'event', 'participant');
     }
 
+    public function groups(){
+        return $this->belongsToMany('App\Group', 'event_group', 'event', 'group');
+    }
+
 
     public function organizers() {
         return $this->belongsToMany('App\User', 'event_organizer', 'event', 'organizer');

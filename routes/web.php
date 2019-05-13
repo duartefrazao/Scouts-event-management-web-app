@@ -40,6 +40,8 @@ Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id', 
 
 // Pesquisa
 Route::post('search/users', 'UserController@searchUsers');
+Route::post('search/groups', 'GroupController@searchGroups');
+
 
 // API
 Route::post('api/events/{id}/presence/', 'UserController@participation');

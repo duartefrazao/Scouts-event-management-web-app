@@ -155,4 +155,20 @@ class GroupController extends Controller
         return $group;
     }
 
+    public function searchGroups(Request $request)
+    {
+
+        $groups = DB::select('Select id, name, ts_rank(vector,keywords,2) AS rank
+                                FROM "group", plainto_tsquery(\'Portuguese\',?) keywords
+                                WHERE vector @@ keywords
+                                ORDER BY rank DESC LIMIT 10;', array($request->input('name')));
+
+        foreach($groups as $group){
+            $r_group = Group::find($group->id);
+            $group->num_part = $r_group->members()->count();
+        }
+
+        return response(json_encode($groups), 200);
+
+    }
 }

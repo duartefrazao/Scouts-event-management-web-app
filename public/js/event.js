@@ -58,7 +58,7 @@ function addEventListeners() {
         invite_member_button.addEventListener('input', function (event) {
 
             sendAjaxRequest('post', '/search/users', {name: this.value}, usersHandler);
-
+            sendAjaxRequest('post', '/search/groups', {name: this.value}, groupsHandler);
         });
     }
 
@@ -84,8 +84,6 @@ function addEventListeners() {
 
     if (location_select != null) {
         location_select.addEventListener('input', function (event) {
-            console.log(this.value);
-
             if (this.value == -1) {
                 $('#locationModal').modal('show');
             }
@@ -118,7 +116,9 @@ function addEventListeners() {
 
 function saveNewMembers() {
 
-    let addedMembers = Array.from(document.querySelector('#memberModal .added-members div').children);
+    let addedMembers = Array.from(document.querySelectorAll('#memberModal .added-members .new-member'));
+
+    let addedGroups = Array.from(document.querySelectorAll('#memberModal .added-members .new-group'));
 
     let container = document.querySelector('.members-name');
 
@@ -127,6 +127,12 @@ function saveNewMembers() {
     addedMembers.forEach(new_member => {
 
         container.appendChild(createNewMemberInput(new_member));
+
+    });
+
+    addedGroups.forEach(new_group => {
+
+        container.appendChild((createNewGroupInput(new_group)));
 
     });
 
@@ -152,7 +158,7 @@ function createNewMemberInput(participant) {
 
 
 function saveNewModerators() {
-    let addedMembers = Array.from(document.querySelector('#organizerModal .added-members div').children);
+    let addedMembers = Array.from(document.querySelectorAll('#organizerModal .added-members div').children);
 
     let container = document.querySelector('.organizers-name');
 
@@ -181,10 +187,57 @@ function createNewOrganizerInput(organizer) {
     return span;
 }
 
+function saveNewGroups() {
+    let addedMembers = Array.from(document.querySelector('#organizerModal .added-members div').children);
+
+    let container = document.querySelector('.organizers-name');
+
+
+    deleteChildren(container);
+
+    addedMembers.forEach(new_organizer => {
+        container.appendChild(createNewOrganizerInput(new_organizer));
+    });
+
+    $('#organizerModal').modal('hide');
+}
+
+function createNewGroupInput(group) {
+    let input = document.createElement('input');
+    input.setAttribute('type', 'number');
+    input.setAttribute('name', 'group[]');
+    input.setAttribute('value', group.getAttribute('data-id'));
+
+    let span = document.createElement('span');
+    span.classList.add('invite-name');
+    span.textContent = group.textContent;
+
+    span.appendChild(input);
+
+    return span;
+
+}
+
 function deleteChildren(element) {
     while (element.firstChild) {
         element.removeChild(element.firstChild);
     }
+}
+
+function deleteChildrenWithClass(element, class_type) {
+
+    let elements = element.getElementsByClassName(class_type);
+
+    while (elements[0]) {
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+
+
+    /*    while (element.firstChild) {
+        console.log(element.firstChild);
+           // if (element.children[0].classList.contains(class_type))
+                element.removeChild(element.firstChild);
+        }*/
 }
 
 function usersHandler() {
@@ -194,10 +247,11 @@ function usersHandler() {
 
     let searchResults = document.querySelector('#memberModal .search-results');
 
-    let currentlyAdded = document.querySelector('#memberModal .added-members div');
+    let currentlyAdded = document.querySelectorAll('#memberModal .added-members .new-member');
 
     if (response.length == 0) {
-        deleteChildren(searchResults);
+        console.log('yo');
+        deleteChildrenWithClass(searchResults, 'new-member');
     }
 
     response.forEach(user => {
@@ -206,14 +260,13 @@ function usersHandler() {
 
         Array.from(searchResults.children).forEach(old_user => {
 
-            console.log(old_user);
 
             if (old_user.getAttribute('data-id') == user.id)
                 can_add = false;
         });
 
         if (can_add) {
-            Array.from(currentlyAdded.children).forEach(old_user => {
+            Array.from(currentlyAdded).forEach(old_user => {
 
                 if (old_user.getAttribute('data-id') == user.id)
                     can_add = false;
@@ -222,6 +275,45 @@ function usersHandler() {
 
         if (can_add)
             searchResults.appendChild(createUser(user, false));
+    });
+}
+
+
+function groupsHandler() {
+
+    console.log(this.responseText);
+
+    let response = JSON.parse(this.responseText);
+
+    let searchResults = document.querySelector('#memberModal .search-results');
+
+    let currentlyAdded = document.querySelectorAll('#memberModal .added-members .new-group');
+
+    if (response.length == 0) {
+        deleteChildrenWithClass(searchResults, 'new-group');
+    }
+
+    response.forEach(group => {
+
+
+        let can_add = true;
+
+        Array.from(searchResults.children).forEach(old_group => {
+
+
+            if (old_group.getAttribute('data-id') == group.id)
+                can_add = false;
+        });
+
+        if (can_add) {
+            Array.from(currentlyAdded).forEach(old_group => {
+
+                if (old_group.getAttribute('data-id') == group.id)
+                    can_add = false;
+            });
+        }
+        if (can_add)
+            searchResults.appendChild(createGroup(group));
     });
 }
 
@@ -282,6 +374,36 @@ function createUser(user, is_moderator) {
     wrap.appendChild(action);
 
     addNewMemberListener(action, wrap, user.id, is_moderator);
+
+    return wrap;
+
+}
+
+function createGroup(group) {
+
+    let wrap = document.createElement('div');
+    wrap.classList.add('new-group');
+    wrap.setAttribute('data-id', group.id);
+
+    let group_info = document.createElement('span');
+    let num_parts = document.createElement('span');
+    num_parts.classList.add('text-muted', 'num-participants');
+    num_parts.textContent = " - grupo com " + group.num_part + "  " + (group.num_part == 1 ? "participante" : "participantes");
+
+    console.log(" " + group.num_part + "  " + (group.num_part == 1 ? "Participante" : "Participantes"));
+
+    group_info.textContent = group.name;
+    group_info.appendChild(num_parts);
+
+    let action = document.createElement('div');
+    action.classList.add('action');
+    action.innerHTML += '<i class="fal fa-check"></i>';
+
+
+    wrap.appendChild(group_info);
+    wrap.appendChild(action);
+
+    addNewMemberListener(action, wrap, group.id, false);
 
     return wrap;
 
@@ -362,7 +484,6 @@ function commentReceiver() {
         let commentSection = document.querySelector('.event-comments');
 
         let response = JSON.parse(this.responseText);
-        console.log(response);
         //TO-DO update comments that might be done simultaneously, neccessary?
 
         let newComment = createComment(response);
@@ -462,8 +583,6 @@ function sendAjaxRequest(method, url, data, handler) {
 
 
 window.onload = function (event) {
-
-    console.log(event_id);
 
     if (event_id != null)
         sendAjaxRequest('get', '/events/' + event_id + '/comments', null, commentsReceiver);

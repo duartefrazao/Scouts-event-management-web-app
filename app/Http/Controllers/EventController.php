@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Notifications\EventInvitation;
 use App\Notifications\EventOrganizerInvitation;
 use Illuminate\Contracts\Session\Session;
@@ -86,13 +87,13 @@ class EventController extends Controller
         } */
 
         $files = Storage::allFiles('files/' . $event->id);
-       /*  array_map(function($file){
-            return Storage::get($file)->getClientOriginalName();
-        },$files,$files); */
+        /*  array_map(function($file){
+             return Storage::get($file)->getClientOriginalName();
+         },$files,$files); */
 
         $event['files'] = $this->removePath($files);
 
-       // $event['files'] = Storage::allFiles('files/' . $event->id);
+        // $event['files'] = Storage::allFiles('files/' . $event->id);
     }
 
     public function getGroupInfo($group)
@@ -170,9 +171,10 @@ class EventController extends Controller
         return view('pages/create_event', ['locations' => $locations]);
     }
 
-    
+
     public function store(Request $request)
     {
+
         $data = $request->all();
 
         $validator = Validator::make($data, [
@@ -183,7 +185,8 @@ class EventController extends Controller
             'final_date' => 'nullable|date',
             'location' => 'required',
             'participant' => 'nullable',
-            'organizer' => 'nullable'
+            'organizer' => 'nullable',
+            'group' => 'nullable'
         ]);
 
         $validator->after(function ($validator) use ($data) {
@@ -192,6 +195,13 @@ class EventController extends Controller
                     if (!User::find($new_organizer)->is_responsible) {
                         $validator->errors()->add('organizer', 'Os organizadores têm de ser utilizadores responsáveis!');
                         break;
+                    }
+                }
+
+            if (isset($data['group']))
+                foreach ($data['group'] as $new_group) {
+                    if (!Group::where('id', $new_group)->exists()) {
+                        $validator->errors()->add('group', 'Um dos grupos selecionados não existe!');
                     }
                 }
         });
@@ -237,6 +247,11 @@ class EventController extends Controller
         $event->organizers()->attach(Auth::id());
         Auth::user()->notify(new EventOrganizerInvitation(Auth::user(), Auth::user(), $event));
 
+        if (isset($data['group']))
+            foreach ($data['group'] as $new_group) {
+                $event->groups()->attach($new_group);
+            }
+
         $this->saveFiles($request->file('files'), $event->id);
 
         return redirect('events/' . $event->id);
@@ -244,12 +259,12 @@ class EventController extends Controller
     }
 
 
-    public function removePath($files){
+    public function removePath($files)
+    {
         $new_arr = collect();
-        
-        foreach($files as $file)
-        {
-            $info = explode('/',$file);
+
+        foreach ($files as $file) {
+            $info = explode('/', $file);
             $end = end($info);
             $new_arr->push($end);
         }
@@ -300,23 +315,25 @@ class EventController extends Controller
         return response(json_encode('Sucess in adding members'), 200);
     }
 
-    public function saveFiles($files, $event_id){
+    public function saveFiles($files, $event_id)
+    {
 
         $paths = [];
 
         foreach ($files as $file) {
             $extension = $file->getClientOriginalExtension();
-            $filename  = $file->getClientOriginalName();
-            $paths[]   = $file->storeAs('files/'. $event_id, $filename);
+            $filename = $file->getClientOriginalName();
+            $paths[] = $file->storeAs('files/' . $event_id, $filename);
         }
 
     }
 
-    public function getFile(Event $event){
+    public function getFile(Event $event)
+    {
 
         $filename = request()->all()['file'];
 
-        return Storage::download('files/'. $event->id . '/' . $filename ); 
+        return Storage::download('files/' . $event->id . '/' . $filename);
     }
 
 }

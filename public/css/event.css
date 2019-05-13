@@ -576,12 +576,12 @@ a.card-wrap:hover {
 
 
 /* create page */
-#createEvent .new-member {
+#createEvent .new-member, #createEvent .new-group {
     display: flex;
     justify-content: space-between;
 }
 
-#createEvent .new-member .action {
+#createEvent .new-member .action, #createEvent .new-group .action {
     cursor: pointer;
 }
 
