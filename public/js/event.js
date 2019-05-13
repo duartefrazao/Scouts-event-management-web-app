@@ -90,18 +90,18 @@ function addEventListeners() {
     }
 
     if (fileInput != null) {
-        fileInput.addEventListener('change',function(e){
-    
+        fileInput.addEventListener('change', function (e) {
+
             let targetDiv = document.querySelector('.file-container .form-group .files');
-        
+
             while (targetDiv.firstChild) {
                 targetDiv.removeChild(targetDiv.firstChild);
             }
-        
+
             let button = document.querySelector('.input-file-btn');
-        
+
             let files = e.target.files;
-            
+
             Array.from(files).forEach(file => {
                 let div = document.createElement("div");
                 div.innerHTML = truncateFileName(file.name, 20);
@@ -158,7 +158,7 @@ function createNewMemberInput(participant) {
 
 
 function saveNewModerators() {
-    let addedMembers = Array.from(document.querySelectorAll('#organizerModal .added-members div').children);
+    let addedMembers = Array.from(document.querySelector('#organizerModal .added-members div').children);
 
     let container = document.querySelector('.organizers-name');
 
@@ -250,38 +250,39 @@ function usersHandler() {
     let currentlyAdded = document.querySelectorAll('#memberModal .added-members .new-member');
 
     if (response.length == 0) {
-        console.log('yo');
         deleteChildrenWithClass(searchResults, 'new-member');
     }
 
-    response.forEach(user => {
+    response.forEach(s_user => {
 
         let can_add = true;
 
-        Array.from(searchResults.children).forEach(old_user => {
+        if (s_user.id == user)
+            can_add = false;
+
+        if (can_add)
+            Array.from(searchResults.children).forEach(old_user => {
 
 
-            if (old_user.getAttribute('data-id') == user.id)
-                can_add = false;
-        });
+                if (old_user.getAttribute('data-id') == s_user.id)
+                    can_add = false;
+            });
 
         if (can_add) {
             Array.from(currentlyAdded).forEach(old_user => {
 
-                if (old_user.getAttribute('data-id') == user.id)
+                if (old_user.getAttribute('data-id') == s_user.id)
                     can_add = false;
             });
         }
 
         if (can_add)
-            searchResults.appendChild(createUser(user, false));
+            searchResults.appendChild(createUser(s_user, false));
     });
 }
 
 
 function groupsHandler() {
-
-    console.log(this.responseText);
 
     let response = JSON.parse(this.responseText);
 
@@ -329,22 +330,27 @@ function organizersHandler() {
         deleteChildren(searchResults);
     }
 
-    response.forEach(user => {
+    response.forEach(s_user => {
 
         let can_add = true;
 
-        if (!user.is_responsible) {
+        if (!s_user.is_responsible) {
             can_add = false;
             console.log('Not responsible!');
         } else {
-            Array.from(searchResults.children).forEach(old_user => {
 
-                if (old_user.getAttribute('data-id') == user.id)
-                    can_add = false;
-            });
+            if (s_user.id == user)
+                can_add = false;
+
+            if (can_add)
+                Array.from(searchResults.children).forEach(old_user => {
+
+                    if (old_user.getAttribute('data-id') == s_user.id)
+                        can_add = false;
+                });
 
             if (can_add) {
-                Array.from(currentlyAdded.children).forEach(old_user => {
+                Array.from(currentlyAdded.children).forEach(s_user => {
 
                     if (old_user.getAttribute('data-id') == user.id)
                         can_add = false;
@@ -354,7 +360,7 @@ function organizersHandler() {
         }
 
         if (can_add)
-            searchResults.appendChild(createUser(user, true));
+            searchResults.appendChild(createUser(s_user, true));
     });
 }
 
@@ -389,9 +395,6 @@ function createGroup(group) {
     let num_parts = document.createElement('span');
     num_parts.classList.add('text-muted', 'num-participants');
     num_parts.textContent = " - grupo com " + group.num_part + "  " + (group.num_part == 1 ? "participante" : "participantes");
-
-    console.log(" " + group.num_part + "  " + (group.num_part == 1 ? "Participante" : "Participantes"));
-
     group_info.textContent = group.name;
     group_info.appendChild(num_parts);
 
@@ -605,8 +608,7 @@ function commentsReceiver() {
 }
 
 
-
-function truncateFileName(n,len){
+function truncateFileName(n, len) {
     var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
     var filename = n.replace('.' + ext, '');
     if (filename.length <= len) {

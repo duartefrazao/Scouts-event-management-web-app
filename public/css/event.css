@@ -632,7 +632,9 @@ a.card-wrap:hover {
     vertical-align: middle;
 }
 
-#createEvent .add-member-container input[name="participant[]"], #createEvent .add-organizer-container input[name="organizer[]"] {
+#createEvent .add-member-container input[name="participant[]"],
+#createEvent .add-organizer-container input[name="organizer[]"],
+#createEvent .add-member-container input[name="group[]"]{
     display: none;
 }
 
