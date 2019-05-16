@@ -114,14 +114,25 @@ class GroupController extends Controller
      */
     public function create(Request $request)
     {
-        $group = new Group();
+        /*$group = new Group();
 
         $this->authorize('create', $group);
 
         $group->name = $request->input('name');
         $group->is_section = $request->input('is_section');
 
+
         return $group;
+
+        */
+
+        return view('pages/create_group');
+    }
+
+    public function store(){
+
+        return redirect('group/create');
+        //ver store do event
     }
 
     /**

@@ -70,7 +70,7 @@
                 <div id="groups" class="container-fluid group-container">
                     @each('partials.group', $groups, 'group')
                 </div>
-                <a href="../pages/create_group.php">
+                <a href={{route('createGroup')}}>
                     <img data-toggle="tooltip" data-placement="top" title="Criar grupo"
                          src="../icons/plus-icon-white.png" class="add-icon"/>
                 </a>

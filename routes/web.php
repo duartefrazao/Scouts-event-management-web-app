@@ -35,6 +35,9 @@ Route::post('events/{event}/file', 'EventController@getFile');
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
 
+Route::get('group/create', 'GroupController@create');
+Route::post('group/create', 'GroupController@store')->name('createGroup');
+
 // User
 Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id', '[0-9]+');
 

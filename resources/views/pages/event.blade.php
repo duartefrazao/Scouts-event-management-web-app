@@ -8,6 +8,7 @@
 
 @section('content')
 
+
 <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8">
     <div class="modal-body">
 

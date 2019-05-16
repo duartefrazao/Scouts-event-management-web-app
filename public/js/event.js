@@ -10,7 +10,7 @@ let invite_member_button = document.querySelector("#memberModal #invite-members"
 let invite_moderators_button = document.querySelector('#organizerModal #invite-members');
 let event_id = document.querySelector('.event-title') != null ? document.querySelector('.event-title').getAttribute('data-id') : null;
 let save_members = document.querySelector('#memberModal .save-members');
-let save_moderators = document.querySelector('#organizerModal .save-members');
+let save_organizers = document.querySelector('#organizerModal .save-members');
 
 //Create event add files
 let fileInput = document.querySelector(".input-file-hidden");
@@ -75,8 +75,8 @@ function addEventListeners() {
         });
     }
 
-    if (save_moderators != null) {
-        save_moderators.addEventListener('click', function (event) {
+    if (save_organizers != null) {
+        save_organizers.addEventListener('click', function (event) {
             saveNewModerators();
         });
     }
