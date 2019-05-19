@@ -29,16 +29,25 @@ function addMembers(membersJSON, elemDOM) {
 function addChildren() {
     let modalKids = document.querySelector("#manage-kids-faces");
 
-    let kids = JSON.parse(this.responseText);
+    let msg = JSON.parse(this.responseText);
+
+    let kids = msg['wards'];
 
     console.log(kids);
 
     kids.forEach(kid => {
 
-        let memberHTML = `
+        let memberHTML = 
+            `
+            <form action="/parent" method="GET">
+                <input type="hidden" name="new_user" value="` +  kid.id + `">
+                <button type="submit" class="btn btn-light" > ${kid.name.split(" ")[0]} </button>
+            </form>`
+        
+        /* `
         <label data-id="${kid.id}">
             ${kid.name.split(" ")[0]}
-        </label>`
+        </label>` */
 
         let memberDOM = document.createElement('div');
         memberDOM.classList.add('member-wrap', 'm-1');

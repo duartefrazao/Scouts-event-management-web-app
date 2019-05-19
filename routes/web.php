@@ -64,6 +64,8 @@ Route::view('/faq', 'pages.faq');
 //About
 Route::view('/about', 'pages.about');
 
+//Parent accout management
+Route::get('/parent','ParentController@changeAccount');
 
 // Admin Authentication
 Route::prefix('admin')->group(function () {

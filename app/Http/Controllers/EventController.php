@@ -102,7 +102,6 @@ class EventController extends Controller
      */
     public function list()
     {
-
         $events_part = Auth::user()->participant()->orderBy('id')->get();
 
         $events_org = Auth::user()->organizer()->orderBy('id')->get();
@@ -161,6 +160,8 @@ class EventController extends Controller
      */
     public function create()
     {
+        abort_if(!session()->has('parent') && !Auth::user()->is_responsible,401);
+
         $locations = Location::all();
 
         return view('pages/create_event', ['locations' => $locations]);
@@ -169,6 +170,8 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+
+        abort_if(!session()->has('parent') && !Auth::user()->is_responsible,401);
 
         $data = $request->all();
 

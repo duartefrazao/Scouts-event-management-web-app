@@ -454,7 +454,6 @@ function confirmationHandler() {
 
     let response = JSON.parse(this.responseText);
 
-    //console.log(response);
 }
 
 

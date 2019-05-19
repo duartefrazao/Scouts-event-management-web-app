@@ -1,4 +1,4 @@
-@if(Auth::user()->is_guardian)
+@if(Auth::user()->is_guardian || session()->has('parent'))
     <div class="modal fade" id="manage-children-modal" tabindex="-1" role="dialog"
          aria-labelledby="manage-children-modal-Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -47,7 +47,7 @@
                 </span>
             </form>
 
-            @if(Auth::user()->is_guardian)
+            @if(Auth::user()->is_guardian || session()->has('parent'))
                 <li>
                 <span>
                     <a data-toggle="modal" data-target="#manage-children-modal" href="#"
@@ -58,6 +58,7 @@
                 </li>
             @endif
 
+            
             <li>
                 <a class="navbar-section-manage navbar-text" href="section_managment.php">
                     Gerir secção

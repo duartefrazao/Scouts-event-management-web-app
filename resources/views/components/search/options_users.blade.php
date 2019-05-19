@@ -3,7 +3,7 @@
     
     <input type="hidden" name="query" value="{{$query}}">
     
-    <div class="form-row d-flex ">
+    <div class="form-row d-flex">
         <div class="form-group col-md-auto">
             <label for="age-input">Idade</label>
             <input name="age" type="number" class="form-control" id="age-input" placeholder="Idade">
