@@ -30,7 +30,7 @@
                             <h6 class="card-subtitle sec  text-muted">
                                 <div class="loc text-muted ">
                                     @if ($event->location)
-                                        {{$event->loc_name}}
+                                        {{$event->location}}
                                     @else
                                         Local Indefinido
                                     @endif </div>
@@ -64,7 +64,7 @@
 
                             <div class="card-body group-members">
 
-                                @foreach($event['invited'] as $inv)
+                                @foreach($event->invited as $inv)
                                     <div class="member-wrap">
                                         <a href="#" class="group-member-name text-muted"
                                            data-id="{{$inv->id}}">{{$inv->name}}</a>

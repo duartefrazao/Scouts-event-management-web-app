@@ -107,7 +107,7 @@
         <div class="map-container">
             <h6 class="map-caption"><i class="fas fa-map-marker-alt fa-sm"></i>
             @if ($event->location)
-            {{$event->loc_name}}
+            {{$event->location}}
             @else 
             Local Indefinido
             @endif 

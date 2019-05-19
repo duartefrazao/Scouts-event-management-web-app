@@ -78,7 +78,7 @@ class GroupController extends Controller
         foreach ($group['events'] as &$event) {
             $event['location'] = Location::find($event->location);
             if ($event['location'])
-                $event['loc_name'] = $event->location->name;
+                $event['location'] = $event->location->name;
 
             //TODO CHANGE THIS
             $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');

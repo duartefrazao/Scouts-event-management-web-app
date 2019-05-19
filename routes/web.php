@@ -41,6 +41,7 @@ Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id', 
 // Pesquisa
 Route::post('search/users', 'UserController@searchUsers');
 Route::post('search/groups', 'GroupController@searchGroups');
+Route::get('search','SearchController@show');
 
 
 // API

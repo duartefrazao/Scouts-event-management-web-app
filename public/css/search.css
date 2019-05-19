@@ -6,8 +6,48 @@
 
 .search-button{
     float: right;
+    margin:auto;
+    margin-bottom:1rem;
+    margin-left:1em;
 }
 
 .advanced-search{
     display: none;
+}
+
+.search-options{
+    margin:0 auto auto 4.5em;
+}
+
+.search-choices{
+    margin:1.5em auto 1.5em 0;
+}
+
+.search-options-choices{
+    margin-left:1.5em;
+}
+
+.search-user{
+    text-align: center;
+    padding:0.5em 1em;
+    border-radius: 3%;
+    margin: 0 auto;
+    background-color: rgba(220, 220, 220, 0.602);
+}
+
+.user-container{
+    display: flex;
+    padding-left:0;
+    flex-direction: column;
+}
+
+.search-section-title{
+    text-align: center;
+    padding: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-left: 0;
+    padding-bottom: 0.5em;
+    font-weight: bold;
+    font-size: 140%;
 }

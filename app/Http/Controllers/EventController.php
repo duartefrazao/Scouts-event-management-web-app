@@ -49,7 +49,7 @@ class EventController extends Controller
     {
         $event['location'] = Location::find($event->location);
         if ($event['location'])
-            $event['loc_name'] = $event->location->name;
+            $event['location'] = $event->location->name;
 
         //TODO CHANGE THIS
         $event['groups'] = DB::table('event_group')->join('group', 'group.id', '=', 'event_group.group')->where('event', $event->id)->pluck('group.name');
@@ -58,7 +58,7 @@ class EventController extends Controller
 
         //$event['invited'] = DB::table('event_participant')->where('event', $event->id)->join('user', 'user.id', '=', 'participant')->limit(3)->pluck('user.name');
 
-        $event['invited'] = $event->participants()->limit(3)->get();
+        $event->invited = $event->participants()->limit(3)->get();
 
         $this->getProfilePictures($event);
     }
@@ -116,6 +116,7 @@ class EventController extends Controller
 
         return $events;
     }
+
 
     public function getEvents(Request $request)
     {
