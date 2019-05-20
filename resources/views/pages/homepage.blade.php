@@ -59,21 +59,25 @@
                     </div>
                 </div>
 
-
-                <a href={{route('createEvent')}}>
-                    <img data-toggle="tooltip" data-placement="top" title="Criar evento"
-                         src="../icons/plus-icon-white.png" class="add-icon"/>
-                </a>
+                
+                @if(Auth::user()->is_responsible)
+                    <a href={{route('createEvent')}}>
+                        <img data-toggle="tooltip" data-placement="top" title="Criar evento"
+                            src="../icons/plus-icon-white.png" class="add-icon"/>
+                    </a>
+                @endif
             </div>
 
             <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="nav-groups-tab">
                 <div id="groups" class="container-fluid group-container">
                     @each('partials.group', $groups, 'group')
                 </div>
-                <a href="../pages/create_group.php">
-                    <img data-toggle="tooltip" data-placement="top" title="Criar grupo"
-                         src="../icons/plus-icon-white.png" class="add-icon"/>
-                </a>
+                @if(session()->has('parent')|| Auth::user()->is_responsible)
+                    <a href="../pages/create_group.php">
+                        <img data-toggle="tooltip" data-placement="top" title="Criar grupo"
+                            src="../icons/plus-icon-white.png" class="add-icon"/>
+                    </a>
+                @endif
             </div>
 
         </div>

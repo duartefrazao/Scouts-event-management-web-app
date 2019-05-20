@@ -122,7 +122,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-
+        abort_if(!session()->has('parent') && !Auth::user()->is_responsible,401);
 
         $request= request()->all();
 

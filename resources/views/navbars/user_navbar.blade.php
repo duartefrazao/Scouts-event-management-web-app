@@ -1,4 +1,4 @@
-@if(Auth::user()->is_guardian)
+@if(Auth::user()->is_guardian || session()->has('parent'))
     <div class="modal fade" id="manage-children-modal" tabindex="-1" role="dialog"
          aria-labelledby="manage-children-modal-Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -38,15 +38,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <form class="form-inline mr-2">
+            <form class="form-inline mr-2" method="GET" action="/search" >
                 <span id="search">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <input type="hidden" name="resource" value="simple">
+                    <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search">
                     <a href="search.php" class="advanced" data-toggle="tooltip" data-placement="top"
                        title="Pesquisa Avançada"><i class="fas fa-search"></i></i> </a>
                 </span>
             </form>
 
-            @if(Auth::user()->is_guardian)
+            @if(Auth::user()->is_guardian || session()->has('parent'))
                 <li>
                 <span>
                     <a data-toggle="modal" data-target="#manage-children-modal" href="#"
@@ -57,6 +58,7 @@
                 </li>
             @endif
 
+            
             <li>
                 <a class="navbar-section-manage navbar-text" href="section_managment.php">
                     Gerir secção

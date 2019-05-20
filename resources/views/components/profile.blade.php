@@ -8,9 +8,11 @@
                 <img src="{{asset($user->profile_image) }}"
                      class="rounded mx-auto d-block profile-image" alt="...">
         
-                <label for="new-profile-image">
-                    <i class="fas fa-pen-square fa-2x profile-edit-image "> </i>
-                </label>
+                @if(session()->has('parent')|| Auth::user()->is_responsible)
+                    <label for="new-profile-image">
+                        <i class="fas fa-pen-square fa-2x profile-edit-image "> </i>
+                    </label>
+                @endif
         
                 <input name="profile-image" id="new-profile-image" type="file" />
         
@@ -43,6 +45,7 @@
         </fieldset>
         @include('components.errors')
 
+        @if(session()->has('parent')|| Auth::user()->is_responsible)
         <div class="profile-edit">
             <?php if($user->id == Auth::id()){ ?>
                 <a href="{{route('logout', [Auth::id()]) }}" > <button type="button"  class="btn btn btn-danger" >Terminar Sessão</button> </a>
@@ -53,6 +56,8 @@
                 <button type="submit" class="btn btn-success profile-update-btn">Atualizar</button>
             </div>
         </div>
+
+        @endif
 
 
 

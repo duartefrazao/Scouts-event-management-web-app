@@ -18,6 +18,7 @@ class UserController extends Controller
 
     public function participation(Request $request, $event_id)
     {
+        return response(json_encode("Not enough permissions"), 401);
 
         $going = $request->input('presence');
 
@@ -47,11 +48,29 @@ class UserController extends Controller
 
     public function getWards()
     {
+        
 
         if (Auth::user()->is_guardian) {
-            $wards = User::where('guardian', '=', Auth::id())->get();
-            return response(json_encode($wards), 200);
-        } else {
+            
+            $wards = User::where([
+                ['guardian', '=', Auth::id()] 
+            ])->get();
+
+            
+            return response(json_encode(['wards' => $wards]), 200);
+        }else if(session()->has('parent')){
+
+            $parent = Auth::user()->guardian;
+
+            $wards = User::where([
+                ['guardian', '=', $parent],
+                ['id', '<>',Auth::id()],   
+            ])->get();
+
+            $wards->push(User::find($parent));
+
+            return response(json_encode(['wards' => $wards]), 200);
+        }else {
             return response(json_encode('O utilizador não é guardião'), 403);
         }
 
