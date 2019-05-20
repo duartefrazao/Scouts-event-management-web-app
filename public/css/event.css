@@ -13,7 +13,7 @@ html * {
     justify-content: center;
 }
 
-.event-wrap:hover{
+.event-wrap:hover {
     cursor: pointer;
 }
 
@@ -171,11 +171,10 @@ a.card-wrap:hover {
         margin-bottom: 1em !important;
     }
 
-    .event-wrap{
+    .event-wrap {
         max-width: 100%;
         min-width: 100%;
     }
-
 
 
     .event-wrap .card {
@@ -198,7 +197,7 @@ a.card-wrap:hover {
         overflow: hidden;
     }
 
-    .center-container-vertically{
+    .center-container-vertically {
         max-width: 100%;
     }
 
@@ -344,26 +343,26 @@ a.card-wrap:hover {
     padding-left: 1em;
 }
 
-.files{
+.files {
     display: flex;
-    margin-bottom:1em;
+    margin-bottom: 1em;
     flex-wrap: wrap;
 }
 
-.files .file-btn{
-    max-height:2em;
+.files .file-btn {
+    max-height: 2em;
     min-width: 10em;
 
-    margin:0.2em 1em 0.2em 0em;
+    margin: 0.2em 1em 0.2em 0em;
     background-color: rgba(0, 7, 36, 0.096);
-    color:black;
-    padding:0.2em 0.4em 0.2em 0.4em;
+    color: black;
+    padding: 0.2em 0.4em 0.2em 0.4em;
     border-radius: .25rem;
     border-width: 0.05em;
-    border-style:solid;
+    border-style: solid;
     border-color: rgba(0, 7, 36, 0.109);
 
-    transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .input-file-hidden {
@@ -590,7 +589,7 @@ a.card-wrap:hover {
     flex-direction: column;
 }
 
-#createEvent .list-members{
+#createEvent .list-members {
     max-height: 5em;
     overflow: auto;
 }
@@ -600,9 +599,9 @@ a.card-wrap:hover {
     align-items: baseline;
 }
 
-#createEvent .date-selection input {
+/*#createEvent .date-selection input {
     max-width: 60%;
-}
+}*/
 
 #createEvent .date-selection #start_date {
     margin-right: 0.5em;
@@ -613,9 +612,9 @@ a.card-wrap:hover {
     margin-right: 0.5em;
 }
 
-#createEvent .date-selection * {
+/*#createEvent .date-selection * {
     width: auto;
-}
+}*/
 
 
 #createEvent .add-member-container, #createEvent .add-organizer-container {
@@ -634,7 +633,7 @@ a.card-wrap:hover {
 
 #createEvent .add-member-container input[name="participant[]"],
 #createEvent .add-organizer-container input[name="organizer[]"],
-#createEvent .add-member-container input[name="group[]"]{
+#createEvent .add-member-container input[name="group[]"] {
     display: none;
 }
 
@@ -658,11 +657,11 @@ a.card-wrap:hover {
     flex-wrap: nowrap;
 }
 
-#createEvent .members-name span, #createEvent .organizers-name span{
+#createEvent .members-name span, #createEvent .organizers-name span {
     margin-right: 0.5em;
 }
 
-#createEvent .members-name span::after, #createEvent .organizers-name span::after  {
+#createEvent .members-name span::after, #createEvent .organizers-name span::after {
     content: ", ";
 }
 
@@ -676,4 +675,51 @@ a.card-wrap:hover {
 
 #createEvent .price-box {
     margin-bottom: 2em;
+}
+
+#createEvent #dateSelectionNav .nav-link.active {
+    color: var(--dark-bg-color);
+}
+
+#createEvent #dateSelectionNav {
+    font-size: large;
+    padding: 0.5em 1em;
+    color: var(--dark-bg-color);
+}
+
+#reportrange, .date-option {
+    background: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    width: auto;
+}
+
+#createEvent #dateSelectionInput, #createEvent input[name="poll[]"] {
+    border: none;
+    width: 18em;
+}
+
+#createEvent .options-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#createEvent .poll-option {
+    display: flex;
+    align-items: center;
+}
+
+#createEvent .poll-option span{
+    margin-right: 1em;
+}
+
+#createEvent #dateSelectionNav .nav-link {
+}
+
+#createEvent #dateSelectionNav .nav-link {
+
+    font-size: large;
+
 }

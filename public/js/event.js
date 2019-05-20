@@ -1,6 +1,5 @@
 let event_page = document.querySelector('.event-page');
 
-
 let textarea = document.querySelector('.input-description.comment-box');
 
 let confirm_button = document.querySelector(".confirm-presence");
@@ -11,7 +10,9 @@ let invite_moderators_button = document.querySelector('#organizerModal #invite-m
 let event_id = document.querySelector('.event-title') != null ? document.querySelector('.event-title').getAttribute('data-id') : null;
 let save_members = document.querySelector('#memberModal .save-members');
 let save_moderators = document.querySelector('#organizerModal .save-members');
+let dateSelection = document.querySelector('#dateSelection');
 
+let addOptionButton = document.querySelector('#add-poll-option');
 //Create event add files
 let fileInput = document.querySelector(".input-file-hidden");
 let location_select = document.querySelector('.location-container .custom-select');
@@ -81,10 +82,32 @@ function addEventListeners() {
         });
     }
 
+    if (addOptionButton != null) {
+        addOptionButton.addEventListener('click', function (event) {
+
+            addNewOptionToPoll();
+
+        });
+    }
+
     if (location_select != null) {
         location_select.addEventListener('input', function (event) {
-            if (this.value == -1) {
+            console.log(this.value);
+            let location_option = document.querySelector("#location option[value='" + this.value + "']");
+
+            let location_id = null;
+
+            if (location_option != null)
+                location_id = location_option.dataset.value;
+            else
+                return;
+
+            console.log(location_id);
+
+            if (location_id == -1) {
                 $('#locationModal').modal('show');
+            } else {
+                document.querySelector('input[name="location"').value = location_id;
             }
         })
     }
@@ -232,12 +255,6 @@ function deleteChildrenWithClass(element, class_type) {
         elements[0].parentNode.removeChild(elements[0]);
     }
 
-
-    /*    while (element.firstChild) {
-        console.log(element.firstChild);
-           // if (element.children[0].classList.contains(class_type))
-                element.removeChild(element.firstChild);
-        }*/
 }
 
 function usersHandler() {
@@ -453,8 +470,6 @@ function confirmationHandler() {
     console.log(this.responseText);
 
     let response = JSON.parse(this.responseText);
-
-    //console.log(response);
 }
 
 
@@ -561,6 +576,70 @@ function removeComment() {
     }
 }
 
+
+function addNewOptionToPoll() {
+
+    let options = document.querySelector('.options-selection');
+    let lastOption = options.children[options.children.length - 1];
+
+    let optionID = 1;
+
+    if (lastOption != null) {
+        optionID = parseInt(lastOption.getAttribute('data-id')) + 1;
+    }
+
+
+    options.appendChild(createNewOption(optionID));
+
+
+    addDateRangePicker(optionID);
+
+
+}
+
+function createNewOption(id) {
+
+    let option = document.createElement('div');
+    option.classList.add('poll-option');
+    option.setAttribute('data-id', id);
+
+    let span = document.createElement('span');
+    span.classList.add('poll-option-name');
+    span.textContent = "Opção :";
+
+    let dateOption = document.createElement('div');
+    dateOption.classList.add('date-option');
+
+    let icon = document.createElement('i');
+    icon.classList.add('fa', 'fa-calendar');
+    let caret = document.createElement('i');
+    caret.classList.add('fa', 'fa-caret-down');
+
+    let input = createDateInput();
+
+    dateOption.appendChild(icon);
+    dateOption.appendChild(input);
+    dateOption.appendChild(caret);
+
+    option.appendChild(span);
+    option.appendChild(dateOption);
+
+
+    return option;
+}
+
+function createDateInput() {
+
+    let input = document.createElement('input');
+    input.classList.add('date-range-input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'poll[]');
+    //input.setAttribute('value', '');
+
+    return input;
+
+}
+
 /*let input_file_btn = document.querySelector('.input-file-btn');
 let input_file_hidden = document.querySelector('.input-file-hidden');
 input_file_btn.addEventListener('click', () => input_file_hidden.click());*/
@@ -609,8 +688,8 @@ function commentsReceiver() {
 
 
 function truncateFileName(n, len) {
-    var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
-    var filename = n.replace('.' + ext, '');
+    let ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
+    let filename = n.replace('.' + ext, '');
     if (filename.length <= len) {
         return n;
     }
@@ -618,5 +697,124 @@ function truncateFileName(n, len) {
     return filename + '.' + ext;
 }
 
+function addDateRangePicker(id) {
+
+    let start = moment();
+    let end = moment().add(1, 'day');
+
+    let obj = {id: id};
+
+    function cb(start, end) {
+        document.querySelector('.poll-option[data-id="' + this.id + '"] input').value = start.format('DD/MM/YYYY HH:mm') + ' - ' + end.format('DD/MM/YYYY HH:mm');
+    }
+
+    let _cb = cb.bind(obj);
+
+    $('.poll-option[data-id="' + id + '"] .date-option').daterangepicker({
+        timePicker: true,
+        minDate: moment(),
+        maxDate: moment().add(2, 'year'),
+        startDate: moment(),
+        endDate: moment().add(1, 'day'),
+        "timePicker24Hour": true,
+        "maxSpan": {
+            "days": 20
+        },
+        "locale": {
+            "format": "DD/MM/YYYY HH:mm",
+            "separator": " - ",
+            "applyLabel": "Confirmar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "De",
+            "toLabel": "Até",
+            "weekLabel": "Sem",
+            "daysOfWeek": [
+                "Dom",
+                "Seg",
+                "Ter",
+                "Qua",
+                "Qui",
+                "Sex",
+                "Sab"
+            ],
+            "monthNames": [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro"
+            ]
+        },
+        opens: 'left'
+    }, _cb);
+
+    _cb(start, end);
+
+}
+
+$(function () {
+
+    let startDate = moment().startOf('hour');
+    let endDate = moment().startOf('hour').add(32, 'hour');
+
+    function cb(start, end) {
+        document.querySelector('#dateSelectionInput').value = start.format('DD/MM/YYYY HH:mm') + ' - ' + end.format('DD/MM/YYYY HH:mm');
+        //$('#dateSelectionInput').value = "";
+    }
+
+    $('#dateSelection').daterangepicker({
+        timePicker: true,
+        minDate: moment(),
+        maxDate: moment().add(2, 'year'),
+        startDate: moment(),
+        endDate: moment().add(1, 'day'),
+        "timePicker24Hour": true,
+        "maxSpan": {
+            "days": 20
+        },
+        "locale": {
+            "format": "DD/MM/YYYY HH:mm",
+            "separator": " - ",
+            "applyLabel": "Confirmar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "De",
+            "toLabel": "Até",
+            "weekLabel": "Sem",
+            "daysOfWeek": [
+                "Dom",
+                "Seg",
+                "Ter",
+                "Qua",
+                "Qui",
+                "Sex",
+                "Sab"
+            ],
+            "monthNames": [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro"
+            ]
+        },
+        opens: 'left'
+    }, cb);
+
+    cb(startDate, endDate);
+});
 
 addEventListeners();

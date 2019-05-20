@@ -32,8 +32,8 @@
                 </header>
 
                 <textarea class="input-description input-transparent w-100 input-border" name="description"
-                          placeholder="Escreva a descrição do evento..."
-                          >@if(old('description', null) != null){{old('description')}}@endif</textarea>
+                          placeholder="Escreve a descrição do evento..."
+                >@if(old('description', null) != null){{old('description')}}@endif</textarea>
 
 
                 <div class="price-box mt-3">
@@ -51,12 +51,14 @@
                     <h3 class="common-page-subtitle">Localização</h3>
                 </header>
                 <span>
-                    <select name="location" class="custom-select">
+                    <input type="hidden" name="location">
+                    <input list="location" class="custom-select">
+                    <datalist id="location">
                     @foreach($locations as $location)
-                            <option value="{{$location->id}}"> {{$location->name}} </option>
+                            <option data-value="{{$location->id}}" value="{{$location->name}}">
                         @endforeach
-                    <option value="-1"> <a data-toggle="modal" data-target="#organizerModal" href=""> Criar uma localização nova </a></option>
-                    </select>
+                    <option data-value="-1" value="Criar uma localização nova"></option>
+                   </datalist>
                 </span>
                 @include('components.location_create')
             </div>
@@ -66,17 +68,52 @@
                     <h3>Datas</h3>
                 </header>
 
-                <div class="date-selection d-flex flex-sm-column flex-md-row flex-column">
-                    <label for="start_date">Data inicial:</label>
-                    <input type="datetime-local" class="form-control" name="start_date" id="start_date"
-                           value="{{ old('start_date') }}">
+                <ul class="nav nav-tabs d-flex justify-content-center mb-2" id="dateSelectionNav" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="selectDate-tab" data-toggle="tab" href="#chooseDate" role="tab"
+                           aria-controls="chooseDate" aria-selected="true">Selecionar Datas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="createPoll-tab" data-toggle="tab" href="#createPoll" role="tab"
+                           aria-controls="createPoll" aria-selected="false">Criar Sondagem</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="dateSelectionContent">
+                    <div class="tab-pane fade show active" id="chooseDate" role="tabpanel"
+                         aria-labelledby="selectDate-tab">
+                        <div class="date-selection d-flex flex-sm-column flex-md-row flex-column justify-content-center">
+                            {{--                            <label for="start_date">Data inicial:</label>
+                                                        <input type="datetime-local" class="form-control" name="start_date" id="start_date"
+                                                               value="{{ old('start_date') }}">
 
 
-                    <label for="final_date">Data final:</label>
-                    <input type="datetime-local" class="form-control" id="final_date" name="final_date"
-                           value="{{ old('final_date') }}">
+                                                        <label for="final_date">Data final:</label>
+                                                        <input type="datetime-local" class="form-control" id="final_date" name="final_date"
+                                                               value="{{ old('final_date') }}">--}}
 
+                            {{--<input type="text" id="dateSelectionInput" name="datetimes" />--}}
+
+                            <div id="dateSelection">
+                                <i class="fa fa-calendar"></i>&nbsp;
+                                <input type="text" id="dateSelectionInput" name="datetimes"/> <i
+                                        class="fa fa-caret-down"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="createPoll" role="tabpanel" aria-labelledby="createPoll-tab">
+
+                        <div class="options-selection">
+
+
+                        </div>
+
+
+                        <button id="add-poll-option" type="button"> Adiciona outra opção</button>
+                    </div>
                 </div>
+
             </div>
 
 
@@ -119,12 +156,12 @@
                     <h3 class="common-page-subtitle">Ficheiros</h3>
                 </header>
                 <div class="form-group">
-                        <div class="files">
-                               
-                        </div>
-                        <label for="file" class="input-file-btn btn btn-primary"><i class="far fa-plus"></i>
-                            Adicionar</label>
-                        <input name="files[]" type="file"  class="input-file-hidden  form-control-file" id="file" multiple>
+                    <div class="files">
+
+                    </div>
+                    <label for="file" class="input-file-btn btn btn-primary"><i class="far fa-plus"></i>
+                        Adicionar</label>
+                    <input name="files[]" type="file" class="input-file-hidden  form-control-file" id="file" multiple>
                 </div>
             </div>
 
