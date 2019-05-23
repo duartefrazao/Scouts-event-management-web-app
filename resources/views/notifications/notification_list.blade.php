@@ -12,6 +12,12 @@
                     @case('App\Notifications\EventOrganizerInvitation')
                     @include('notifications.types.event_organizer_invitation', ['notification' => $notification])
                     @break
+                    @case('App\Notifications\GroupInvitation')
+                    @include('notifications.types.group_invitation', ['notification' => $notification])
+                    @break
+                    @case('App\Notifications\GroupOrganizerInvitation')
+                    @include('notifications.types.group_organizer_invitation', ['notification' => $notification])
+                    @break
                     @default
                     @break
                 @endswitch

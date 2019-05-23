@@ -1,39 +1,40 @@
 <?php
 
+
 namespace App\Notifications;
 
 use App\User;
-use App\Event;
+use App\Group;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class EventInvitation extends Notification
+class GroupInvitation extends Notification
 {
     use Queueable;
 
     public $host;
     public $user;
-    public $event;
+    public $group;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $host,User $user,Event $event )
+    public function __construct(User $host, User $user, Group $group)
     {
         $this->user = $user;
-        $this->event = $event;
+        $this->group = $group;
         $this->host = $host;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -44,21 +45,21 @@ class EventInvitation extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
@@ -66,8 +67,8 @@ class EventInvitation extends Notification
         return [
             'host' => array($this->host->id, $this->host->name),
             'user' => array($this->user->id, $this->user->name),
-            'event' => array($this->event->id, $this->event->title),
-            'url' => '/events/' . $this->event->id
+            'group' => array($this->group->id, $this->group->name),
+            'url' => '/groups/' . $this->group->id
         ];
     }
 }

@@ -1,8 +1,5 @@
 let group_page = document.querySelector('.group-page');
 
-
-let confirm_button = document.querySelector(".confirm-presence");
-let remove_button = document.querySelector(".deny-presence");
 let members = document.querySelectorAll(".member-wrap");
 let invite_member_button = document.querySelector("#memberModal #invite-members");
 let invite_moderators_button = document.querySelector('#moderatorModal #invite-members');
@@ -12,28 +9,7 @@ let save_moderators = document.querySelector('#moderatorModal .save-members');
 
 
 function addgroupListeners() {
-    if (confirm_button != null)
-        confirm_button.addgroupListener('click', function (group) {
-            newConfirmation(true, confirm_button.classList.contains('active'));
-        });
 
-    if (remove_button != null)
-        remove_button.addgroupListener('click', function (group) {
-            newConfirmation(false, remove_button.classList.contains('active'));
-        });
-        
-
-    if (group_page != null) {
-        let mapDOM = group_page.querySelector('.map');
-        if (mapDOM != null) {
-            initializeGMap(41.1780, -8.5980, mapDOM);
-            $("#location-map").css("width", "100%");
-            $("#map_canvas").css("width", "100%");
-
-            google.maps.group.trigger(map, "resize");
-            map.setCenter(myLatlng);
-        }
-    }
 
     if (members != null) {
         members.forEach(member => {
@@ -43,27 +19,26 @@ function addgroupListeners() {
     }
 
     if (invite_member_button != null) {
-        invite_member_button.addgroupListener('input', function (group) {
+        invite_member_button.addEventListener('input', function (group) {
             sendAjaxRequest('post', '/search/users', {name: this.value}, usersHandler);
-            sendAjaxRequest('post', '/search/groups', {name: this.value}, groupsHandler);
         });
     }
 
     if (invite_moderators_button != null) {
-        invite_moderators_button.addgroupListener('input', function (group) {
+        invite_moderators_button.addEventListener('input', function (group) {
             sendAjaxRequest('post', '/search/users', {name: this.value}, moderatorsHandler);
 
         });
     }
 
     if (save_members != null) {
-        save_members.addgroupListener('click', function (group) {
+        save_members.addEventListener('click', function (group) {
             saveNewMembers();
         });
     }
 
     if (save_moderators != null) {
-        save_moderators.addgroupListener('click', function (group) {
+        save_moderators.addEventListener('click', function (group) {
             saveNewModerators();
         });
     }
@@ -74,9 +49,6 @@ function addgroupListeners() {
 function saveNewMembers() {
 
     let addedMembers = Array.from(document.querySelectorAll('#memberModal .added-members .new-member'));
-
-    let addedGroups = Array.from(document.querySelectorAll('#memberModal .added-members .new-group'));
-
     let container = document.querySelector('.members-name');
 
     deleteChildren(container);
@@ -87,13 +59,6 @@ function saveNewMembers() {
 
     });
 
-    addedGroups.forEach(new_group => {
-
-        container.appendChild((createNewGroupInput(new_group)));
-
-    });
-
-
     $('#memberModal').modal('hide');
 }
 
@@ -101,7 +66,7 @@ function createNewMemberInput(participant) {
 
     let input = document.createElement('input');
     input.setAttribute('type', 'number');
-    input.setAttribute('name', 'participant[]');
+    input.setAttribute('name', 'member[]');
     input.setAttribute('value', participant.getAttribute('data-id'));
 
     let span = document.createElement('span');
@@ -123,13 +88,13 @@ function saveNewModerators() {
     deleteChildren(container);
 
     addedMembers.forEach(new_moderator => {
-        container.appendChild(createNewmoderatorInput(new_moderator));
+        container.appendChild(createNewModeratorInput(new_moderator));
     });
 
     $('#moderatorModal').modal('hide');
 }
 
-function createNewmoderatorInput(moderator) {
+function createNewModeratorInput(moderator) {
     let input = document.createElement('input');
     input.setAttribute('type', 'number');
     input.setAttribute('name', 'moderator[]');
@@ -142,37 +107,6 @@ function createNewmoderatorInput(moderator) {
     span.appendChild(input);
 
     return span;
-}
-
-function saveNewGroups() {
-    let addedMembers = Array.from(document.querySelector('#moderatorModal .added-members div').children);
-
-    let container = document.querySelector('.moderators-name');
-
-
-    deleteChildren(container);
-
-    addedMembers.forEach(new_moderator => {
-        container.appendChild(createNewmoderatorInput(new_moderator));
-    });
-
-    $('#moderatorModal').modal('hide');
-}
-
-function createNewGroupInput(group) {
-    let input = document.createElement('input');
-    input.setAttribute('type', 'number');
-    input.setAttribute('name', 'group[]');
-    input.setAttribute('value', group.getAttribute('data-id'));
-
-    let span = document.createElement('span');
-    span.classList.add('invite-name');
-    span.textContent = group.textContent;
-
-    span.appendChild(input);
-
-    return span;
-
 }
 
 function deleteChildren(element) {
@@ -189,16 +123,10 @@ function deleteChildrenWithClass(element, class_type) {
         elements[0].parentNode.removeChild(elements[0]);
     }
 
-
-    /*    while (element.firstChild) {
-        console.log(element.firstChild);
-           // if (element.children[0].classList.contains(class_type))
-                element.removeChild(element.firstChild);
-        }*/
 }
 
 function usersHandler() {
-    
+
     let response = JSON.parse(this.responseText);
 
     let searchResults = document.querySelector('#memberModal .search-results');
@@ -236,45 +164,6 @@ function usersHandler() {
             searchResults.appendChild(createUser(s_user, false));
     });
 }
-
-
-function groupsHandler() {
-
-    let response = JSON.parse(this.responseText);
-
-    let searchResults = document.querySelector('#memberModal .search-results');
-
-    let currentlyAdded = document.querySelectorAll('#memberModal .added-members .new-group');
-
-    if (response.length == 0) {
-        deleteChildrenWithClass(searchResults, 'new-group');
-    }
-
-    console.log(response);
-    response.forEach(group => {
-
-
-        let can_add = true;
-
-        Array.from(searchResults.children).forEach(old_group => {
-
-
-            if (old_group.getAttribute('data-id') == group.id)
-                can_add = false;
-        });
-
-        if (can_add) {
-            Array.from(currentlyAdded).forEach(old_group => {
-
-                if (old_group.getAttribute('data-id') == group.id)
-                    can_add = false;
-            });
-        }
-        if (can_add)
-            searchResults.appendChild(createGroup(group));
-    });
-}
-
 
 function moderatorsHandler() {
     let response = JSON.parse(this.responseText);
@@ -342,36 +231,9 @@ function createUser(user, is_moderator) {
 
 }
 
-function createGroup(group) {
-
-    let wrap = document.createElement('div');
-    wrap.classList.add('new-group');
-    wrap.setAttribute('data-id', group.id);
-
-    let group_info = document.createElement('span');
-    let num_parts = document.createElement('span');
-    num_parts.classList.add('text-muted', 'num-participants');
-    num_parts.textContent = " - grupo com " + group.num_part + "  " + (group.num_part == 1 ? "participante" : "participantes");
-    group_info.textContent = group.name;
-    group_info.appendChild(num_parts);
-
-    let action = document.createElement('div');
-    action.classList.add('action');
-    action.innerHTML += '<i class="fal fa-check"></i>';
-
-
-    wrap.appendChild(group_info);
-    wrap.appendChild(action);
-
-    addNewMemberListener(action, wrap, group.id, false);
-
-    return wrap;
-
-}
-
 function removeNewMemberListener(action, wrap, id) {
 
-    action.querySelector('.fa-times').addgroupListener('click', function (group) {
+    action.querySelector('.fa-times').addEventListener('click', function (group) {
         wrap.parentElement.removeChild(wrap);
     });
 
@@ -388,7 +250,7 @@ function addNewMemberListener(action, wrap, id, is_moderator) {
 
     let addedMembers = document.querySelector(elem + ' .added-members div');
 
-    action.querySelector('.fa-check').addgroupListener('click', function (group) {
+    action.querySelector('.fa-check').addEventListener('click', function (group) {
         wrap.parentElement.removeChild(wrap);
         wrap.childNodes[1].innerHTML = '<i class="fal fa-times"></i>';
         removeNewMemberListener(action, wrap, id);
@@ -396,131 +258,6 @@ function addNewMemberListener(action, wrap, id, is_moderator) {
     });
 
 }
-
-function newConfirmation(status, previousSelected) {
-
-    if (previousSelected) return;
-
-    sendAjaxRequest('post', '/api/groups/' + group_id + '/presence', {presence: status}, confirmationHandler);
-
-}
-
-function confirmationHandler() {
-
-    console.log(this.responseText);
-
-    let response = JSON.parse(this.responseText);
-
-    //console.log(response);
-}
-
-
-function autosize(e) {
-
-    if (e.keyCode === 13) {
-        storeComment();
-        return;
-    }
-    let el = this;
-    setTimeout(function () {
-        el.style.cssText = 'height:auto; padding:0';
-        el.style.cssText = 'box-sizing:content-box';
-        el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    }, 0);
-}
-
-function storeComment() {
-
-    if (textarea.value.length === 0) {
-        return;
-    }
-
-    sendAjaxRequest('post', '/groups/' + group_id + '/comments', {text: textarea.value}, commentReceiver);
-}
-
-
-function commentReceiver() {
-    if (this.status === 200) {
-        let commentSection = document.querySelector('.group-comments');
-
-        let response = JSON.parse(this.responseText);
-        //TO-DO update comments that might be done simultaneously, neccessary?
-
-        let newComment = createComment(response);
-
-        commentSection.insertBefore(newComment, commentSection.childNodes[4]);
-
-        textarea.value = "";
-    }
-}
-
-function createComment(response) {
-
-    let newComment = document.createElement('div');
-    newComment.classList.add('row', 'comment-wrap');
-    newComment.setAttribute('data-id', response.id);
-
-    let deleteButton = document.createElement('button');
-    deleteButton.type = "button";
-    deleteButton.classList.add('close');
-    let icon = document.createElement('span');
-    icon.innerHTML = "&times;";
-    deleteButton.appendChild(icon);
-
-    let holder = document.createElement('div');
-    holder.classList.add('col-12', 'group-comment');
-
-    let commentHeader = document.createElement('div');
-
-    let commentAuthor = document.createElement('span');
-    commentAuthor.classList.add('comment-author');
-    commentAuthor.setAttribute('data-id', response.participant);
-    commentAuthor.textContent = response.name + "|" + response.date;
-
-    let commentBody = document.createElement('span');
-    commentBody.classList.add('comment-body');
-    commentBody.textContent = response.text;
-
-    commentHeader.appendChild(commentAuthor);
-
-    if (user == response.participant) {
-
-        deleteButton.addgroupListener('click', function () {
-
-            sendAjaxRequest('delete', '/api/comments/' + response.id, null, removeComment);
-
-        });
-
-        commentHeader.appendChild(deleteButton);
-
-    }
-
-
-    holder.appendChild(commentHeader);
-    holder.appendChild(commentBody);
-
-    newComment.appendChild(holder);
-
-    return newComment;
-}
-
-function removeComment() {
-    if (this.status === 200) {
-
-        let response = JSON.parse(this.responseText);
-
-        let commentSection = document.querySelector('.group-comments');
-
-        let comment = document.querySelector('.comment-wrap[data-id="' + response + '"]');
-
-        commentSection.removeChild(comment);
-
-    }
-}
-
-/*let input_file_btn = document.querySelector('.input-file-btn');
-let input_file_hidden = document.querySelector('.input-file-hidden');
-input_file_btn.addgroupListener('click', () => input_file_hidden.click());*/
 
 
 function encodeForAjax(data) {
@@ -537,42 +274,8 @@ function sendAjaxRequest(method, url, data, handler) {
     request.open(method, url, true);
     request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.addgroupListener('load', handler);
+    request.addEventListener('load', handler);
     request.send(encodeForAjax(data));
-}
-
-
-window.onload = function (group) {
-
-    if (group_id != null)
-        sendAjaxRequest('get', '/groups/' + group_id + '/comments', null, commentsReceiver);
-};
-
-
-function commentsReceiver() {
-    if (this.status === 200) {
-        let commentSection = document.querySelector('.group-comments');
-
-        let response = JSON.parse(this.responseText);
-
-        response.forEach(comment => {
-
-            let newComment = createComment(comment);
-
-            commentSection.appendChild(newComment);
-        });
-    }
-}
-
-
-function truncateFileName(n, len) {
-    var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
-    var filename = n.replace('.' + ext, '');
-    if (filename.length <= len) {
-        return n;
-    }
-    filename = filename.substr(0, len) + (n.length > len ? '[...]' : '');
-    return filename + '.' + ext;
 }
 
 

@@ -34,7 +34,6 @@ Route::post('events/{event}/file', 'EventController@getFile');
 
 // Groups
 Route::get('groups/{id}', 'GroupController@show');
-
 Route::get('group/create', 'GroupController@create');
 Route::post('group/create', 'GroupController@store')->name('createGroup');
 
