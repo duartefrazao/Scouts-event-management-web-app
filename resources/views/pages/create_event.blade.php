@@ -8,6 +8,8 @@
 
 @section('content')
 
+<script src="../js/event.js" type="text/javascript" defer></script>
+
     <div class="event-page container-fluid col-xs-11 col-sm-10 col-lg-8 pb-4">
         @if ($errors->any())
             <div class="alert alert-danger">

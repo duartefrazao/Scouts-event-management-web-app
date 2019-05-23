@@ -15,7 +15,7 @@ class EventOrganizerInvitation extends Notification
     use Queueable;
 
     public $host;
-    public $participant;
+    public $user;
     public $event;
 
     /**
@@ -23,9 +23,9 @@ class EventOrganizerInvitation extends Notification
      *
      * @return void
      */
-    public function __construct(User $host,User $participant,Event $event )
+    public function __construct(User $host,User $user,Event $event )
     {
-        $this->participant = $participant;
+        $this->user = $user;
         $this->event = $event;
         $this->host = $host;
     }
@@ -65,7 +65,7 @@ class EventOrganizerInvitation extends Notification
     {
         return [
             'host' => array($this->host->id, $this->host->name),
-            'participant' => array($this->participant->id, $this->participant->name),
+            'user' => array($this->user->id, $this->user->name),
             'event' => array($this->event->id, $this->event->name),
             'url' => '/events/' . $this->event->id
         ];

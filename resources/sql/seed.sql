@@ -945,16 +945,16 @@ INSERT INTO file(event, title, contents) VALUES(5, 'Horário.pdf', '');
 
 
 -- GROUPS
-INSERT INTO "group" (id, name, is_section)
-VALUES(1, 'Lobitos', 'true');
-INSERT INTO "group" (id, name, is_section)
-VALUES(2, 'Exploradores', 'true');
-INSERT INTO "group" (id, name, is_section)
-VALUES(3, 'Pioneiros', 'true');
-INSERT INTO "group" (id, name, is_section)
-VALUES(4, 'Caminheiros', 'true');
-INSERT INTO "group" (id, name, is_section)
-VALUES(5, 'ViriaTUs', 'false');
+INSERT INTO "group" ( name, is_section)
+VALUES('Lobitos', 'true');
+INSERT INTO "group" (name, is_section)
+VALUES('Exploradores', 'true');
+INSERT INTO "group" (name, is_section)
+VALUES('Pioneiros', 'true');
+INSERT INTO "group" (name, is_section)
+VALUES('Caminheiros', 'true');
+INSERT INTO "group" (name, is_section)
+VALUES('ViriaTUs', 'false');
 
 
 -- GROUP MODERATORS

@@ -39,8 +39,8 @@
     <!-- Log In -->
     <link rel="stylesheet" href="../css/home-dash.css" type="text/css">
 
-    <!-- Groups listing -->
-    <link rel="stylesheet" href="../css/groups-listing.css" type="text/css">
+    <!-- Group -->
+    <link rel="stylesheet" href="../css/group.css" type="text/css">
 
     <!-- Notifications -->
     <link rel="stylesheet" href="../css/notification.css" type="text/css">
@@ -50,9 +50,6 @@
 
     <!-- Faq -->
     <link rel="stylesheet" href="../css/faq.css" type="text/css">
-
-    <!-- Create group -->
-    <link rel="stylesheet" href="../css/create-group.css" type="text/css">
 
     <!-- Section Manage -->
     <link rel="stylesheet" href="../css/section-manage.css" type="text/css">
@@ -108,8 +105,6 @@
     <script src="../js/map.js" type="text/javascript" defer></script>
     <script src="../js/home.js" type="text/javascript" defer></script>
     <script src="../js/member.js" type="text/javascript"></script>
-    <script src="../js/event.js" type="text/javascript" defer></script>
-    <script src="../js/group.js" type="text/javascript" defer></script>
     <script src="../js/profile.js" type="text/javascript" defer></script>
     <script src="../js/notification.js" type="text/javascript" defer></script>
     <script src="../js/admin.js" type="text/javascript" defer></script>

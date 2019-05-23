@@ -1,22 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-include_once('EventController.php');
 
-namespace App\Http\Controllers;
-
+use App\Notifications\GroupInvitation;
+use App\Notifications\GroupOrganizerInvitation;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
-use App\Event;
 use App\Location;
 use App\Group;
-use App\File;
-use App\Poll;
-use App\EventOrganizer;
-use App\Comment;
+use Illuminate\Support\Facades\Validator;
 
 class GroupController extends Controller
 {
@@ -68,7 +63,7 @@ class GroupController extends Controller
     {
         $group['events'] = $group->events()->get();
         $group['members'] = $group->members()->get();
-        
+
     }
 
     public function getGroupFullInfo(&$group)
@@ -114,14 +109,68 @@ class GroupController extends Controller
      */
     public function create(Request $request)
     {
+
+        return view('pages/create_group');
+    }
+
+    public function store(Request $request)
+    {
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'string|required',
+            'member' => 'required',
+            'moderator' => 'nullable'
+        ]);
+
+        $validator->after(function ($validator) use ($data) {
+            if (isset($data['moderator']))
+                foreach ($data['moderator'] as $new_organizer) {
+                    if (!User::find($new_organizer)->is_responsible) {
+                        $validator->errors()->add('moderator', 'Os moderadores têm de ser utilizadores responsáveis!');
+                        break;
+                    }
+                }
+        });
+
+        if ($validator->fails()) {
+            return redirect('group/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
         $group = new Group();
 
-        $this->authorize('create', $group);
+        $this->authorize('store', Group::class);
 
-        $group->name = $request->input('name');
-        $group->is_section = $request->input('is_section');
+        $group->name = $data['name'];
+        $group->save();
 
-        return $group;
+
+        if (isset($data['participant']))
+            foreach ($data['participant'] as $new_participant) {
+                $group->members()->attach($new_participant);
+                $user = User::find($new_participant);
+                $user->notify(new GroupInvitation(Auth::user(), $user, $group));
+            }
+
+        if (isset($data['organizer']))
+            foreach ($data['organizer'] as $new_organizer) {
+
+                if ($new_organizer->id === Auth::id())
+                    continue;
+
+                $group->moderators()->attach($new_organizer);
+                $user = User::find($new_organizer);
+                $user->notify(new GroupOrganizerInvitation(Auth::user(), $user, $group));
+            }
+
+        $group->moderators()->attach(Auth::id());
+        Auth::user()->notify(new GroupOrganizerInvitation(Auth::user(), Auth::user(), $group));
+
+        return redirect('groups/' . $group->id);
     }
 
     /**
@@ -131,7 +180,8 @@ class GroupController extends Controller
      * @param Request request containing the new state
      * @return Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         $group = Group::find($id);
 
@@ -149,7 +199,8 @@ class GroupController extends Controller
      * @param int $id
      * @return Response
      */
-    public function delete(Request $request, $id)
+    public
+    function delete(Request $request, $id)
     {
         $group = Group::find($id);
 
@@ -159,17 +210,20 @@ class GroupController extends Controller
         return $group;
     }
 
-    public function getProfilePictures($group){
-        foreach($group['members'] as $member){
+    public
+    function getProfilePictures($group)
+    {
+        foreach ($group['members'] as $member) {
             $member->getProfileImage();
         }
 
-        foreach($group['moderators'] as $mod){
+        foreach ($group['moderators'] as $mod) {
             $mod->getProfileImage();
         }
     }
 
-    public function searchGroups(Request $request)
+    public
+    function searchGroups(Request $request)
     {
 
         $groups = DB::select('Select id, name, ts_rank(vector,keywords,2) AS rank
@@ -177,7 +231,7 @@ class GroupController extends Controller
                                 WHERE vector @@ keywords
                                 ORDER BY rank DESC LIMIT 10;', array($request->input('name')));
 
-        foreach($groups as $group){
+        foreach ($groups as $group) {
             $r_group = Group::find($group->id);
             $group->num_part = $r_group->members()->count();
         }

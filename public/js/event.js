@@ -9,8 +9,8 @@ let invite_member_button = document.querySelector("#memberModal #invite-members"
 let invite_moderators_button = document.querySelector('#organizerModal #invite-members');
 let event_id = document.querySelector('.event-title') != null ? document.querySelector('.event-title').getAttribute('data-id') : null;
 let save_members = document.querySelector('#memberModal .save-members');
-let save_moderators = document.querySelector('#organizerModal .save-members');
 let dateSelection = document.querySelector('#dateSelection');
+let save_organizers = document.querySelector('#organizerModal .save-members');
 
 let addOptionButton = document.querySelector('#add-poll-option');
 //Create event add files
@@ -76,8 +76,8 @@ function addEventListeners() {
         });
     }
 
-    if (save_moderators != null) {
-        save_moderators.addEventListener('click', function (event) {
+    if (save_organizers != null) {
+        save_organizers.addEventListener('click', function (event) {
             saveNewModerators();
         });
     }

@@ -73,10 +73,10 @@
                     @each('partials.group', $groups, 'group')
                 </div>
                 @if(session()->has('parent')|| Auth::user()->is_responsible)
-                    <a href="../pages/create_group.php">
-                        <img data-toggle="tooltip" data-placement="top" title="Criar grupo"
-                            src="../icons/plus-icon-white.png" class="add-icon"/>
-                    </a>
+                <a href={{route('createGroup')}}>
+                    <img data-toggle="tooltip" data-placement="top" title="Criar grupo"
+                         src="../icons/plus-icon-white.png" class="add-icon"/>
+                </a>
                 @endif
             </div>
 

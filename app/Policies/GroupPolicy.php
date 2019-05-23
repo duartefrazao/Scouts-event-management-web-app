@@ -36,4 +36,11 @@ class GroupPolicy
         // Only a group moderator can delete the group
         return $group->moderators->contains($user->id);
     }
+    
+    public function store(User $user)
+    {
+        // Any user can create a new card
+        return Auth::check() && $user->is_responsible;
+    }
+
 }
