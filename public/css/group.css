@@ -146,3 +146,107 @@ html * {
 .group-page .members-container{
     text-align: center;
 }
+
+
+/* create group */
+#createGroup .new-member, #createGroup .new-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+#createGroup .new-member .action, #createGroup .new-group .action {
+    cursor: pointer;
+}
+
+#createGroup .added-members {
+    display: flex;
+    flex-direction: column;
+}
+
+#createGroup .list-members{
+    max-height: 5em;
+    overflow: auto;
+}
+
+#createGroup .date-selection {
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#createGroup .date-selection input {
+    max-width: 60%;
+}
+
+#createGroup .date-selection #start_date {
+    margin-right: 0.5em;
+}
+
+#createGroup .date-selection label {
+    white-space: nowrap;
+    margin-right: 0.5em;
+}
+
+#createGroup .date-selection * {
+    width: auto;
+}
+
+
+#createGroup .add-member-container, #createGroup .add-organizer-container {
+    display: flex;
+    align-items: baseline;
+    margin: 2em 0 2em 0;
+
+    flex-flow: row wrap;
+}
+
+#createGroup .add-member-container h3, .add-organizer-container h3 {
+    margin: auto 1em;
+    margin-left: 0;
+    vertical-align: middle;
+}
+
+#createGroup .add-member-container input[name="participant[]"],
+#createGroup .add-organizer-container input[name="organizer[]"],
+#createGroup .add-member-container input[name="group[]"]{
+    display: none;
+}
+
+#createGroup .add-member-container a {
+    align-self: baseline;
+}
+
+#createGroup .add-member-container hr, #createGroup .add-organizer-container hr {
+    width: 100%;
+    margin: 0.2em 0 0.1em 0;
+    height: 0;
+}
+
+#createGroup .members-name, #createGroup .organizers-name {
+    display: flex;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    max-width: 90%;
+    width: 90%;
+    flex-wrap: nowrap;
+}
+
+#createGroup .members-name span, #createGroup .organizers-name span{
+    margin-right: 0.5em;
+}
+
+#createGroup .members-name span::after, #createGroup .organizers-name span::after  {
+    content: ", ";
+}
+
+#createGroup .members-name span:last-child::after, #createGroup .organizers-name span:last-child::after {
+    content: "";
+}
+
+#createGroup .location-container .custom-select {
+    width: auto;
+}
+
+#createGroup .price-box {
+    margin-bottom: 2em;
+}

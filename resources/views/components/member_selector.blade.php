@@ -1,5 +1,18 @@
 <div id="{{$id}}" class="modal" tabindex="-1" role="dialog">
-    @php $ident = ( $id == 'memberModal') ? 'Membros' : 'Moderadores'; @endphp
+    @php
+    switch($id){
+        case 'moderatorModal':
+            $ident = 'Moderadores';
+            break;
+        case 'organizerModal':
+            $ident = 'Organizadores';
+            break;
+        default:
+            $ident = 'Membros';
+            break;
+    }
+    @endphp
+    
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

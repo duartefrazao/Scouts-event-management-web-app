@@ -22,15 +22,12 @@ class RedirectIfAuthenticated
                 if (Auth::guard($guard)->check()) {
                     return redirect()->route('admin.requests');
                 }
-                break;
-            /*
             default:
-              if (Auth::guard($guard)->check()) {
-                return redirect('/index');
-              }
-            break;
-            */
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->to('/');
+                }
         }
+
         return $next($request);
     }
 }

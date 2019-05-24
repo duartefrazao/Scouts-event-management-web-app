@@ -28,7 +28,6 @@ class HomeController extends Controller
 
     public function list()
     {
-
         if (!Auth::check()) {
             return redirect(route('login'));
         }
