@@ -125,3 +125,15 @@
     }
 
 }
+
+.manage-section-checkbox{
+    display:none;
+}
+
+.manage-section-label{
+    float:right;
+}
+
+.promote-user-info .flex-column{
+    justify-content: space-between;
+}

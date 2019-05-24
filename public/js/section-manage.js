@@ -1,8 +1,10 @@
+
 let arrows = document.querySelectorAll('.promote-arrow');
+
+$( 'input[type="checkbox"]' ).prop('checked', false);
 
 arrows.forEach(arrow => {
     arrow.addEventListener('click', function (e) {
-        e.preventDefault();
         activateArrow(arrow);
     })
 });
@@ -41,6 +43,7 @@ accept_incoming.addEventListener('click', function () {
         $('body').append("<div class='alert alert-success alert-dismissable alert-pending-user'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Os novos membros foram aceites para o grupo!</div>");
 
     }
+
 
 });
 

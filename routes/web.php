@@ -67,8 +67,12 @@ Route::view('/about', 'pages.about');
 //Parent accout management
 Route::get('/parent','ParentController@changeAccount');
 
+//Manage section
+Route::get('/manage-section/{id}','ManageSectionController@show');
+Route::post('/manage-section/{id}','ManageSectionController@store');
+
 // Admin Authentication
-Route::prefix('admin')->group(function () {
+Route::prefix('/admin')->group(function () {
 
     Route::get('/requests', 'AdminController@drawRequests')->name('admin.requests');
     Route::get('/users', 'AdminController@drawUsers')->name('admin.users');
@@ -92,4 +96,9 @@ Route::prefix('admin')->group(function () {
 // Notifications
 Route::view('notifications', 'pages/notifications');
 
-Auth::routes();
+//Auth::routes();
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');

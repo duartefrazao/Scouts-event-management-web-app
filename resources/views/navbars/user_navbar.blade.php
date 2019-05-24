@@ -58,9 +58,10 @@
                 </li>
             @endif
 
+
             
             <li>
-                <a class="navbar-section-manage navbar-text" href="section_managment.php">
+                <a class="navbar-section-manage navbar-text" href="/manage-section/1">
                     Gerir secção
                 </a>
             </li>

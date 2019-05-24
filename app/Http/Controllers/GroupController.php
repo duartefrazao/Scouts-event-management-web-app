@@ -20,6 +20,10 @@ use App\Comment;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Shows the group for a given id.
