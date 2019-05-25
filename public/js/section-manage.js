@@ -49,6 +49,8 @@ accept_incoming.addEventListener('click', function () {
 
 reset_request.addEventListener('click', function () {
 
+    $( 'input[type="checkbox"]' ).prop('checked', false);
+
     let green_arrows = document.querySelectorAll('#chief-section-manage li .promote-arrow.active');
 
     green_arrows.forEach(arrow => {

@@ -1,7 +1,10 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Group;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +27,9 @@ class ManageSectionController extends Controller
     {
 
         $section  = Group::find($section);
+        $members = $section->members()->get();
 
+        
         //Didn't find || Not a section
         abort_if(!isset($section) || !$section->is_section,401);
         
@@ -47,10 +52,15 @@ class ManageSectionController extends Controller
                 abort(501);
                 break;
         }
-    
-        
-        $users = DB::select('Select * from "user" where date_part(\'year\', CURRENT_DATE) - date_part(\'year\', birthdate) > ?;',[$begin_age]);
 
+        $users = $members->filter(function($member,$key) use($begin_age){
+            $birthdate = Carbon::createFromFormat('Y-m-d',$member->birthdate);
+            $curr_date = Carbon::now();
+
+            $diff = $curr_date->diffInYears($birthdate);
+
+            return $diff >= $begin_age; 
+        }); 
 
         return view('pages.manage_section',compact('users','section'));
     }
@@ -59,6 +69,21 @@ class ManageSectionController extends Controller
    
     public function store($section)
     {
-        dd(request()->all());
+
+        abort_if($section<0 || $section >4,401);
+
+        $request= request()->all();
+
+        if(isset($request['user'])){
+            $promoted_scouts = collect($request['user']);
+            $section = $request['section'];
+    
+            $promoted_scouts->map(function($scout,$key) use($section){
+               Group::find($section)->members()->detach($scout);
+               Group::find($section + 1)->members()->attach($scout);
+            });
+        }
+
+        return back();
     }
 }

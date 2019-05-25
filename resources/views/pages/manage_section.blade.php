@@ -15,6 +15,7 @@
     
         <form method="POST" action="/manage-section/{{$section}}" >
             @csrf
+            <input type="hidden" name="section" value="{{$section->id}}">
             <div class="section-manage-info">
                 <span class="section-manage-subtitle"> Novos membros a entrar: </span>
                 <button type="button" class="btn btn-danger">Reset</button>
