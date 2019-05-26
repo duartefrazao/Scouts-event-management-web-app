@@ -52,4 +52,5 @@ class RegisterController extends Controller
     protected function show()
     {
     }
+
 }

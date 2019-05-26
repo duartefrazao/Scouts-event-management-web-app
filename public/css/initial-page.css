@@ -370,3 +370,13 @@ body {
     padding: 1.25rem .5rem 1.25rem 1.5rem;
     animation: out 8s cubic-bezier(.77,.12,.83,.67) 1s forwards 1;
 }
+
+.parent-form-container form{
+    display: block !important;
+}
+
+.back-button{
+    color:white;
+    text-decoration:none;
+    margin-left:1em;
+}

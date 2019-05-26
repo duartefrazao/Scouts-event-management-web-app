@@ -58,7 +58,8 @@ Route::post('start', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('register', 'Auth\RegisterController@show');
-Route::post('register', 'RegistrationRequestController@create');
+Route::post('registerParent','RegistrationRequestController@createWithParent');
+Route::post('register', 'RegistrationRequestController@store');
 
 //FAQ
 Route::view('/faq', 'pages.faq');
