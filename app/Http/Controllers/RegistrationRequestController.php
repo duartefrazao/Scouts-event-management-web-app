@@ -95,9 +95,8 @@ class RegistrationRequestController extends Controller
     {
         if (!Auth::check()) return redirect()->route('login');
 
-        //$this->authorize('list', RegistrationRequest::class);
-
         $reg_requests = RegistrationRequest::all();
+
 
         return view('pages.events', ['reg_requests' => $reg_requests]);
     }
@@ -230,10 +229,9 @@ class RegistrationRequestController extends Controller
 
     public function registerParent($request, $scout){
         $data= request()->all();
-        $data['minor'] = $scout->id;
 
         return RegistrationRequestGuardian::create([
-            'minor' => $data['minor'],
+            'minor' => $scout->id,
             'g_name' => $data['name'],
             'g_birthdate' =>$data['birthdate'],
             'g_email' => $data['email'],

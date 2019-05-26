@@ -13,4 +13,6 @@
         <label>Endereço de email:</label>
         <input type="email" class="form-control" value="{{ $user['email'] }}">
     </div>
+
+    
 </fieldset>

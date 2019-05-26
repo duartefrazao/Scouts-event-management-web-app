@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Group;
 use App\GuardianExchange;
 use App\RegistrationRequest;
+use App\RegistrationRequestGuardian;
 use App\User;
 use App\Mail\RegistrationAccepted;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,22 @@ class AdminController extends Controller
 
         $requests = $this->createRequestsArray();
 
+        $scoutsWithParents =RegistrationRequestGuardian::all();
+        $scoutsWithParentsIds =RegistrationRequestGuardian::all()->pluck("minor");
+        
+        $simple_registrations = RegistrationRequest::all()->filter(function($scout,$key) use($scoutsWithParentsIds){
+            return !$scoutsWithParentsIds->contains($scout->id);
+        });
+
+        $minor_registrations =collect();
+
+        $scoutsWithParents->map(function ($scout, $key) use($minor_registrations){
+            $minor_registrations->push(['scout'=>RegistrationRequest::find($scout->minor),"parent"=>$scout,"type"=>guardian]);
+
+        });
+/* 
+        dd($minor_registrations,$requests); */
+       
         return view('pages.admin.requests', ['requests' => $requests]);
     }
 

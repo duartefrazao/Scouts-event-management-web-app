@@ -3,10 +3,10 @@
         <div class="align-self-center name-toggle" data-toggle="collapse" data-target="#register-serial-{{$request['id']}}"
              aria-expanded="false" aria-controls="register-serial-{{$request['id']}}">
                 {{ $request['name'] }} -
-            @if($request['type'] == 0 )
-                Registo Simples
-            @else
+            @if($request['type'] == "guardian" )
                 Registo com Encarregado de Educação
+            @else
+                Registo Simples
             @endif
         </div>
         <span class="member-face"> </span>
