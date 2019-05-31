@@ -14,6 +14,7 @@ use App\Mail\RegistrationAccepted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class AdminController extends Controller
@@ -42,13 +43,11 @@ class AdminController extends Controller
         $minor_registrations =collect();
 
         $scoutsWithParents->map(function ($scout, $key) use($minor_registrations){
-            $minor_registrations->push(['scout'=>RegistrationRequest::find($scout->minor),"parent"=>$scout,"type"=>guardian]);
-
+            $minor_registrations->push(['scout'=>RegistrationRequest::find($scout->minor),"parent"=>$scout,"type"=>"guardian"]);
         });
-/* 
-        dd($minor_registrations,$requests); */
-       
-        return view('pages.admin.requests', ['requests' => $requests]);
+
+        //dd($minor_registrations);
+        return view('pages.admin.requests', ['duplex_regs' => $minor_registrations, 'simple' =>$simple_registrations]);
     }
 
     public function list()
@@ -56,7 +55,7 @@ class AdminController extends Controller
         if (!Auth::check()) return redirect('admin/login');
 
         $requests = $this->createRequestsArray();
-
+        
         return view('pages.admin.requests', ['requests' => $requests]);
     }
 
@@ -142,51 +141,65 @@ class AdminController extends Controller
             return response(json_encode(request()->all()), 401);
         }
 
+        $return = NULL;
 
-        $reg_request = DB::table('registration_request')->leftJoin('guardian_added_minors', 'guardian_added_minors.request', '=', 'registration_request.id')->where('registration_request.id', '=', $id)->first();
+        try{
+            $parent = RegistrationRequestGuardian::findOrFail($id);
+            $minor = RegistrationRequest::find($parent->minor);
 
+            $return =$this->registerWithParent($minor,$parent);
 
-        return $this->register($reg_request);
+        } catch(ModelNotFoundException $e) {
+            
+            try{
+                $responsible = RegistrationRequest::findOrFail($id);
+            }catch(ModelNotFoundException $e){
+                return response(json_encode("Bad request"), 400);
+            }
+
+            $return = $this->registerResponsible($responsible);
+        }
+
+        return response(json_encode($return), 200);
+
     }
 
+    public function registerResponsible($responsible){
+        $responsible->is_guardian = false;
+        $responsible->is_responsible = true;
+        $responsible->guardian = NULL;
 
-    public function register($request)
-    {
+        $user = $this->createUser($responsible);
 
-        if ($request == [])
-            return response(json_encode($request->id), 400);
-        else if (isset($request->guardian)) {
-            return response(json_encode($request->id), 501);
-        }
-
-
-        //TO-DO adicionar maneira de ser responsável ou não
-        //Esta parte está incompleta
-        if (isset($request->guardian)) {
-            $request->is_guardian = true;
-            $request->is_responsible = true;
-        } else {
-            $request->is_guardian = false;
-            $request->is_responsible = true;
-
-        }
-
-        //return response(json_encode("here"), 200);
-        $user = $this->createUser($request);
-
-
-        if ($user === null) {
-            return response(json_encode($request->id), 500);
-        }
-
-
-        RegistrationRequest::destroy($request->id);
+        RegistrationRequest::destroy($responsible->id);
 
         Mail::to($user->email)->queue(new RegistrationAccepted($user));
 
-        return response(json_encode($request->id), 200);
+        return $responsible->id;
+    }
 
 
+    public function registerWithParent($minor,$parent)
+    {   
+
+        $parent->is_responsible = true;
+        $parent->is_guardian = true;
+        $parent->guardian = NULL;
+        $userParent = $this->createUserParent($parent);
+
+
+        $minor->is_responsible = false;
+        $minor->is_guardian = false;
+        $minor->guardian = $userParent->id;
+        $userMinor = $this->createUser($minor);
+
+        RegistrationRequest::destroy($minor->id);
+        RegistrationRequestGuardian::destroy($minor->id);
+
+        Mail::to($userMinor->email)->queue(new RegistrationAccepted($userMinor));
+        Mail::to($userParent->email)->queue(new RegistrationAccepted($userParent));
+
+        return $minor->id;
     }
 
     public function destroy($id)
@@ -212,18 +225,30 @@ class AdminController extends Controller
 
     protected function createUser($data)
     {
-
-
         return User::create([
             'email' => $data->email,
             'password' => $data->password,
             'name' => $data->name,
+            'guardian' => $data->guardian,
             'birthdate' => $data->birthdate,
             'is_responsible' => $data->is_responsible,
             'is_guardian' => $data->is_guardian,
             'description' => $data->description
         ]);
+    }
 
+    protected function createUserParent($data)
+    {
+        return User::create([
+            'email' => $data->g_email,
+            'password' => $data->g_password,
+            'name' => $data->g_name,
+            'guardian' => $data->guardian,
+            'birthdate' => $data->g_birthdate,
+            'is_responsible' => $data->is_responsible,
+            'is_guardian' => $data->is_guardian,
+            'description' => $data->g_description
+        ]);
     }
 
 

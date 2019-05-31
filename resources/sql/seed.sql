@@ -1218,8 +1218,8 @@ INSERT INTO registration_request_guardian (minor,g_name,g_email,g_password,g_bir
 VALUES (4,'Felix Gallegos','libero.Proin@Nulla.co.uk','AXC64KUA5PW','1952-10-29','congue a, aliquet vel, vulputate eu,');
 
 -- ADDED MINORS
-INSERT INTO guardian_added_minors(request, guardian)
-VALUES (8, 3);
+/* INSERT INTO guardian_added_minors(request, guardian)
+VALUES (8, 3); */
 
 -- GUARDIAN EXCHANGE
 --Request to make User 2 the new guardian of the User 1 (previous guardian -> 1)
