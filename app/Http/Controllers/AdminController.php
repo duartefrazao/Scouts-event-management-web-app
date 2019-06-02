@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminController extends Controller
@@ -26,6 +27,8 @@ class AdminController extends Controller
     {
         $this->middleware('auth:admin');
     }
+
+   
 
     public function drawRequests()
     {
@@ -40,11 +43,23 @@ class AdminController extends Controller
             return !$scoutsWithParentsIds->contains($scout->id);
         });
 
+        $simple_registrations->map(function ($scout, $key){
+            $scout->profile_image = $scout->getProfileImageRegistrations(false,$scout->id);
+        });
+
         $minor_registrations =collect();
 
-        $scoutsWithParents->map(function ($scout, $key) use($minor_registrations){
-            $minor_registrations->push(['scout'=>RegistrationRequest::find($scout->minor),"parent"=>$scout,"type"=>"guardian"]);
+        $scoutsWithParents->map(function ($parent, $key) use($minor_registrations){
+            $scout = RegistrationRequest::find($parent->minor);
+
+            $parent->profile_image = $parent->getProfileImageRegistrations(true,$scout->id);
+            $scout->profile_image = $scout->getProfileImageRegistrations(false,$scout->id);
+
+            $minor_registrations->push(['scout'=>$scout,"parent"=>$parent,"type"=>"guardian"]);
         });
+
+       
+
 
         //dd($minor_registrations);
         return view('pages.admin.requests', ['duplex_regs' => $minor_registrations, 'simple' =>$simple_registrations]);
@@ -173,6 +188,8 @@ class AdminController extends Controller
 
         RegistrationRequest::destroy($responsible->id);
 
+        $user->moveImageIfExists($responsible->id,$user->id,false);
+
         Mail::to($user->email)->queue(new RegistrationAccepted($user));
 
         return $responsible->id;
@@ -192,6 +209,9 @@ class AdminController extends Controller
         $minor->is_guardian = false;
         $minor->guardian = $userParent->id;
         $userMinor = $this->createUser($minor);
+
+        $userMinor->moveImageIfExists($minor->id,$userMinor->id,false);
+        $userParent->moveImageIfExists($minor->id,$userParent->id,true);
 
         RegistrationRequest::destroy($minor->id);
         RegistrationRequestGuardian::destroy($minor->id);
@@ -220,8 +240,13 @@ class AdminController extends Controller
 
 
         RegistrationRequest::destroy($request->id);
+
+        
         return response(json_encode($request->id), 200);
     }
+
+
+
 
     protected function createUser($data)
     {
@@ -342,4 +367,6 @@ class AdminController extends Controller
 
         return $exchanges;
     }
+
+
 }

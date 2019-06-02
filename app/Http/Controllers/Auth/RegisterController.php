@@ -51,6 +51,8 @@ class RegisterController extends Controller
 
     protected function show()
     {
+        return view('auth.parentRegister');
+
     }
 
 }

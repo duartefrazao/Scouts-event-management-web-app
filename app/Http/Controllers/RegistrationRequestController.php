@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\RegistrationRequestGuardian;
+use UploadedBase64EncodedFile;
+
 
 
 
@@ -103,35 +105,51 @@ class RegistrationRequestController extends Controller
 
 
     public function store(Request $request){
-        if($request['options'] === "menor")
-        {
-            //Save form information
-            session(['son_registration' => request()->all()]); 
-            session()->save();
-            
-            return view('auth.parentRegister');
-        }
+
 
         $scout_data = request()->all();
 
         $scout_val = $this->validateData($scout_data);
+        $same_emails = $this->checkForSameEmailsSimple($scout_data); 
+        if($same_emails->isNotEmpty())
+            return $this->errorProcedureAttr("O email já se encontra registado no sistema","email");
 
+
+        if(isset($request->originalFile)){
+            $filename= $request->originalFile->getClientOriginalName();
+            $request->request->add(['filename' =>$filename]);   
+        }
+        
+        if($request['options'] === "menor")
+        {
+            //Save form information
+            //small spaghett to save file information, uploaded file can't be serialized
+            session(['minor_information'=> array_diff_key(request()->all(), array_flip(["originalFile"]))]);
+            session()->save();
+            
+            return view('auth.parentRegister');
+        }
+        
         if(isset($scout_val))
             return $scout_val;
 
-        $same_emails = $this->checkForSameEmailsSimple($scout_data); 
-        if($same_emails->isNotEmpty())
-            return $this->errorProcedure("O email " .$same_emails->first()->email . " já se encontra registado no sistema");
-
         $scout = $this->registerScout($scout_data);
 
-        if($scout !=NULL){
-            session()->flash('message','O teu registo foi efetuado com sucesso, receberás um email com o resultado da revisão feita pelo administrador');
-            return redirect("/start#toregister");
-        }else{
+        if(!isset($scout)){
             return $this->defaultErrorProcedure();
         }
+
+        
+        if(isset($request->originalFile) && isset($request->cropped)){
+            $scout->saveImage($request,$scout->id,false);
+        }
+
+        session()->flash('message','O teu registo foi efetuado com sucesso, receberás um email com o resultado da revisão feita pelo administrador');
+        return redirect("/start#toregister");
+
     }
+
+
 
     public function create(Request $request)
     {
@@ -152,30 +170,37 @@ class RegistrationRequestController extends Controller
     public function createWithParent(){
 
         
-        $scout = request()->all();
-        $parent =session()->pull('son_registration');
+        $parent = request()->all();
+        $scout =session()->pull('minor_information');
         
+        if($parent['email'] == $scout['email']){
+            return $this->errorProcedureAttrParent("Não pode usar o mesmo email","email");
+        }
+
         if(!isset($parent))
             return $this->defaultErrorProcedure();
 
         $same_emails = $this->checkForSameEmailsWithParent($scout,$parent); 
-        if($same_emails->isNotEmpty())
-            return $this->errorProcedure("O email " .$same_emails->first()->email . " já se encontra registado no sistema");
+        if($same_emails->isNotEmpty()){
+            $this->resaveMinorInfo($scout);
+            return $this->errorProcedureAttrParent("O email já se encontra registado no sistema","email");
+        }
 
-        $scout_val = $this->validateData($scout);
+        //$scout_val = $this->validateData($scout);
         $parent_val = $this->validateData($parent);
         
-        if(isset($parent_val))
+        if(isset($parent_val)){
+            $this->resaveMinorInfo($scout);
             return $parent_val;
-        else if(isset($scout_val))
+        }
+        /* else if(isset($scout_val))
             return $scout_val;  
-
+ */
 
         $scout_instance = $this->registerScoutSimple($scout);
 
         if($scout_instance == NULL)
             return $this->errorProcedure("Erro ao inserir o escuteiro no sistema, por favor tente novamente e contacte o administrador");
-
 
         $parent_instance = $this->registerParent($parent,$scout_instance);
 
@@ -184,6 +209,13 @@ class RegistrationRequestController extends Controller
             return $this->errorProcedure("Erro ao inserir o encarregado de educação no sistema, por favor tente novamente e contacte o administrador");
         }
 
+        if(isset($scout['filename'])){
+            $scout_instance->saveImageSerialized($scout,$scout_instance->id,false,$scout['filename']);
+        }
+
+        if(isset($parent['originalFile'])){
+            $parent_instance->saveImage($parent,$scout_instance->id,true);
+        }
 
         session()->flash('message','O teu registo foi efetuado com sucesso, receberás um email com o resultado da revisão feita pelo administrador');
         return redirect('/start');
@@ -214,7 +246,7 @@ class RegistrationRequestController extends Controller
     }
 
     public function registerScoutSimple($request){
-        $data= request()->all();
+        $data= $request;
 
         return RegistrationRequest::create([
             'name' => $data['name'],
@@ -228,7 +260,7 @@ class RegistrationRequestController extends Controller
 
 
     public function registerParent($request, $scout){
-        $data= request()->all();
+        $data= $request;
 
         return RegistrationRequestGuardian::create([
             'minor' => $scout->id,
@@ -249,6 +281,21 @@ class RegistrationRequestController extends Controller
         return  redirect('/start#toregister');
     }
 
+    public function errorProcedureAttr($message,$attr){
+        $validator = $this->validator(request()->all());
+        $validator->getMessageBag()->add($attr, $message);
+
+        return  redirect('/start#toregister')->withErrors($validator);
+    }
+
+    public function errorProcedureAttrParent($message,$attr){
+        $validator = $this->validator(request()->all());
+        $validator->getMessageBag()->add($attr, $message);
+
+        return  redirect('/register')->withErrors($validator);
+    }
+
+
     public function checkForSameEmailsWithParent($scout,$parent){
         $from_users =  collect(DB::select('Select email from "user" where email = ? or email=?;', array($scout['email'],$parent['email'])));
         $from_registrations_scouts = collect(DB::select('Select email from registration_request where email = ? or email=?;', array($scout['email'],$parent['email'])));
@@ -264,6 +311,11 @@ class RegistrationRequestController extends Controller
         return $from_users->concat($from_registrations_scouts);
     }
 
+
+   public function resaveMinorInfo($scout){
+        session(['minor_information'=>$scout]);
+        session()->save();
+   }
 
 
 }

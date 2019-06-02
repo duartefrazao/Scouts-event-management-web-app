@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\ImageTrait;
 
 class RegistrationRequestGuardian extends Model
 {
+    use ImageTrait;
 
     protected $fillable = ['minor','g_name', 'g_email','g_birthdate', 'g_password','g_description'];
 

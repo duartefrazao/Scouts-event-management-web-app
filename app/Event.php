@@ -6,9 +6,9 @@ namespace App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Event extends Model
 {
-
 
     /**
      * The table associated with the model.

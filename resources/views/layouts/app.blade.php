@@ -14,6 +14,10 @@
 <!--<link href="{{ asset('css/milligram.min.css') }}" rel="stylesheet">-->
 <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 
+    <script src="http://demo.itsolutionstuff.com/plugin/croppie.js"></script>
+    <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/croppie.css">
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -110,12 +114,16 @@
     <script src="../js/admin.js" type="text/javascript" defer></script>
     <script src="../js/section-manage.js" type="text/javascript" defer></script>
     <script src="../js/search.js" type="text/javascript" defer></script>
+    <script src="../js/initial.js" type="text/javascript" defer></script>
 
 
     {{--REMOVE MAYBE--}}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+
+
+ 
 
 </head>
 <body>

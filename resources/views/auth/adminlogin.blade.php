@@ -10,7 +10,7 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="email_login">Endereço de email</label>
-                <input id="email_login" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                <input id="email_login" type="email" class="form-control" name="email" value="agrupa-admin@agrupa.com"
                        required
                        autofocus>
                 @if ($errors->has('email'))
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="password_login">Palavra-passe</label>
-                <input id="password_login" class="form-control" type="password" name="password" required autocomplete>
+                <input id="password_login" class="form-control" type="password" name="password" value="1234" required autocomplete>
                 @if ($errors->has('password'))
                     <span class="error">
                     {{ $errors->first('password') }}

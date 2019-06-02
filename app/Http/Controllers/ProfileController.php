@@ -122,6 +122,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
+
         abort_if(!session()->has('parent') && !Auth::user()->is_responsible,401);
 
         $request= request()->all();
@@ -152,7 +153,7 @@ class ProfileController extends Controller
         $user->email= request('email');
         $user->description= request('description');
 
-        $this->updateImage($user,request('profile-image'));
+        $user->updateImage($user,$request);
 
         $user->save();
 
@@ -184,16 +185,4 @@ class ProfileController extends Controller
         //
     }
 
-
-    public function updateImage(User $user, $file){
-        $targetDir = 'public/' . $user->id;
-
-        // Delete Files in directory
-        $files =   Storage::allFiles($targetDir);
-        Storage::delete($files);
-
-        $filename  = $file->getClientOriginalName();
-        $path = $file->storeAs($targetDir, $filename);
-
-    }
 }

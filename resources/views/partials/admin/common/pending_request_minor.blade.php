@@ -15,8 +15,10 @@
             <fieldset disabled="disabled">
                     <legend> Encarregado de Educação: {{ $duplex_regs['parent']['name'] }}</legend>
                     <div class="form-group guardian-info align-self-center">
+                        <span class="member-face">
+                                <img src="{{asset($duplex_regs['parent']['profile_image']) }}">
+                        </span>
                         <span class="guardian-name align-self-center"> {{$duplex_regs['parent']['g_name']}} </span>
-                        <span class="member-face"> </span>
                     </div>
                     <div class="form-group  ">
                         <label>Data de Nascimento:</label>

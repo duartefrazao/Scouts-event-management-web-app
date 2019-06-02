@@ -2,12 +2,16 @@ let scoutButton = document.querySelector('#Escuteiro');
 let wardButton = document.querySelector('#Encarregado');
 let simpleForm = document.querySelector('#simple-form');
 let doubleForm = document.querySelector('#double-form');
+let addImgBtn = document.querySelector('#new-profile-image');
 
+function addFilenames(){
+    let filenameLocation = addImgBtn.parent.querySelector("div");
+    filenameLocation.innerHTML = filenameLocation.files[0].name;
+}
 
 function showDoubleForm() {
 
 
-    console.log('ya2');
 
     doubleForm.style.display = "block";
     simpleForm.style.width = "initial"
@@ -15,7 +19,6 @@ function showDoubleForm() {
 
 function showSimpleForm() {
 
-    console.log('ya');
  
     doubleForm.style.display = "none";
     simpleForm.style.width = "100%";
@@ -24,11 +27,9 @@ function showSimpleForm() {
 
 function addEventListeners() {
 
-    console.log("yo");
 
     if (scoutButton != null) {
 
-        console.log("yo2");
 
         console.log(scoutButton);
 
@@ -42,14 +43,18 @@ function addEventListeners() {
 
     if (wardButton != null) {
 
-        console.log("yo3");
 
         wardButton.addEventListener('click', function () {
             showDoubleForm();
         })
 
     }
+    if(addImgBtn != null){
 
+        addImgBtn.addEventListener('change',function(){
+            addFilenames();
+        })
+    }
 }
 
 

@@ -186,3 +186,20 @@ footer{
     background-color: rgba(0, 7, 36, 0.137);
     color: black;
 }
+
+.member-face img {
+    width:50px;
+    border-radius: 50%;
+}
+
+.upload-label{
+    margin:0 auto;
+    width:100%;
+}
+.member-face-registration img {
+    height:100px ;
+    width:100px ;
+
+    display:flex;
+    margin:1em auto 0 auto;
+}
