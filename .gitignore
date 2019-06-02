@@ -12,4 +12,4 @@ yarn-error.log
 .env
 /storage/app/*
 public/images/*
-!/storage/app/default.png
+!/storage/app/public/default.png
