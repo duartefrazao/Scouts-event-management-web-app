@@ -38,12 +38,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <form class="form-inline mr-2" method="GET" action="/search" >
+            <form class="form-inline mr-2" method="GET" action="/search">
                 <span id="search">
                     <input type="hidden" name="resource" value="simple">
-                    <input name="query" class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    <a href="search.php" class="advanced" data-toggle="tooltip" data-placement="top"
-                       title="Pesquisa Avançada"><i class="fas fa-search"></i></i> </a>
+                    <input name="query" class="form-control" type="search" placeholder="Pesquisa" aria-label="Search">
+                    <button class="nav-search-button" type="submit"><i class="fas fa-search search-icon"></i></button>
                 </span>
             </form>
 
@@ -59,7 +58,6 @@
             @endif
 
 
-            
             <li>
                 <a class="navbar-section-manage navbar-text" href="/manage-section/1">
                     Gerir secção
