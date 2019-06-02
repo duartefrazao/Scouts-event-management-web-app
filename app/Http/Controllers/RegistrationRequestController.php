@@ -170,9 +170,11 @@ class RegistrationRequestController extends Controller
     public function createWithParent(){
 
         
+        
         $parent = request()->all();
         $scout =session()->pull('minor_information');
         
+
         if($parent['email'] == $scout['email']){
             return $this->errorProcedureAttrParent("Não pode usar o mesmo email","email");
         }

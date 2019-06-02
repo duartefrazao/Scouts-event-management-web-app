@@ -87,11 +87,11 @@ $('.upload-result').on('click', function (ev) {
 		size: 'viewport'
 	}).then(function (resp) {
 		cropppedImg = resp;
+		
 		let span = document.querySelector(".member-face-registration");
-				
+		
 		demo ='<img src="' + resp + '" data-toggle="modal" data-target="#uploadImageModal" id="select-image-btn"/>'
 		span.innerHTML = demo;
-		
 	});
 	
 });
@@ -123,6 +123,7 @@ form_image.addEventListener('submit',function(e){
 			
 	$('.form_image').append(input);
 	
+	form_image.submit();
 });
 
 </script>

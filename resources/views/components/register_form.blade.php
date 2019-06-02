@@ -1,5 +1,5 @@
 
-<form enctype="multipart/form-data" method="POST" class="p-4" action="/register" id="register" class="form_image">
+<form enctype="multipart/form-data" method="POST" class="p-4 form_image" action="/register" id="register" >
         {{ csrf_field() }}
 
         <div class="btn-group btn-group-toggle user-type" data-toggle="buttons">
