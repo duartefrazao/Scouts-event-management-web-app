@@ -96,14 +96,26 @@ body {
 #search{
     display: flex;
     align-content: center;
+    align-items: center;
+    justify-content: center;
     background-color: #fff;
     border-radius: .25rem;
     margin-right: 2em;
 }
 #search input{
     border: none;
+    max-width: 100%;
+    width: 100%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+#search .nav-search-button{
+    background-color: white;
+    border: none;
+
+    outline: inherit;
+    color: white;
 }
 
 #search .advanced{
@@ -123,8 +135,8 @@ body {
 }
 
 #search i{
-    height: 100%;
     color: black;
+    justify-self: center;
 }
 
 #search input[type="search"]{
