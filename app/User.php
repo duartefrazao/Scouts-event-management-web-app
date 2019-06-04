@@ -10,12 +10,14 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Traits\ImageTrait;
 
 class User extends Authenticatable implements AuthenticatableContract,CanResetPasswordContract
 {
     use Notifiable;
     use AuthenticableTrait,CanResetPassword;
     use ValidatesRequests;
+    use ImageTrait;
 
     /**
      * The table associated with the model.
@@ -76,20 +78,5 @@ class User extends Authenticatable implements AuthenticatableContract,CanResetPa
     }
 
 
-    public function getProfileImage(){
-        
-        $files = Storage::files('public/' . $this->id);
-        
-        if(!empty($files))
-            $this['profile_image'] = "storage/" . $this->id . "/" . $this->removePath($files[0]);   
-        else 
-            $this['profile_image'] ="storage/default.png";   
-
-    }
-
-    public function removePath($file){
-        $info = explode('/',$file);
-        return end($info);
-    }
 
 }

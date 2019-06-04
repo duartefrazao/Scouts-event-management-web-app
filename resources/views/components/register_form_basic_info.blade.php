@@ -1,5 +1,23 @@
 
     <div class="form-group">
+
+        <div>
+            <label  class="upload-label">
+                <span class="member-face-registration">
+                    <img src="{{asset('storage/default.png') }}" data-toggle="modal" data-target="#uploadImageModal" id="select-image-btn"/>
+                </span>
+            </label>
+            <input name="originalFile" class="input_hidden " id="upload" type="file" />
+        </div>
+
+        @if ($errors->has('originalFile'))
+            <span class="error">
+              {{ $errors->first('originalFile') }}
+          </span>
+        @endif
+    </div>
+
+    <div class="form-group">
         <label for="name">Nome</label>
         <input type="text" class="form-control" id="name" name="name"  placeholder="Nome" value="Duarte" required
                autofocus>
@@ -75,3 +93,4 @@
     <button type="submit" class="btn btn-primary">Registar</button>
 
     <a href="#login" class="register-btn">Já tem conta? Autentique-se</a>
+

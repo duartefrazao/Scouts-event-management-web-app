@@ -1,22 +1,22 @@
 
 <div class="container col-lg-6 col-xs-10" id="profile-page">
-    <form enctype="multipart/form-data" method="POST" action="/api/users/{{$user->id}}">
+    <form enctype="multipart/form-data" method="POST" action="/api/users/{{$user->id}}" class="form_image">
         {{csrf_field()}}
         {{method_field("PUT")}}
 
         <div class="profile-top">
-                <img src="{{asset($user->profile_image) }}"
-                     class="rounded mx-auto d-block profile-image" alt="...">
-        
-                @if(session()->has('parent')|| Auth::user()->is_responsible)
-                    <label for="new-profile-image">
-                        <i class="fas fa-pen-square fa-2x profile-edit-image "> </i>
-                    </label>
-                @endif
-        
-                <input name="profile-image" id="new-profile-image" type="file" />
-        
-        
+                <span class="member-face-registration">
+                    <img src="{{asset($user->profile_image) }}" 
+                    
+                    @if(session()->has('parent')|| Auth::user()->is_responsible)
+                        data-toggle="modal" data-target="#uploadImageModal" id="select-image-btn"
+                    @endif
+                    
+                    />
+                </span>
+                
+                <input name="originalFile" class="input_hidden " id="upload" type="file" />
+                
         
         </div>
         <h2 class="profile-section-name"> {{$user->section}} </h2>
@@ -64,6 +64,7 @@
 
 
     </form>
-
 </div>
+</div>
+@include('components.image_crop')
 

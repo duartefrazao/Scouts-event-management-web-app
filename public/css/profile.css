@@ -1,5 +1,5 @@
 #profile-page{
-    --profile-image-size: 25%; 
+    --profile-image-size: 100px; 
     --profile-image-border: 4px;
     --profile-image-original-size:160px;
     --screen-size:100%;
@@ -171,3 +171,10 @@
     float:right;
     margin:0 2em 2em 0;
 } */
+
+.profile-top img{
+    height: 150px !important;
+    width: 150px !important;
+    display: flex;
+    margin: 1em auto 0 auto;
+}

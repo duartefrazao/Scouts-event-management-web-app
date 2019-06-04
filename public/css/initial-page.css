@@ -379,3 +379,59 @@ body {
     text-decoration:none;
     margin-left:1em;
 }
+
+.add-image-registration{
+    color:rgba(255, 255, 255, 0.363);
+}
+
+#new-profile-image{
+    display:none;
+}
+
+.filename{
+    background: var(--input-bg-color) !important;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--font-dark-color);
+}
+
+.go-out-modal{
+    position:relative;
+}
+
+.cropper-elems > {
+    max-width:100% !important;
+    margin:0 auto;
+}
+
+.image-modal-footer{
+ display: flex;
+ justify-content: space-between;   
+}
+
+.cropper-elems button{
+    margin:auto 0 auto 0.5em;
+    
+    border-width: 0;
+    
+}
+
+#upload-demo{
+    margin:0 auto;
+}
+
+.cropper-elems > div{
+    max-width: 100% !important;
+}
+
+.input_hidden{
+    display:none;
+}
+
+#uploadImageModal{
+    margin-top: 10% !important;
+}
+
+.add-image-modal-title{
+    
+}

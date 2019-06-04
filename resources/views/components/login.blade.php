@@ -1,6 +1,6 @@
 <div class="container initial-page-container">
-
-    <form class="p-4" id="login" method="POST" action="{{ route('login') }}">
+    
+    <form class="p-4" id="login" method="POST" action="{{ route('login') }}" >
         {{ csrf_field() }}
         <div class="form-group">
             <label for="email_login">Endereço de email</label>
@@ -36,6 +36,10 @@
 
     @include('components.register_form');
 
+
 </div>
+
+
+@include('components.image_crop')
 @include('components.session_message')
 </div>

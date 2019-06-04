@@ -1,11 +1,64 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "67e2684dfd225c6b1b3f4107d5018e80",
+    "content-hash": "de4b0bd36df2fb21fc201d7a3c087d08",
     "packages": [
+        {
+            "name": "artisaninweb/laravel-soap",
+            "version": "0.3.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artisaninweb/laravel-soap.git",
+                "reference": "48f16b0d56c565bbe776d3242865e4b5c47d53e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artisaninweb/laravel-soap/zipball/48f16b0d56c565bbe776d3242865e4b5c47d53e4",
+                "reference": "48f16b0d56c565bbe776d3242865e4b5c47d53e4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Artisaninweb\\SoapWrapper\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "SoapWrapper": "Artisaninweb\\SoapWrapper\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Artisaninweb\\SoapWrapper": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael van de Rijt",
+                    "email": "me@mvdrijt.com"
+                }
+            ],
+            "description": "A SoapClient wrapper integration for Laravel",
+            "keywords": [
+                "client",
+                "laravel",
+                "soap",
+                "wrapper"
+            ],
+            "time": "2018-05-28T08:54:07+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -1161,6 +1214,97 @@
             "time": "2015-07-25T16:39:46+00:00"
         },
         {
+            "name": "phpro/soap-client",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpro/soap-client.git",
+                "reference": "24e4d52ce3f53e7bed23c5f2a6bf89febc14cb72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpro/soap-client/zipball/24e4d52ce3f53e7bed23c5f2a6bf89febc14cb72",
+                "reference": "24e4d52ce3f53e7bed23c5f2a6bf89febc14cb72",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-xml": "*",
+                "php": "^7.1",
+                "psr/log": "^1.0",
+                "symfony/console": "~2.8|~3.0|~4.0",
+                "symfony/event-dispatcher": "~2.8|~3.0|~4.0",
+                "symfony/filesystem": "~2.8|~3.0|~4.0",
+                "symfony/options-resolver": "~2.8|~3.0|~4.0"
+            },
+            "require-dev": {
+                "ext-soap": "*",
+                "guzzlehttp/guzzle": "^6.3.2",
+                "guzzlehttp/promises": "^1.3.1",
+                "guzzlehttp/psr7": "^1.4.2",
+                "jakub-onderka/php-parallel-lint": "^1.0",
+                "ocramius/package-versions": "^1.1.2",
+                "ocramius/proxy-manager": "^2.0.2",
+                "php-http/client-common": "^1.6",
+                "php-http/discovery": "^1.3",
+                "php-http/guzzle6-adapter": "^1.1.1",
+                "php-http/httplug": "^1.1",
+                "php-http/message": "^1.6",
+                "php-http/message-factory": "^1.0",
+                "php-http/mock-client": "^1.0",
+                "php-vcr/php-vcr": "~1.3.2",
+                "php-vcr/phpunit-testlistener-vcr": "3.0",
+                "phpro/grumphp": "~0.15",
+                "phpspec/phpspec": "~5.1",
+                "phpspec/prophecy": "~1.8",
+                "phpunit/phpunit": "~6.0",
+                "psr/http-message": "^1.0",
+                "robrichards/wse-php": "^2.0.2",
+                "robrichards/xmlseclibs": "^3.0",
+                "squizlabs/php_codesniffer": "~2.9",
+                "symfony/validator": "~2.8|~3.0|~4.0",
+                "zendframework/zend-code": "^3.3.1"
+            },
+            "suggest": {
+                "ext-soap": "If you want to use PHP's ext-soap driver.",
+                "php-http/client-common": "For gaining control over the HTTP layer",
+                "php-http/client-implementation": "For gaining control over the HTTP layer",
+                "php-http/discovery": "For gaining control over the HTTP layer",
+                "php-http/httplug": "For gaining control over the HTTP layer",
+                "php-http/message": "For gaining control over the HTTP layer",
+                "php-http/message-factory": "For gaining control over the HTTP layer",
+                "phpro/annotated-cache": "For caching SOAP responses",
+                "psr/http-message": "For gaining control over the HTTP layer",
+                "psr/log-implementation": "For logging SOAP requests, responses and errors",
+                "robrichards/wse-php": "If you want to use the WSA or WSSE middleware",
+                "symfony/validator": "If you easily want to validate SOAP requests / responses manually"
+            },
+            "bin": [
+                "bin/soap-client"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Phpro\\SoapClient\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Verwerft",
+                    "email": "toon.verwerft@phpro.be"
+                }
+            ],
+            "description": "A general purpose SoapClient library",
+            "keywords": [
+                "soap"
+            ],
+            "time": "2019-05-21T04:25:20+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.0.0",
             "source": {
@@ -1836,6 +1980,56 @@
             "time": "2019-04-06T13:51:08+00:00"
         },
         {
+            "name": "symfony/filesystem",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "988ab7d70c267c34efa85772ca20de3fad11c74b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/988ab7d70c267c34efa85772ca20de3fad11c74b",
+                "reference": "988ab7d70c267c34efa85772ca20de3fad11c74b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-05-24T12:50:04+00:00"
+        },
+        {
             "name": "symfony/finder",
             "version": "v4.2.8",
             "source": {
@@ -2026,6 +2220,60 @@
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
             "time": "2019-05-01T13:31:08+00:00"
+        },
+        {
+            "name": "symfony/options-resolver",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/options-resolver.git",
+                "reference": "914e0edcb7cd0c9f494bc023b1d47534f4542332"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/914e0edcb7cd0c9f494bc023b1d47534f4542332",
+                "reference": "914e0edcb7cd0c9f494bc023b1d47534f4542332",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\OptionsResolver\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony OptionsResolver Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "config",
+                "configuration",
+                "options"
+            ],
+            "time": "2019-05-10T05:38:46+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

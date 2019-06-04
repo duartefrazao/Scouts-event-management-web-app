@@ -43,7 +43,7 @@ Route::get('user/{id}', 'ProfileController@show')->name('profile')->where('id', 
 // Pesquisa
 Route::post('search/users', 'UserController@searchUsers');
 Route::post('search/groups', 'GroupController@searchGroups');
-Route::get('search','SearchController@show');
+Route::get('search','SearchController@show')->name('search');
 
 
 // API
@@ -106,5 +106,3 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-
-Route::get('mbway','MBWayClientController@test');

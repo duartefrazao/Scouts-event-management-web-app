@@ -43,6 +43,13 @@ profileUpdate.addEventListener("click", function(event) {
         $('#profile-page').append("<div class='alert alert-success alert-dismissable profile-alert'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> A tua informação foi atualizada!</div>");
         activeProfileEdit = false;
 
+        if(cropppedImg!=null){
+            var input = $("<input class='input_hidden'>")
+            .attr("name", "cropped").val(cropppedImg);
+         
+             $('.form_image').append(input);
+
+        }
 
         form.submit();
 
@@ -87,7 +94,6 @@ function addFields() {
 
     activePassBtn = true;
 
-    edit
 }
 
 function removeFields() {

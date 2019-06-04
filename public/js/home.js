@@ -16,6 +16,6 @@ nots.forEach(notification =>{
 });
 
 function removeNotification(){
-    //this.style.transition="all 1s linear ";
-    //this.parentNode.removeChild(this);
+    this.style.transition="all 1s linear ";
+    this.parentNode.removeChild(this);
 }

@@ -1,5 +1,5 @@
 
-<form method="POST" class="p-4" action="/register" id="register">
+<form enctype="multipart/form-data" method="POST" class="p-4 form_image" action="/register" id="register" >
         {{ csrf_field() }}
 
         <div class="btn-group btn-group-toggle user-type" data-toggle="buttons">
@@ -17,6 +17,7 @@
         @component('components.register_form_basic_info')
         @endcomponent
       </form>
+      @include('components.session_message')
 </div>
 
 

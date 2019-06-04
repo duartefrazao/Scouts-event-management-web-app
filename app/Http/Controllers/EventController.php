@@ -86,7 +86,7 @@ class EventController extends Controller
 
         $files = Storage::allFiles('files/' . $event->id);
 
-        $event['files'] = $this->removePath($files);
+        $event['files'] = $this->removePathFiles($files);
 
     }
 
@@ -256,7 +256,7 @@ class EventController extends Controller
     }
 
 
-    public function removePath($files)
+    public function removePathFiles($files)
     {
         $new_arr = collect();
 

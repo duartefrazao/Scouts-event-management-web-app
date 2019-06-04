@@ -1,5 +1,11 @@
 FROM php:7.2-fpm
 
+RUN rm /etc/apt/preferences.d/no-debian-php
+RUN apt-get update -yqq
+RUN apt-get -y install libxml2-dev php-soap
+RUN apt-get clean
+RUN docker-php-ext-install soap
+
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
