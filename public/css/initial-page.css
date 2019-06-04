@@ -137,7 +137,6 @@ body {
     margin-bottom: 1em;
     background: var(--secondary-color);
     border: none;
-    border-radius: 0;
     display: block;
 }
 

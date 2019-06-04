@@ -1,0 +1,68 @@
+.recovery-container{
+    --bg-img: url(../images/test8.jpg);
+    --container-color: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --font-light-color: white;
+    --font-dark-color: black;
+    --input-bg-color: rgba(255, 255, 255, 0.6);
+    --name-color: rgba(255, 255, 255, 0.8);
+    --secondary-color: #1B98E0;
+    --border-radius: 10px;
+}
+
+.recovery-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-img);
+    height: 100vh;
+    background-size: cover;
+    z-index: -1;
+    
+}
+
+.recovery-container .card{
+    position: relative;
+    padding: 1em;
+    max-width: 30em;
+    min-width: 10em;
+    overflow: hidden;
+    background-color: var(--container-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+    border-radius: var(--border-radius);
+    color: var(--font-light-color);
+    z-index: 1;
+}
+
+.recovery-container button{
+    margin-top: 2em;
+    margin-bottom: 1em;
+    background: var(--secondary-color);
+    border: none;
+    display: block;
+}
+
+.email-recovery-line {
+    display:flex;
+    flex-wrap: nowrap;
+}
+
+.recovery-container #email{
+    margin-left: 1em;
+}
+
+.recovery-container .card{
+    width: 90%;
+}
+
+.recovery-container label{
+    padding-right:1em;
+    padding-left:1em;
+}
+
+.align-right{
+    display: flex;
+    width:100%;
+    margin:0 0 0 auto !important;
+    justify-content: flex-end;
+}
